@@ -5,11 +5,8 @@ let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in
 {
-
-  home.packages = with pkgs; [
-    spotify
-    # ... your other packages
-  ];
+  # REMOVE spotify from here—spicetify provides it automatically!
+  # home.packages = with pkgs; [ ];
 
   # Git
   programs.git = {
@@ -42,7 +39,7 @@ in
   # Spicetify Configuration
   programs.spicetify = {
     enable = true;
-    theme = spicePkgs.themes.defaultDynamic; # Or another theme like dribbblish, catppuccin, etc.
+    theme = spicePkgs.themes.defaultDynamic;
     colorScheme = "Dark-Base";
     
     enabledExtensions = with spicePkgs.extensions; [
