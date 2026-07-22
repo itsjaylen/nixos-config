@@ -36,7 +36,7 @@ in
     ];
   };
 
-  # Spicetify Configuration
+ # Spicetify Configuration
   programs.spicetify = {
     enable = true;
     theme = spicePkgs.themes.defaultDynamic;
@@ -54,6 +54,11 @@ in
       skipStats
       trashbin
       volumePercentage
+    ];
+
+    # Add this block to include Marketplace
+    enabledCustomApps = with spicePkgs.apps; [
+      marketplace
     ];
   };
 }
