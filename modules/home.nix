@@ -7,6 +7,7 @@
     ./home/yazi.nix
     ./home/apps.nix
     ./home/packages.nix
+    ./home/neovim.nix
   ];
 
   home.username = "jaylen";
