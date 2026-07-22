@@ -46,7 +46,6 @@ in
       QueueTime
       SleepTimer
       adblock
-      addToQueueTop
       history
       showQueueDuration
       skipStats
