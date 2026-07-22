@@ -2,15 +2,9 @@
 { pkgs, ... }:
 
 {
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-  };
-
-  # Dependencies required by NvChad, Mason, and treesitter
+  # Install Neovim and build dependencies for NvChad, Mason, and Treesitter
   home.packages = with pkgs; [
+    neovim
     git
     gcc
     ripgrep
@@ -19,11 +13,11 @@
     tree-sitter
   ];
 
-  # Fetch NvChad Starter config to ~/.config/nvim if you want fresh NvChad v2.5
+  # Fetch NvChad Starter config directly into ~/.config/nvim
   xdg.configFile."nvim".source = pkgs.fetchFromGitHub {
     owner = "NvChad";
     repo = "NvChad";
     rev = "v2.5";
-    hash = "sha256-ZZpDdJJ3yH4ZgsoEQ7O/A0E1DUO10rSx6dlebPQWotE=";
+    hash = "sha256-N345B0PqL026SAnlR1kQk3yB9AAnfH4Uq12xO7mQ2Bw=";
   };
 }
