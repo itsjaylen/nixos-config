@@ -1,8 +1,9 @@
 # modules/home.nix
-{ ... }:
+{ inputs, ... }:
 
 {
   imports = [
+    inputs.spicetify-nix.homeManagerModules.default # Add this line
     ./home/terminal.nix
     ./home/yazi.nix
     ./home/apps.nix
