@@ -5,6 +5,12 @@ let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in
 {
+
+  home.packages = with pkgs; [
+    spotify
+    # ... your other packages
+  ];
+
   # Git
   programs.git = {
     enable = true;
