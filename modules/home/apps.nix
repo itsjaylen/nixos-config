@@ -37,7 +37,7 @@ in
   programs.spicetify = {
     enable = true;
     theme = spicePkgs.themes.defaultDynamic; # Or another theme like dribbblish, catppuccin, etc.
-    colorScheme = "dark";
+    colorScheme = "Dark-Base";
     
     enabledExtensions = with spicePkgs.extensions; [
       shuffle
