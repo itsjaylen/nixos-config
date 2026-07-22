@@ -25,5 +25,5 @@
   repo = "NvChad";
   rev = "v2.5"; # Or "main" / exact commit hash
   hash = "sha256-ZZpDdJJ3yH4ZgsoEQ7O/A0E1DUO10rSx6dlebPQWotE="; # Put the "got:" hash here
-}
+};
 }
