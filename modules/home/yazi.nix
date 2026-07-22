@@ -47,21 +47,21 @@
       owner = "ndtoan96";
       repo = "ouch.yazi";
       rev = "406ce6c";
-      hash = "sha256-bv/DJIOnO26A4fS1b1P492a5q8A="; # If this errors out, we will grab the exact base64
+      hash = pkgs.lib.fakeHash;
     };
 
     "yazi/flavors/dracula.yazi".source = pkgs.fetchFromGitHub {
       owner = "yazi-rs";
       repo = "flavors";
       rev = "36c49ac";
-      hash = "sha256-IsxTffyH/3fV35D3d18=";
+      hash = pkgs.lib.fakeHash;
     } + "/dracula.yazi";
 
     "yazi/flavors/catppuccin-frappe.yazi".source = pkgs.fetchFromGitHub {
       owner = "yazi-rs";
       repo = "flavors";
       rev = "36c49ac";
-      hash = "sha256-IsxTffyH/3fV35D3d18=";
+      hash = pkgs.lib.fakeHash;
     } + "/catppuccin-frappe.yazi";
   };
 }
