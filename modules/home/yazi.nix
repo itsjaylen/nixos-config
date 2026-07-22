@@ -47,21 +47,21 @@
       owner = "ndtoan96";
       repo = "ouch.yazi";
       rev = "406ce6c";
-      hash = pkgs.lib.fakeHash;
+      hash = "sha256-14x/bD0aD9hXONaqQD8Dt7rLBCMq7bkVLH6uCPOQ0C8=";
     };
 
     "yazi/flavors/dracula.yazi".source = pkgs.fetchFromGitHub {
       owner = "yazi-rs";
       repo = "flavors";
       rev = "36c49ac";
-      hash = pkgs.lib.fakeHash;
+      hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k=";
     } + "/dracula.yazi";
 
     "yazi/flavors/catppuccin-frappe.yazi".source = pkgs.fetchFromGitHub {
       owner = "yazi-rs";
       repo = "flavors";
       rev = "36c49ac";
-      hash = pkgs.lib.fakeHash;
+      hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k=";
     } + "/catppuccin-frappe.yazi";
   };
 }
