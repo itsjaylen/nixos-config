@@ -20,10 +20,10 @@
   ];
 
   # Fetch NvChad Starter config to ~/.config/nvim if you want fresh NvChad v2.5
-  pkgs.fetchFromGitHub {
-  owner = "NvChad";
-  repo = "NvChad";
-  rev = "v2.5"; # Or "main" / exact commit hash
-  hash = "sha256-ZZpDdJJ3yH4ZgsoEQ7O/A0E1DUO10rSx6dlebPQWotE="; # Put the "got:" hash here
-};
+  xdg.configFile."nvim".source = pkgs.fetchFromGitHub {
+    owner = "NvChad";
+    repo = "NvChad";
+    rev = "v2.5";
+    hash = "sha256-ZZpDdJJ3yH4ZgsoEQ7O/A0E1DUO10rSx6dlebPQWotE=";
+  };
 }
