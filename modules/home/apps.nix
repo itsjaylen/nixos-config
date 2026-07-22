@@ -1,6 +1,9 @@
 # modules/home/apps.nix
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
+let
+  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+in
 {
   # Git
   programs.git = {
@@ -27,6 +30,28 @@
       wlrobs
       obs-vkcapture
       obs-pipewire-audio-capture
+    ];
+  };
+
+  # Spicetify Configuration
+  programs.spicetify = {
+    enable = true;
+    theme = spicePkgs.themes.defaultDynamic; # Or another theme like dribbblish, catppuccin, etc.
+    colorScheme = "dark";
+    
+    enabledExtensions = with spicePkgs.extensions; [
+      shuffle
+      fullAppDisplay
+      keyboardShortcut
+      QueueTime
+      SleepTimer
+      adblock
+      addToQueueTop
+      history
+      showQueueDuration
+      skipStats
+      trashbin
+      volumePercentage
     ];
   };
 }
