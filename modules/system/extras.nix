@@ -9,7 +9,7 @@
       filezilla
       calibre
       easyeffects
-      kdePackages.kvantum
+      kdePackages.qtstyleplugin-kvantum 
       nwg-look
       redisinsight
     ];
