@@ -9,7 +9,8 @@
     ./home/apps.nix
     ./home/packages.nix
     ./home/neovim.nix
-    ./home/niri.nix    # <--- Import it unconditionally here
+    ./home/niri.nix
+    ./home/noctalia.nix
   ];
 
   home.username = "jaylen";
