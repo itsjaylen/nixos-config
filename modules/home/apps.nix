@@ -5,8 +5,10 @@ let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in
 {
-  # REMOVE spotify from here—spicetify provides it automatically!
-  # home.packages = with pkgs; [ ];
+  # Add user-level packages here
+  home.packages = with pkgs; [
+    kdePackages.kdeconnect-kde
+  ];
 
   # Git
   programs.git = {
@@ -56,10 +58,8 @@ in
       volumePercentage
       autoSkipVideo
       songStats
-      shuffle
     ];
 
-    # Add this block to include Marketplace
     enabledCustomApps = with spicePkgs.apps; [
       marketplace
     ];

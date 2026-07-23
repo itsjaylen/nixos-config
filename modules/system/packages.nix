@@ -5,6 +5,7 @@
   nixpkgs.config.allowUnfree = true;
   programs.firefox.enable = true;
 
+  # Essential system-level utilities for hardware and terminal management
   environment.systemPackages = with pkgs; [
     vim
     wget
