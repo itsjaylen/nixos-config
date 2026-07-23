@@ -18,6 +18,16 @@
       xdgOpenUsePortal = true;
     };
 
+    # Register application desktop entry for Noctalia / Quickshell portal ID binding
+    environment.etc."xdg/applications/dev.noctalia.noctalia-qs.desktop".text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Noctalia Shell
+      Exec=noctalia-shell
+      StartupWMClass=dev.noctalia.noctalia-qs
+      Categories=Utility;
+    '';
+
     # System packages required for your Niri layout, shell, and KDE integration
     environment.systemPackages = with pkgs; [
       # Window Management & Shell components
