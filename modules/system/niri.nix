@@ -23,7 +23,8 @@
       swaylock
       waybar
       mako
-      swww
+      awww
+      noctalia-qs
 
       # Audio, Brightness & Media Utilities (tied to your keybinds)
       wireplumber
