@@ -7,6 +7,6 @@
     enableFishIntegration = true;
   };
 
-  # Deploy your starship.toml directly via XDG config mapping
-  xdg.configFile."starship.toml".source = ../../../files/starship.toml;
+  # Correct Home Manager syntax for deploying a config file
+  home.file.".config/starship.toml".source = ../../../files/starship.toml;
 }
