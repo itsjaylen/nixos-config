@@ -21,17 +21,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    noctalia-qs = {
-      url = "github:noctalia-dev/noctalia-qs";
+    # Point to the actual main noctalia repository
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia-qs, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, ... }@inputs: {
     nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-
-      # Pass inputs to NixOS system modules
       specialArgs = { inherit inputs; };
 
       modules = [
@@ -42,16 +41,11 @@
         ./modules/audio.nix
         ./modules/gaming.nix
 
-        # Add Home Manager as a module
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-
-          # Pass inputs to Home Manager modules
           home-manager.extraSpecialArgs = { inherit inputs; };
-
-          # Pass user config to Home Manager
           home-manager.users."jaylen" = import ./modules/home.nix;
         }
       ];

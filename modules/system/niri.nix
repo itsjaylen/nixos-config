@@ -27,7 +27,7 @@
       waybar
       mako
       awww
-      noctalia-qs
+      inputs.noctalia.packages.${pkgs.system}.default
 
       # Audio, Brightness & Media Utilities
       wireplumber
