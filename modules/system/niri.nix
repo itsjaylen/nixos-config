@@ -1,5 +1,5 @@
 # modules/system/niri.nix
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   options.mySystem.niri.enable = lib.mkEnableOption "Niri Wayland Desktop Environment with Noctalia Shell, Dolphin, and KDE portal integration";
@@ -27,7 +27,7 @@
       waybar
       mako
       awww
-      inputs.noctalia.packages.${pkgs.system}.default
+      inputs.noctalia.packages.${stdenv.hostPlatform.system}.default
 
       # Audio, Brightness & Media Utilities
       wireplumber
@@ -42,7 +42,7 @@
       kdePackages.ffmpegthumbs
       kdePackages.kdeconnect-kde
       kdePackages.ark
-      kdePackages.systemsettings # Essential for properly managing themes, icons, and fonts outside Plasma
+      kdePackages.systemsettings
       kdePackages.plasma-integration
 
       # Theming Engines
@@ -57,12 +57,12 @@
       adwaita-icon-theme
     ];
 
-    # Critical Environment Variables (injected systemd-wide so portals and apps inherit them correctly)
+    # Critical Environment Variables
     environment.sessionVariables = {
       QT_QPA_PLATFORM = "wayland";
       QT_QPA_PLATFORMTHEME = "kde";
       QT_QPA_PLATFORMTHEME_QT6 = "kde";
-      XDG_MENU_PREFIX = "plasma-"; # Fixes Dolphin default application and file association loss
+      XDG_MENU_PREFIX = "plasma-";
       GTK_THEME = "Adwaita-dark";
     };
   };
