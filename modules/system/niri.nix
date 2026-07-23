@@ -2,20 +2,23 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.mySystem.niri.enable = lib.mkEnableOption "Niri Wayland Desktop Environment with Noctalia Shell, Dolphin, and theme support";
+  options.mySystem.niri.enable = lib.mkEnableOption "Niri Wayland Desktop Environment with Noctalia Shell, Dolphin, and KDE portal integration";
 
   config = lib.mkIf config.mySystem.niri.enable {
     # Enable Wayland & Niri core support
     programs.niri.enable = true;
 
-    # Enable XDG desktop portals required for file pickers and dark theme preferences
+    # XDG Portals: Use KDE portal as primary for proper native file pickers
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gnome pkgs.xdg-desktop-portal-gtk ];
+      extraPortals = [ 
+        pkgs.xdg-desktop-portal-kde 
+        pkgs.xdg-desktop-portal-gtk 
+      ];
       xdgOpenUsePortal = true;
     };
 
-    # System packages required for your Niri layout, shell, and utilities
+    # System packages required for your Niri layout, shell, and KDE integration
     environment.systemPackages = with pkgs; [
       # Window Management & Shell components
       niri
@@ -26,38 +29,41 @@
       awww
       noctalia-qs
 
-      # Audio, Brightness & Media Utilities (tied to your keybinds)
+      # Audio, Brightness & Media Utilities
       wireplumber
       playerctl
       brightnessctl
       libnotify
 
-      # File Manager, Context Menus, & Thumbnailers
+      # File Manager, Settings, & KDE Integration Tools
       kdePackages.dolphin
+      kdePackages.dolphin-plugins
       kdePackages.kio-extras
       kdePackages.ffmpegthumbs
       kdePackages.kdeconnect-kde
-      kdePackages.ark        # Essential for right-click extract/compress actions in Dolphin
-      kdePackages.filelight  # Disk usage visualization often used in context tools
+      kdePackages.ark
+      kdePackages.systemsettings # Essential for properly managing themes, icons, and fonts outside Plasma
+      kdePackages.plasma-integration
 
-      # Theming & Engines (Kvantum, GTK engines, qt5ct/qt6ct)
+      # Theming Engines
       kdePackages.qtstyleplugin-kvantum
       libsForQt5.qtstyleplugin-kvantum
       adwaita-qt
       adwaita-qt6
       nwg-look
       
-      # Force dark theme GTK/Adwaita support
+      # GTK fallback themes
       gnome-themes-extra
       adwaita-icon-theme
     ];
 
-    # Environment variables forcing dark mode and proper theme engines everywhere
+    # Critical Environment Variables (injected systemd-wide so portals and apps inherit them correctly)
     environment.sessionVariables = {
-      QT_QPA_PLATFORMTHEME = "qt5ct";
+      QT_QPA_PLATFORM = "wayland";
+      QT_QPA_PLATFORMTHEME = "kde";
+      QT_QPA_PLATFORMTHEME_QT6 = "kde";
+      XDG_MENU_PREFIX = "plasma-"; # Fixes Dolphin default application and file association loss
       GTK_THEME = "Adwaita-dark";
-      # Tells apps and portals to prefer dark color scheme globally
-      COLORTERM = "truecolor";
     };
   };
 }
