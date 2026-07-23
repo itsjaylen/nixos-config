@@ -1,5 +1,5 @@
 # modules/home.nix
-{ config, lib, inputs, ... }:
+{ inputs, ... }:
 
 {
   imports = [
@@ -9,7 +9,8 @@
     ./home/apps.nix
     ./home/packages.nix
     ./home/neovim.nix
-  ] ++ lib.optional config.mySystem.niri.enable ./home/niri.nix;
+    ./home/niri.nix    # <--- Import it unconditionally here
+  ];
 
   home.username = "jaylen";
   home.homeDirectory = "/home/jaylen";
