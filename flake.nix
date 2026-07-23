@@ -17,15 +17,16 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
 
-  # Add the noctalia-qs input
+    # Moved noctalia-qs correctly inside the inputs block
     noctalia-qs = {
       url = "github:noctalia-dev/noctalia-qs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+  };
 
-  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, ... }@inputs: {
+  # Added noctalia-qs to the outputs arguments list
+  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, noctalia-qs, ... }@inputs: {
     nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
