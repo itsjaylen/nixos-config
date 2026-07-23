@@ -1,15 +1,15 @@
 # modules/home.nix
-{ inputs, ... }:
+{ config, lib, inputs, ... }:
 
 {
   imports = [
-    inputs.spicetify-nix.homeManagerModules.default # Add this line
+    inputs.spicetify-nix.homeManagerModules.default
     ./home/terminal.nix
     ./home/yazi.nix
     ./home/apps.nix
     ./home/packages.nix
     ./home/neovim.nix
-  ];
+  ] ++ lib.optional config.mySystem.niri.enable ./home/niri.nix;
 
   home.username = "jaylen";
   home.homeDirectory = "/home/jaylen";

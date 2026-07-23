@@ -11,7 +11,6 @@
       easyeffects
       kdePackages.qtstyleplugin-kvantum 
       nwg-look
-      redisinsight
     ];
   };
 }

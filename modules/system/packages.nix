@@ -22,6 +22,10 @@
     nvtopPackages.nvidia
     kitty
     go
+    rustc
+    cargo
     vscode
+    unzip
+    mpv
   ];
 }

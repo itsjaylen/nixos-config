@@ -10,6 +10,7 @@
     ./system/extras.nix
     ./system/vpn.nix
     ./system/virtualisation.nix
+    ./system/niri.nix
   ];
 
   # Bootloader & Kernel
@@ -19,7 +20,10 @@
 
   # Custom Module Switches
   mySystem.gaming.enable = true;
-  mySystem.extras.enable = true; # Set to false on your laptop!
+  mySystem.extras.enable = true;
+  mySystem.vpn.enable = true;
+  mySystem.virtualisation.enable = true;
+  mySystem.niri.enable = false;
 
   # Enable Flakes CLI support
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
