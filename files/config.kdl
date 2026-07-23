@@ -602,9 +602,8 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "kitty" "-e"; }
-    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Mod+D hotkey-overlay-title="Run an Application: Noctalia Launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
-
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
@@ -869,7 +868,7 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
     Mod+Print { spawn "/home/jaylen/.config/niri/scripts/uploader.sh"; }
-    Mod+Ctrl+V { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
+    Mod+Ctrl+V { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
     Mod+E { spawn "dolphin"; }
 }
 

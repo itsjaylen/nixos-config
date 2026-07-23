@@ -37,7 +37,6 @@
       waybar
       mako
       awww
-      quickshell
       inputs.noctalia.packages.${stdenv.hostPlatform.system}.default
 
       # Audio, Brightness & Media Utilities
