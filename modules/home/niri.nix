@@ -3,7 +3,7 @@
 
 {
   # Automatically link your repo file to ~/.config/niri/config.kdl
-  home.file.".config/niri/config.kdl".source = ./files/niri-config.kdl;
+  home.file.".config/niri/config.kdl".source = ../../files/config.kdl;
 
   # If you want to drop user-specific packages only when Niri is used:
   home.packages = with pkgs; [
@@ -11,6 +11,6 @@
     swaylock
     waybar
     mako
-    swww
+    awww
   ];
 }
