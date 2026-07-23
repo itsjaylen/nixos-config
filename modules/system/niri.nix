@@ -8,7 +8,7 @@
     # Enable Wayland & Niri core support
     programs.niri.enable = true;
 
-    # Enable XDG desktop portals required for file pickers (Dolphin / GTK / Qt apps)
+    # Enable XDG desktop portals required for file pickers and dark theme preferences
     xdg.portal = {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gnome pkgs.xdg-desktop-portal-gtk ];
@@ -32,11 +32,13 @@
       brightnessctl
       libnotify
 
-      # File Manager & Thumbnailers (Ensures Dolphin works fully with previews)
+      # File Manager, Context Menus, & Thumbnailers
       kdePackages.dolphin
       kdePackages.kio-extras
       kdePackages.ffmpegthumbs
       kdePackages.kdeconnect-kde
+      kdePackages.ark        # Essential for right-click extract/compress actions in Dolphin
+      kdePackages.filelight  # Disk usage visualization often used in context tools
 
       # Theming & Engines (Kvantum, GTK engines, qt5ct/qt6ct)
       kdePackages.qtstyleplugin-kvantum
@@ -44,15 +46,18 @@
       adwaita-qt
       adwaita-qt6
       nwg-look
-
-      # Clipboard & Utilities
-      cliphist
-      wl-clipboard
+      
+      # Force dark theme GTK/Adwaita support
+      gnome-themes-extra
+      adwaita-icon-theme
     ];
 
-    # Ensure Qt applications respect themes out of the box
+    # Environment variables forcing dark mode and proper theme engines everywhere
     environment.sessionVariables = {
       QT_QPA_PLATFORMTHEME = "qt5ct";
+      GTK_THEME = "Adwaita-dark";
+      # Tells apps and portals to prefer dark color scheme globally
+      COLORTERM = "truecolor";
     };
   };
 }
