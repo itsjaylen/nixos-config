@@ -13,9 +13,8 @@
         swtpm.enable = true;
       };
     };
+
+    # This option automatically installs the virt-manager GUI and sets it up properly
     programs.virt-manager.enable = true;
   };
-  environment.systemPackages = with pkgs; [
-    virt-manager
-  ];
 }
