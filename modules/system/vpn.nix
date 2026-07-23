@@ -7,7 +7,7 @@
   config = lib.mkIf config.mySystem.vpn.enable {
     services.mullvad-vpn.enable = true;
     environment.systemPackages = with pkgs; [
-      mullvad-gui
+      mullvad
     ];
   };
 }
