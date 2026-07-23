@@ -21,21 +21,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Pointing to the official legacy-v4 tag as shown in the docs
     noctalia = {
-      url = "github:noctalia-dev/noctalia";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    noctalia-qs = {
-      url = "github:noctalia-dev/noctalia-qs";
+      url = "github:noctalia-dev/noctalia/legacy-v4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, noctalia-qs, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, ... }@inputs: {
     nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
+      # Pass inputs down to modules
       specialArgs = { inherit inputs; };
 
       modules = [
@@ -47,11 +44,16 @@
         ./modules/gaming.nix
         ./modules/system/niri.nix
 
+        # Add Home Manager as a module
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+
+          # Pass inputs to Home Manager modules
           home-manager.extraSpecialArgs = { inherit inputs; };
+
+          # Pass user config to Home Manager
           home-manager.users."jaylen" = import ./modules/home.nix;
         }
       ];
