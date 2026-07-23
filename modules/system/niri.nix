@@ -35,7 +35,7 @@
       kdePackages.dolphin
       kdePackages.kio-extras
       kdePackages.ffmpegthumbs
-      kdeconnect
+      kdePackages.kdeconnect-kde
 
       # Theming & Engines (Kvantum, GTK engines, qt5ct/qt6ct)
       kdePackages.qtstyleplugin-kvantum
