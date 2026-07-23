@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     zen-browser.url = "github:youwen5/zen-browser-flake";
+    millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
 
     # 1. Add Home Manager input
     home-manager = {
@@ -17,7 +18,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, spicetify-nix, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, ... }@inputs: {
     nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 

@@ -54,6 +54,9 @@ in
       skipStats
       trashbin
       volumePercentage
+      autoSkipVideo
+      songStats
+      shuffle
     ];
 
     # Add this block to include Marketplace
