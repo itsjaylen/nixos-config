@@ -27,5 +27,6 @@
     vscode
     unzip
     mpv
+    earlyoom
   ];
 }

@@ -21,16 +21,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Point to the actual main noctalia repository
     noctalia = {
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    noctalia-qs = {
+      url = "github:noctalia-dev/noctalia-qs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, noctalia-qs, ... }@inputs: {
     nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+
       specialArgs = { inherit inputs; };
 
       modules = [
@@ -40,6 +45,7 @@
         ./modules/desktop.nix
         ./modules/audio.nix
         ./modules/gaming.nix
+        ./modules/system/niri.nix
 
         home-manager.nixosModules.home-manager
         {
