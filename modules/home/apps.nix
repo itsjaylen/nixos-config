@@ -58,6 +58,7 @@ in
       volumePercentage
       autoSkipVideo
       songStats
+      sideHide
     ];
 
     enabledCustomApps = with spicePkgs.apps; [
