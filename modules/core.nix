@@ -16,7 +16,18 @@
   # Bootloader & Kernel
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+
+  # CachyOS Binary Caches (Prevents building the kernel from source)
+  nix.settings.substituters = [
+    "https://cache.xinux.uz"
+    "https://attic.xuyh0120.win/lantian"
+  ];
+  nix.settings.trusted-public-keys = [
+    "cache.xinux.uz:BXCrtqejFjWzWEB9YuGB7X2MV4ttBur1N8BkwQRdH+0="
+    "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+  ];
 
   # Custom Module Switches
   mySystem.gaming.enable = true;

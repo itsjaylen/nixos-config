@@ -26,10 +26,16 @@
       url = "github:noctalia-dev/noctalia/legacy-v4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # CachyOS Kernel Flake
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, ... }@inputs: {
-    nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
+  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, nix-cachyos-kernel, ... }@inputs: {
+    nixpkgs.overlays = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
       # Pass inputs down to modules
@@ -43,6 +49,11 @@
         ./modules/audio.nix
         ./modules/gaming.nix
         ./modules/system/niri.nix
+
+        # Add CachyOS overlay
+        {
+          nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
+        }
 
         # Add Home Manager as a module
         home-manager.nixosModules.home-manager
