@@ -23,7 +23,8 @@
   mySystem.extras.enable = true;
   mySystem.vpn.enable = true;
   mySystem.virtualisation.enable = true;
-  mySystem.niri.enable = false;
+  mySystem.niri.enable = true;
+  programs.nix-ld.enable = true;
 
   # Enable Flakes CLI support
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
