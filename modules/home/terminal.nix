@@ -14,10 +14,7 @@
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
-    settings = {
-      add_newline = false;
-      format = "$directory$git_branch$rust$python\n$character";
-    };
+    xdg.configFile."starship.toml".source = ../../../files/starship.toml;
   };
 
   home.sessionVariables = {
