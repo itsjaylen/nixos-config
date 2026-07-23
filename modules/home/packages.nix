@@ -14,6 +14,7 @@
     ouch
     legcord
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.noctalia-qs.packages.${pkgs.system}.default
 
     # Custom Technorino Fork
     (chatterino2.overrideAttrs (oldAttrs: {
