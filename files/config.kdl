@@ -898,7 +898,6 @@ output "DP-1" {
     transform "normal"
     position x=4480 y=800
 }
-spawn-sh-at-startup "qs -c noctalia-shell"
 
 
 
@@ -918,5 +917,6 @@ blur {
 
 prefer-no-csd
 
-spawn-sh-at-startup "niri-session-manager"
-spawn-at-startup "kdeconnectd"
+// spawn-sh-at-startup "niri-session-manager"
+spawn-sh-at-startup "kdeconnectd"
+spawn-sh-at-startup "noctalia-shell"
