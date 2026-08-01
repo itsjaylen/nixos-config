@@ -16,13 +16,20 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # --- ADD THESE LINES TO TRUST THE CACHYOS BINARY CACHE ---
+  nix.settings.substituters = [
+    "https://attic.xuyh0120.win/lantian"
+  ];
+  nix.settings.trusted-public-keys = [
+    "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+  ];
+  # ---------------------------------------------------------
+
   # Apply CachyOS overlay and pick a pre-built kernel package
   nixpkgs.overlays = [
     inputs.nix-cachyos-kernel.overlays.pinned
   ];
 
-  # Example: Latest CachyOS kernel (you can swap this out for other variants like 
-  # pkgs.cachyosKernels.linuxPackages-cachyos-lts, -bore, -eevdf, etc.)
   boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
 
   # Custom Module Switches
@@ -35,7 +42,6 @@
 
   # Enable Flakes CLI support
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nix.settings.trusted-users = [ "root" "jaylen" ];
 
   system.stateVersion = "26.05";
 }
