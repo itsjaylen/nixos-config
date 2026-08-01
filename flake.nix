@@ -22,19 +22,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Pointing to the official legacy-v4 tag as shown in the docs
     noctalia = {
       url = "github:noctalia-dev/noctalia/legacy-v4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # CachyOS Kernel Flake
-    nix-cachyos-kernel = {
-      url = "github:xddxdd/nix-cachyos-kernel/release";
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, nix-cachyos-kernel, nirimod, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, nirimod, ... }@inputs: {
     nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
@@ -42,11 +36,6 @@
       specialArgs = { inherit inputs; };
 
       modules = [
-        # Add CachyOS overlay properly scoped for the module system
-        ({ pkgs, ... }: {
-          nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
-        })
-
         ./hardware-configuration.nix
         ./modules/core.nix
         ./modules/hardware.nix
