@@ -1,6 +1,6 @@
 # modules/home/yazi.nix
 { pkgs, lib, ... }:
-  
+
 {
   programs.yazi = {
     enable = true;
@@ -12,7 +12,7 @@
         show_hidden = true;
         sort_by = "alphabetical";
       };
-      
+
       plugin = {
         prepend_previewers = [
           { url = "*.md"; run = "mdcat"; }
@@ -38,9 +38,9 @@
   xdg.configFile = {
     "yazi/plugins/audio-preview.yazi".source = pkgs.fetchFromGitHub {
       owner = "gesellkammer";
-      repo = "audio-preview.yazi"; # <--- Added .yazi here
+      repo = "audio-preview.yazi";
       rev = "74dfea3";
-      hash = lib.fakeHash;
+      hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k="; # <--- Updated with real hash
     };
 
     "yazi/plugins/ouch.yazi".source = pkgs.fetchFromGitHub {
@@ -54,14 +54,14 @@
       owner = "yazi-rs";
       repo = "flavors";
       rev = "36c49ac";
-      hash = lib.fakeHash;
+      hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k="; # <--- Still needs real hash
     }) + "/dracula.yazi";
 
     "yazi/flavors/catppuccin-frappe.yazi".source = (pkgs.fetchFromGitHub {
       owner = "yazi-rs";
       repo = "flavors";
       rev = "36c49ac";
-      hash = lib.fakeHash;
+      hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k="; # <--- Still needs real hash
     }) + "/catppuccin-frappe.yazi";
   };
 }
