@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
@@ -12,10 +12,18 @@
     ./system/niri.nix
   ];
 
-  # Bootloader & Standard Kernel
+  # Bootloader & CachyOS Kernel Configuration
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # Apply CachyOS overlay and pick a pre-built kernel package
+  nixpkgs.overlays = [
+    inputs.nix-cachyos-kernel.overlays.pinned
+  ];
+
+  # Example: Latest CachyOS kernel (you can swap this out for other variants like 
+  # pkgs.cachyosKernels.linuxPackages-cachyos-lts, -bore, -eevdf, etc.)
+  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
 
   # Custom Module Switches
   mySystem.gaming.enable = true;
