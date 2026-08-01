@@ -39,18 +39,28 @@
     };
   };
 
-  ## --- Qt Configuration ---
+  ## --- Qt & Kvantum Engine Configuration ---
   qt = {
     enable = true;
     platformTheme.name = "gtk3";
     style = {
-      name = "fusion";
+      name = "kvantum";
     };
   };
 
-  ## --- Required Packages ---
+  # Deploys KvGlass from your centralized 'files/' directory
+  xdg.configFile."Kvantum/KvGlass".source = ../../files/Kvantum/KvGlass;
+
+  # Instructs Kvantum to use KvGlass by default on startup.
+  xdg.configFile."Kvantum/kvantum.kvconfig".text = ''
+    [General]
+    theme=KvGlass
+  '';
+
+  ## --- Required System & Theme Packages ---
   home.packages = with pkgs; [
     gnome-themes-extra
+    kdePackages.qtstyleplugin-kvantum
     glib
     dconf
   ];
