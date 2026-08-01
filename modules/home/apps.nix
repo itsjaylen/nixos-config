@@ -11,13 +11,11 @@ in
   ];
 
   # Git
+  # Git
   programs.git = {
     enable = true;
-    settings = {
-      user = {
-        name = "Jaylen";
-      };
-    };
+    userName = "itsjaylen";
+    userEmail = "bossjaylen145@gmail.com";
   };
 
   # Neovim
