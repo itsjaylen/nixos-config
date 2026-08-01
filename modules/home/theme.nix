@@ -21,8 +21,8 @@
     };
 
     iconTheme = {
-      name = "Adwaita";
-      package = pkgs.gnome-themes-extra;
+      name = "Papirus";
+      package = pkgs.papirus-icon-theme;
     };
 
     cursorTheme = {
@@ -61,6 +61,7 @@
   home.packages = with pkgs; [
     gnome-themes-extra
     kdePackages.qtstyleplugin-kvantum
+    papirus-icon-theme
     glib
     dconf
   ];
