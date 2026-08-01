@@ -25,8 +25,8 @@ fi
 HOSTNAME=$(hostname)
 echo -e "${BLUE}==> Target Hostname: ${GREEN}$HOSTNAME${NC}"
 
-# Run the nixos-rebuild switch command (with experimental features enabled)
+# Run the nixos-rebuild switch command (without unsupported flags)
 echo -e "${BLUE}==> Rebuilding NixOS configuration...${NC}"
-sudo nixos-rebuild switch --flake ".#$HOSTNAME" --extra-experimental-features "nix-command flakes"
+sudo nixos-rebuild switch --flake ".#$HOSTNAME"
 
 echo -e "${BLUE}==> Installation complete! 🎉${NC}"
