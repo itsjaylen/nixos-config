@@ -67,10 +67,9 @@
     ];
 
     # Critical Environment Variables
+    # Critical Environment Variables
     environment.sessionVariables = {
       QT_QPA_PLATFORM = "wayland";
-      QT_QPA_PLATFORMTHEME = "kde";
-      QT_QPA_PLATFORMTHEME_QT6 = "kde";
       XDG_MENU_PREFIX = "plasma-";
       GTK_THEME = "Adwaita-dark";
     };

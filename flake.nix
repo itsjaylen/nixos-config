@@ -60,6 +60,7 @@
 
           # Pass user config to Home Manager
           home-manager.users."jaylen" = import ./modules/home.nix;
+          home-manager.backupFileExtension = "bak";
         }
       ];
     };

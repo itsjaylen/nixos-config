@@ -40,7 +40,7 @@
       owner = "gesellkammer";
       repo = "audio-preview.yazi";
       rev = "74dfea3";
-      hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k="; # <--- Updated with real hash
+      hash = "sha256-eY7m8mNTD2VT3X1KaETlMG5Omnmxxpha1vTbuLMGA3U="; # <--- Updated with real hash
     };
 
     "yazi/plugins/ouch.yazi".source = pkgs.fetchFromGitHub {
@@ -54,14 +54,14 @@
       owner = "yazi-rs";
       repo = "flavors";
       rev = "36c49ac";
-      hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k="; # <--- Still needs real hash
+      hash = "sha256-eY7m8mNTD2VT3X1KaETlMG5Omnmxxpha1vTbuLMGA3U="; # <--- Still needs real hash
     }) + "/dracula.yazi";
 
     "yazi/flavors/catppuccin-frappe.yazi".source = (pkgs.fetchFromGitHub {
       owner = "yazi-rs";
       repo = "flavors";
       rev = "36c49ac";
-      hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k="; # <--- Still needs real hash
+      hash = "sha256-eY7m8mNTD2VT3X1KaETlMG5Omnmxxpha1vTbuLMGA3U="; # <--- Still needs real hash
     }) + "/catppuccin-frappe.yazi";
   };
 }
