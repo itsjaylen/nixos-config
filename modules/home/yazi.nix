@@ -1,6 +1,6 @@
 # modules/home/yazi.nix
-{ pkgs, ... }:
-
+{ pkgs, lib, ... }:
+  
 {
   programs.yazi = {
     enable = true;
