@@ -38,9 +38,9 @@
   xdg.configFile = {
     "yazi/plugins/audio-preview.yazi".source = pkgs.fetchFromGitHub {
       owner = "gesellkammer";
-      repo = "audio-preview";
+      repo = "audio-preview.yazi"; # <--- Added .yazi here
       rev = "74dfea3";
-      hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k=";
+      hash = lib.fakeHash;
     };
 
     "yazi/plugins/ouch.yazi".source = pkgs.fetchFromGitHub {
@@ -54,14 +54,14 @@
       owner = "yazi-rs";
       repo = "flavors";
       rev = "36c49ac";
-      hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k=";
+      hash = lib.fakeHash;
     }) + "/dracula.yazi";
 
     "yazi/flavors/catppuccin-frappe.yazi".source = (pkgs.fetchFromGitHub {
       owner = "yazi-rs";
       repo = "flavors";
       rev = "36c49ac";
-      hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k=";
+      hash = lib.fakeHash;
     }) + "/catppuccin-frappe.yazi";
   };
 }
