@@ -7,6 +7,7 @@
   config = lib.mkIf config.mySystem.extras.enable {
     environment.systemPackages = with pkgs; [
       filezilla
+      lazygit
       calibre
       easyeffects
       kdePackages.qtstyleplugin-kvantum 

@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nirimod.url = "github:srinivasr/nirimod";
     
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
@@ -34,14 +35,19 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, nix-cachyos-kernel, ... }@inputs: {
-    nixpkgs.overlays = nixpkgs.lib.nixosSystem {
+  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, nix-cachyos-kernel, nirimod, ... }@inputs: {
+    nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
       # Pass inputs down to modules
       specialArgs = { inherit inputs; };
 
       modules = [
+        # Add CachyOS overlay properly scoped for the module system
+        ({ pkgs, ... }: {
+          nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
+        })
+
         ./hardware-configuration.nix
         ./modules/core.nix
         ./modules/hardware.nix
@@ -49,11 +55,6 @@
         ./modules/audio.nix
         ./modules/gaming.nix
         ./modules/system/niri.nix
-
-        # Add CachyOS overlay
-        {
-          nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
-        }
 
         # Add Home Manager as a module
         home-manager.nixosModules.home-manager

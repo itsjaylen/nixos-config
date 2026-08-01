@@ -7,9 +7,7 @@
 
   # If you want to drop user-specific packages only when Niri is used:
   home.packages = with pkgs; [
-    fuzzel
     swaylock
-    waybar
     mako
     awww
   ];

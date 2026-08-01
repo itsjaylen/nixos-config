@@ -1,5 +1,5 @@
 format = '''
-$directory$git_branch$rust$python
+$directory$git_branch$rust$python$golang$container
 $character'''
 
 palette = 'colors'
@@ -19,7 +19,7 @@ color9 = '#f4ba9f'
 # Prompt symbols 
 [character]
 success_symbol = "[🞈](color9 bold)"
-error_symbol = "[🞈](@{error})"
+error_symbol = "[🞈](color8 bold)"
 vicmd_symbol = "[🞈](#f9e2af)"
 
 [directory]
@@ -42,5 +42,10 @@ time_format = "%R" # Hour:Minute Format
 [python]
 format = "[](fg:color8 bg:color4)[${symbol}${version}](bg:color8 fg:color5)[](fg:color8 bg:color4)[(bg:color8 fg:color5)( ${virtualenv})](fg:color3 bg:color4)[](fg:color4) "
 symbol = '🐍'
-# pyenv_version_name = true
 pyenv_prefix = 'venv'
+
+[golang]
+format = "[](fg:color8 bg:color4)[🐹 ${version}]({bg:color8 fg:color5})[](fg:color8 bg:color4)[](fg:color4) "
+
+[container]
+format = "[](fg:color8 bg:color4)[󰡨 ${symbol}]({bg:color8 fg:color5})[](fg:color8 bg:color4)[](fg:color4) "

@@ -1,4 +1,3 @@
-# modules/home/packages.nix
 { pkgs, inputs, ... }:
 
 {
@@ -10,10 +9,15 @@
     eza
     fish
     ffmpeg
+    nh
+    p7zip
     mdcat
+    jq
     ouch
     legcord
+    nerd-fonts.jetbrains-mono
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.nirimod.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Custom Technorino Fork
     (chatterino2.overrideAttrs (oldAttrs: {

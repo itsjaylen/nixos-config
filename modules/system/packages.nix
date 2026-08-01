@@ -28,5 +28,7 @@
     unzip
     mpv
     earlyoom
+    fastfetch
+    direnv
   ];
 }

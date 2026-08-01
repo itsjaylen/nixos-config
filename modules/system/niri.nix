@@ -32,9 +32,7 @@
     environment.systemPackages = with pkgs; [
       # Window Management & Shell components
       niri
-      fuzzel
       swaylock
-      waybar
       mako
       awww
       inputs.noctalia.packages.${stdenv.hostPlatform.system}.default
@@ -54,6 +52,7 @@
       kdePackages.ark
       kdePackages.systemsettings
       kdePackages.plasma-integration
+      kdePackages.polkit-kde-agent-1
 
       # Theming Engines
       kdePackages.qtstyleplugin-kvantum

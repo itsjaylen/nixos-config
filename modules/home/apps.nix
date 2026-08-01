@@ -51,6 +51,7 @@ in
       QueueTime
       SleepTimer
       adblock
+      adblockify
       history
       showQueueDuration
       skipStats

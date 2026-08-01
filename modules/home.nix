@@ -11,6 +11,7 @@
     ./home/neovim.nix
     ./home/niri.nix
     ./home/noctalia.nix
+    ./home/fastfetch.nix
   ];
 
   home.username = "jaylen";

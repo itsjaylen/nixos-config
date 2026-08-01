@@ -12,11 +12,18 @@
         show_hidden = true;
         sort_by = "alphabetical";
       };
+      
       plugin = {
         prepend_previewers = [
           { url = "*.md"; run = "mdcat"; }
-          { url = "*"; run = "eza-preview"; }
-          { mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}"; run = "ouch"; }
+          { mime = "application/zip"; run = "ouch"; }
+          { mime = "application/tar*"; run = "ouch"; }
+          { mime = "application/bzip2"; run = "ouch"; }
+          { mime = "application/x-7z-compressed"; run = "ouch"; }
+          { mime = "application/vnd.rar"; run = "ouch"; }
+          { mime = "application/xz"; run = "ouch"; }
+          { mime = "application/zstd"; run = "ouch"; }
+          { mime = "application/java-archive"; run = "ouch"; }
         ];
       };
     };
@@ -36,13 +43,6 @@
       hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k=";
     };
 
-    "yazi/plugins/eza-preview.yazi".source = pkgs.fetchFromGitHub {
-      owner = "ahkohd";
-      repo = "eza-preview.yazi";
-      rev = "dc9c103";
-      hash = "sha256-14x/bD0aD9hXONaqQD8Dt7rLBCMq7bkVLH6uCPOQ0C8=";
-    };
-
     "yazi/plugins/ouch.yazi".source = pkgs.fetchFromGitHub {
       owner = "ndtoan96";
       repo = "ouch.yazi";
@@ -50,18 +50,18 @@
       hash = "sha256-14x/bD0aD9hXONaqQD8Dt7rLBCMq7bkVLH6uCPOQ0C8=";
     };
 
-    "yazi/flavors/dracula.yazi".source = pkgs.fetchFromGitHub {
+    "yazi/flavors/dracula.yazi".source = (pkgs.fetchFromGitHub {
       owner = "yazi-rs";
       repo = "flavors";
       rev = "36c49ac";
       hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k=";
-    } + "/dracula.yazi";
+    }) + "/dracula.yazi";
 
-    "yazi/flavors/catppuccin-frappe.yazi".source = pkgs.fetchFromGitHub {
+    "yazi/flavors/catppuccin-frappe.yazi".source = (pkgs.fetchFromGitHub {
       owner = "yazi-rs";
       repo = "flavors";
       rev = "36c49ac";
       hash = "sha256-IK0Ye/EPjOGC+//HpjExVTAKfXtlgOrYbFLrhy/DF6k=";
-    } + "/catppuccin-frappe.yazi";
+    }) + "/catppuccin-frappe.yazi";
   };
 }

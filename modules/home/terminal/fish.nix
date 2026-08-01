@@ -6,6 +6,9 @@
     enable = true;
 
     interactiveShellInit = ''
+      set -U fish_color_command green
+
+      # Disable the default fish welcome message
       set fish_greeting
 
       set -l seq_file ~/.cache/ags/user/generated/terminal/sequences.txt
@@ -15,18 +18,20 @@
 
       set -gx PATH $PATH (go env GOPATH)/bin
       fish_add_path ~/.local/bin/
+
+      # Abbreviations (expands automatically when you press space/enter)
+      abbr -a g git
+      abbr -a gst git status
+      abbr -a gco git checkout
+      abbr -a nr nh os switch
     '';
 
     shellAliases = {
-      pamcan = "pacman";
-      bar = "nvim ~/.config/ags/modules/bar/main.js";
-      barmodes = "nvim ~/.config/ags/modules/bar/modes";
-      config = "yazi ~/.dotfiles";
-      colors = "kitty @ set-colors -a -c ~/.cache/ags/user/generated/kitty-colors.conf";
       homeserver = "kitten ssh jaylen@192.168.50.232";
       homelabtop = "kitten ssh jaylen@192.168.50.32";
       homeserverb = "kitten ssh root@192.168.50.188";
       deployserver = "kitten ssh jaylen@192.168.50.192";
+      icat = "kitten icat";
       cd = "z";
 
       ls = "eza --icons=always --color=always --group-directories-first";
@@ -64,6 +69,15 @@
           repo = "nvm.fish";
           rev = "2.2.1";
           hash = "sha256-ZZpDdJJ3yH4ZgsoEQ7O/A0E1DUO10rSx6dlebPQWotE=";
+        };
+      }
+      {
+        name = "fzf.fish";
+        src = pkgs.fetchFromGitHub {
+          owner = "PatrickF1";
+          repo = "fzf.fish";
+          rev = "v10.3"; # Or the latest stable tag
+          hash = "sha256-T8KYLA/r/gOKvAivKRoeqIwE2pINlxFQtZJHpOy9GMM=";     # Put a blank or placeholder hash first
         };
       }
     ];
