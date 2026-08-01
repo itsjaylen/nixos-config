@@ -35,6 +35,7 @@
 
   # Enable Flakes CLI support
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.trusted-users = [ "root" "jaylen" ];
 
   system.stateVersion = "26.05";
 }
