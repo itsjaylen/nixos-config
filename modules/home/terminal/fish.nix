@@ -77,7 +77,7 @@
           owner = "PatrickF1";
           repo = "fzf.fish";
           rev = "v10.3"; # Or the latest stable tag
-          hash = pkgs.lib.fakeHash;
+          sha256 = "sha256-T8KYLA/r/gOKvAivKRoeqIwE2pINlxFQtZJHpOy9GMM=";
         };
       }
     ];
