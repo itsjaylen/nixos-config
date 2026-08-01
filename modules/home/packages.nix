@@ -15,6 +15,8 @@
     jq
     ouch
     legcord
+    xwayland
+    xwayland-satellite
     nerd-fonts.jetbrains-mono
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.nirimod.packages.${pkgs.stdenv.hostPlatform.system}.default
