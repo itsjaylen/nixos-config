@@ -6,5 +6,6 @@
     ./kitty.nix
     ./fish.nix
     ./ssh.nix
+    ./helix.nix
   ];
 }

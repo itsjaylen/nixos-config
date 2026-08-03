@@ -8,9 +8,9 @@ in
   # Add user-level packages here
   home.packages = with pkgs; [
     kdePackages.kdeconnect-kde
+    zed-editor
   ];
 
-  # Git
   # Git
   programs.git = {
     enable = true;
@@ -36,7 +36,7 @@ in
     ];
   };
 
- # Spicetify Configuration
+  # Spicetify Configuration
   programs.spicetify = {
     enable = true;
     theme = spicePkgs.themes.defaultDynamic;

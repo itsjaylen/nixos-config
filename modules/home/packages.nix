@@ -17,6 +17,8 @@
     legcord
     xwayland
     xwayland-satellite
+    grim
+    slurp
     nerd-fonts.jetbrains-mono
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.nirimod.packages.${pkgs.stdenv.hostPlatform.system}.default

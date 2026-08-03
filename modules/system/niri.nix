@@ -72,6 +72,7 @@
       QT_QPA_PLATFORM = "wayland";
       XDG_MENU_PREFIX = "plasma-";
       GTK_THEME = "Adwaita-dark";
+      QT_QPA_PLATFORMTHEME = "qt6ct";
     };
   };
 }

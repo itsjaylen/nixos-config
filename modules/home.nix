@@ -12,6 +12,7 @@
     ./home/noctalia.nix
     ./home/fastfetch.nix
     ./home/theme.nix
+    ./home/notification.nix
   ];
 
   home.username = "jaylen";

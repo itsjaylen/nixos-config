@@ -12,6 +12,12 @@
       package = pkgs.millennium-steam;
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
+      gamescopeSession.enable = true; 
+    };
+
+    programs.gamemode = {
+      enable = true;
+      enableRenice = true;
     };
 
     environment.systemPackages = with pkgs; [
@@ -19,6 +25,9 @@
       mangohud
       protonup-qt
       prismlauncher
+      gamescope
+      gamemode
+      mimalloc
     ];
   };
 }
