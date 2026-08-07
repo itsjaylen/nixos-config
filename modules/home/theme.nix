@@ -3,12 +3,13 @@
 let
   # Custom package to install your local font from the files/ directory
   papyrusNerdFont = pkgs.stdenv.mkDerivation {
-    name = "papyrus-nerd-font";
+    pname = "papyrus-nerd-font";
+    version = "1.0";
     src = ../../files/fonts;
     installPhase = ''
       mkdir -p $out/share/fonts/truetype
       cp *.ttf $out/share/fonts/truetype/
-    '';
+    '' ;
   };
 in
 {
@@ -25,9 +26,9 @@ in
   ## --- GTK Configuration ---
   gtk = {
     enable = true;
-    
+
     theme = {
-      name = "Adwaita-dark";
+      name = "Adwaita";
       package = pkgs.gnome-themes-extra;
     };
 
@@ -73,16 +74,12 @@ in
     theme=KvGlass
   '';
 
-  # Forces qt6ct to use Papirus icons, Kvantum style, and Papyrus Nerd Font by default
+  # Forces qt6ct to use Papirus icons, Kvantum style, and Papirus Nerd Font by default
   xdg.configFile."qt6ct/qt6ct.conf".text = ''
     [Appearance]
     icon_theme=Papirus
     style=kvantum
     standard_dialogs=default
-    
-    [Fonts]
-    fixed="Papyrus Nerd Font,10,-1,5,50,0,0,0,0,0"
-    general="Papyrus Nerd Font,10,-1,5,50,0,0,0,0,0"
   '';
 
   ## --- Required System & Theme Packages ---

@@ -285,6 +285,7 @@
         "nixpkgs": "nixpkgs_4",
         "noctalia": "noctalia",
         "spicetify-nix": "spicetify-nix",
+        "vortex": "vortex",
         "zen-browser": "zen-browser"
       }
     },
@@ -358,6 +359,44 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "vortex": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "vortex-src": "vortex-src"
+      },
+      "locked": {
+        "lastModified": 1785500471,
+        "narHash": "sha256-sfpY46HPC26hbRoNmL7lTtj4o+7/qdKKJjDfOuf+sRQ=",
+        "owner": "crowquillx",
+        "repo": "vortex-nix",
+        "rev": "3f49870584e2c4be116924b76547e7f15bc2c3a5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "crowquillx",
+        "repo": "vortex-nix",
+        "type": "github"
+      }
+    },
+    "vortex-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1785400005,
+        "narHash": "sha256-cJky09O/dGcj3DEsPLSo3Zfrg1OZDO98SzPzlq++z58=",
+        "owner": "Nexus-Mods",
+        "repo": "Vortex",
+        "rev": "147b45664a2c840af160a2dbdb4e4796a9982974",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Nexus-Mods",
+        "ref": "v2.4.2",
+        "repo": "Vortex",
         "type": "github"
       }
     },

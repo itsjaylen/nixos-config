@@ -14,25 +14,29 @@
     mdcat
     jq
     ouch
+    unrar
+    arrpc
     legcord
     xwayland
     xwayland-satellite
     grim
     slurp
+    golangci-lint
+    wl-clipboard
+    wine
     nerd-fonts.jetbrains-mono
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.nirimod.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Custom Technorino Fork
-    (chatterino2.overrideAttrs (oldAttrs: {
-      pname = "technorino";
-      src = fetchFromGitHub {
-        owner = "hvdras";
-        repo = "hvdras-technorino-fork";
-        rev = "6242a423f50ac78871e355302c703cccd8100133";
-        hash = "sha256-ZIABRQtpPsijQM7F+qRMvqhiVGAnkDqxnLeZusgoZOs=";
-        fetchSubmodules = true;
-      };
-    }))
+        (chatterino2.overrideAttrs (oldAttrs: {
+          pname = "technorino";
+          src = fetchFromGitHub {
+            owner = "itsjaylen";
+            repo = "hvdras-technorino-fork";
+            rev = "b7a1ac6";
+            hash = "sha256-tQhlzmgYarukwYz8Hi6QV2TkORTXPMyoOtALKGjRUNo=";
+            fetchSubmodules = true;
+          };
+        }))
   ];
 }

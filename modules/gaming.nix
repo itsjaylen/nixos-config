@@ -1,4 +1,3 @@
-# modules/gaming.nix
 { config, lib, pkgs, inputs, ... }:
 
 {
@@ -28,6 +27,15 @@
       gamescope
       gamemode
       mimalloc
+      protontricks
+      heroic
+      lunar-client
+      
+      (inputs.vortex.packages.${pkgs.system}.vortex.overrideAttrs (old: {
+        pnpmDeps = old.pnpmDeps.overrideAttrs (oldDeps: {
+          outputHash = "sha256-iTeMC/DnMwKN3DhWMikywKcrExmmAcYl6tzmCPt7noY=";
+        });
+      }))
     ];
   };
 }

@@ -9,6 +9,7 @@ in
   home.packages = with pkgs; [
     kdePackages.kdeconnect-kde
     zed-editor
+    temurin-bin-25
   ];
 
   # Git
@@ -16,6 +17,10 @@ in
     enable = true;
     userName = "itsjaylen";
     userEmail = "bossjaylen145@gmail.com";
+    extraConfig = {
+      credential.helper = "store";
+      # Or use "cache --timeout=3600" if you want it to forget after 1 hour
+    };
   };
 
   # Neovim
@@ -41,7 +46,7 @@ in
     enable = true;
     theme = spicePkgs.themes.defaultDynamic;
     colorScheme = "Dark-Base";
-    
+
     enabledExtensions = with spicePkgs.extensions; [
       shuffle
       fullAppDisplay

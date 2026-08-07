@@ -1,6 +1,13 @@
 {
   description = "Jaylen's Modular NixOS Configuration";
 
+  nixConfig = {
+    extra-substituters = [ "https://vortex-nix.cachix.org" ];
+    extra-trusted-public-keys = [
+      "vortex-nix.cachix.org-1:7+ZVU0umNp8sz1JqZV/bRcbVgemNuNtzN5KiJxihFRY="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nirimod.url = "github:srinivasr/nirimod";
@@ -16,6 +23,12 @@
     };
 
     millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+
+    # Added Vortex-nix input
+    vortex = {
+      url = "github:crowquillx/vortex-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -33,7 +46,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, nirimod, nix-cachyos-kernel, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, nirimod, nix-cachyos-kernel, vortex, ... }@inputs: {
     nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 

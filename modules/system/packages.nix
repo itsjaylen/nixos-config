@@ -8,6 +8,7 @@
   # Essential system-level utilities for hardware and terminal management
   environment.systemPackages = with pkgs; [
     vim
+    zip
     wget
     curl
     pciutils

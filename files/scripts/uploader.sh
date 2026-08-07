@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Configuration
 LOG_DIR="$HOME/.config/niri/data"  # Updated to reflect Niri configuration
@@ -10,7 +10,7 @@ send_toast() {
   local body="$2"
   local type="${3:-notice}"
   local icon="${4:-image-x-generic}"
-  
+
   local json=$(jq -n \
     --arg title "$title" \
     --arg body "$body" \
@@ -18,7 +18,7 @@ send_toast() {
     --arg icon "$icon" \
     '{title: $title, body: $body, type: $type, icon: $icon}')
 
-  qs -c noctalia-shell ipc call toast send "$json"
+  noctalia-shell ipc call toast send "$json"
 }
 
 # 1. Prepare temporary file

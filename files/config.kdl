@@ -867,7 +867,7 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
-    Mod+Print { spawn "/home/jaylen/.config/niri/scripts/uploader.sh"; }
+    Mod+Print { spawn-sh "/home/jaylen/.config/niri/scripts/uploader.sh"; }
     Mod+Ctrl+V { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
     Mod+E { spawn "dolphin"; }
 }

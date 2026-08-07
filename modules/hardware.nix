@@ -1,6 +1,10 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
+  nixpkgs.config.allowUnfree = true;
+
   hardware.cpu.amd.updateMicrocode = true;
 
   hardware.graphics = {
@@ -8,7 +12,7 @@
     enable32Bit = true;
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -19,11 +23,33 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Enable the libratbag daemon required for mouse configuration
+  # Enable NVIDIA Container Toolkit & CDI support on NixOS
+  hardware.nvidia-container-toolkit.enable = true;
+
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings = {
+      features = {
+        cdi = true;
+      };
+    };
+  };
+
   services.ratbagd.enable = true;
 
-  # Install the Piper GUI application
+  # Use NixOS OBS program wrapper for NVENC + plugins
+  programs.obs-studio = {
+    enable = true;
+    package = pkgs.obs-studio.override {
+      cudaSupport = true;
+    };
+    plugins = with pkgs.obs-studio-plugins; [
+      obs-vaapi
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     piper
+    nvidia-container-toolkit
   ];
 }
