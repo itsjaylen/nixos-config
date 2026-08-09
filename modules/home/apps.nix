@@ -9,7 +9,6 @@ in
   home.packages = with pkgs; [
     kdePackages.kdeconnect-kde
     zed-editor
-    temurin-bin-25
   ];
 
   # Git

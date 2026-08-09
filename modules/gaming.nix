@@ -23,13 +23,20 @@
       lutris
       mangohud
       protonup-qt
-      prismlauncher
       gamescope
       gamemode
       mimalloc
       protontricks
-      heroic
       lunar-client
+
+      (prismlauncher.override {
+        jdks = [
+          
+          temurin-bin-21 # Eclipse Temurin Java 21 (Minecraft 1.20.5+)
+          temurin-bin-17 # Eclipse Temurin Java 17 (Minecraft 1.18 - 1.20.4)
+          temurin-bin-8 # Eclipse Temurin Java 8 (Minecraft <= 1.16.5)
+        ];
+      })
       
       (inputs.vortex.packages.${pkgs.system}.vortex.overrideAttrs (old: {
         pnpmDeps = old.pnpmDeps.overrideAttrs (oldDeps: {

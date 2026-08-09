@@ -33,8 +33,8 @@
           src = fetchFromGitHub {
             owner = "itsjaylen";
             repo = "hvdras-technorino-fork";
-            rev = "b7a1ac6";
-            hash = "sha256-tQhlzmgYarukwYz8Hi6QV2TkORTXPMyoOtALKGjRUNo=";
+            rev = "779f5fd";
+            hash = "sha256-ud5nLXtA7vntTpNMtjI0YRi1+fFUcme1w3u5RfmpJNM=";
             fetchSubmodules = true;
           };
         }))
