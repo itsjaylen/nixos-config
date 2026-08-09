@@ -1,53 +1,99 @@
 #!/usr/bin/env bash
 
+# --- SINGLE INSTANCE LOCK ---
+LOCKFILE="/tmp/screenshot_uploader.lock"
+exec 200>"$LOCKFILE"
+if ! flock -n 200; then
+  # Another instance is already running (Satty, slurp, or upload active)
+  exit 0
+fi
+
 # Configuration
-LOG_DIR="$HOME/.config/niri/data"  # Updated to reflect Niri configuration
+LOG_DIR="$HOME/.config/niri/data"
 API_URL="https://segs.lol/api/upload"
 
-# Function to send Noctalia Toast Notifications
+# Parse CLI flags
+FAST_MODE=false
+PIPE_MODE=false
+
+for arg in "$@"; do
+  case "$arg" in
+    --fast) FAST_MODE=true ;;
+    --pipe) PIPE_MODE=true ;;
+  esac
+done
+
 send_toast() {
   local title="$1"
   local body="$2"
-  local type="${3:-notice}"
-  local icon="${4:-image-x-generic}"
+  local type="${3:-low}"
+  local icon="${4:-camera-photo}"
 
-  local json=$(jq -n \
-    --arg title "$title" \
+  case "$type" in
+    warning|error) urgency="critical" ;;
+    notice|info)   urgency="normal" ;;
+    *)             urgency="$type" ;;
+  esac
+
+  local json=$(jq -n -c \
+    --arg app_name "Screenshot" \
+    --arg summary "$title" \
     --arg body "$body" \
-    --arg type "$type" \
+    --arg urgency "$urgency" \
     --arg icon "$icon" \
-    '{title: $title, body: $body, type: $type, icon: $icon}')
+    --argjson timeout_ms 4000 \
+    '{app_name: $app_name, summary: $summary, body: $body, urgency: $urgency, timeout_ms: $timeout_ms, icon: $icon}')
 
-  noctalia-shell ipc call toast send "$json"
+  noctalia msg notification-show "$json"
 }
 
-# 1. Prepare temporary file
 file=$(mktemp --suffix=.png /tmp/kappa_XXXXXX)
 
-# 2. Capture interactive screen region using Niri's native action
-# This opens Niri's built-in interactive crop tool and saves directly to our temp file
-grim -g "$(slurp)" "$file"
+# 1. Capture Image
+if [ "$PIPE_MODE" = true ]; then
+  cat > "$file"
+else
+  grim -g "$(slurp)" "$file"
+fi
 
-# Check if the file exists and has a size greater than 0 (handles user cancellation)
 if [[ ! -s "$file" ]]; then
-  send_toast "Screenshot" "Cancelled by user or capture failed" "warning" "camera-photo"
+  send_toast "Screenshot" "Cancelled by user or capture failed" "low" "camera-photo"
   rm -f "$file"
   exit 1
 fi
 
+upload_target="$file"
+
+# 2. Annotation Step (Only run if NOT in fast mode)
+if [ "$FAST_MODE" = false ]; then
+  annotated_file=$(mktemp --suffix=.png /tmp/kappa_edited_XXXXXX)
+  
+  # Run Satty
+  satty --filename "$file" --output-filename - --early-exit > "$annotated_file"
+
+  # If closed without saving (Esc), cancel upload
+  if [[ ! -s "$annotated_file" ]]; then
+    send_toast "Screenshot" "Annotation cancelled" "low" "camera-photo"
+    rm -f "$file" "$annotated_file"
+    exit 1
+  fi
+
+  upload_target="$annotated_file"
+fi
+
 # 3. Upload to segs.lol
-response=$(curl -sS -F "file=@$file" "$API_URL")
+response=$(curl -sS -F "file=@$upload_target" "$API_URL")
 
 if [ $? -ne 0 ]; then
   send_toast "Upload Failed" "Could not connect to segs.lol" "error" "network-error"
-  rm "$file"
+  rm -f "$file" "${annotated_file:-}"
   exit 1
 fi
 
 link=$(echo "$response" | jq -r .link)
 delete=$(echo "$response" | jq -r .delete)
 
-# 4. Copy view link to clipboard (Niri still uses wayland, so wl-copy works perfectly)
+# 4. Copy to Clipboard
 echo -n "$link" | wl-copy
 
 # 5. Success Notification
@@ -64,5 +110,5 @@ log_file="$LOG_DIR/$(date +%F).txt"
   echo ""
 } >> "$log_file"
 
-# Cleanup temporary file
-rm "$file"
+# Cleanup
+rm -f "$file" "${annotated_file:-}"

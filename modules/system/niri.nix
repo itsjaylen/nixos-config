@@ -1,4 +1,3 @@
-# modules/system/niri.nix
 { config, lib, pkgs, inputs, ... }:
 
 {
@@ -17,16 +16,6 @@
       ];
       xdgOpenUsePortal = true;
     };
-
-    # Register application desktop entry for Noctalia / Quickshell portal ID binding
-    environment.etc."xdg/applications/dev.noctalia.noctalia-qs.desktop".text = ''
-      [Desktop Entry]
-      Type=Application
-      Name=Noctalia Shell
-      Exec=noctalia-shell
-      StartupWMClass=dev.noctalia.noctalia-qs
-      Categories=Utility;
-    '';
 
     # System packages required for your Niri layout, shell, and KDE integration
     environment.systemPackages = with pkgs; [
@@ -66,7 +55,6 @@
       adwaita-icon-theme
     ];
 
-    # Critical Environment Variables
     # Critical Environment Variables
     environment.sessionVariables = {
       QT_QPA_PLATFORM = "wayland";

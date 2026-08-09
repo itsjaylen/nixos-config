@@ -602,7 +602,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "kitty" "-e"; }
-    Mod+D hotkey-overlay-title="Run an Application: Noctalia Launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
+    Mod+D hotkey-overlay-title="Run an Application: Noctalia Launcher" { spawn-sh "noctalia msg panel-toggle launcher"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -846,7 +846,7 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Print { screenshot; }
+    // Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
 
@@ -867,8 +867,9 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
-    Mod+Print { spawn-sh "/home/jaylen/.config/niri/scripts/uploader.sh"; }
-    Mod+Ctrl+V { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
+    Mod+Print { spawn-sh "noctalia msg screenshot-region"; }
+    Print { spawn "/home/jaylen/.config/niri/scripts/uploader.sh" "--fast"; }
+    Mod+Ctrl+V { spawn-sh "noctalia msg panel-toggle launcher clipboard"; }
     Mod+E { spawn "dolphin"; }
 }
 
@@ -911,5 +912,5 @@ prefer-no-csd
 
 spawn-sh-at-startup "niri-session-manager"
 spawn-sh-at-startup "kdeconnectd"
-spawn-sh-at-startup "noctalia-shell"
+spawn-sh-at-startup "noctalia"
 spawn-at-startup "/run/current-system/sw/libexec/polkit-kde-authentication-agent-1"

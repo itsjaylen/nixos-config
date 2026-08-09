@@ -21,6 +21,7 @@
     xwayland-satellite
     grim
     slurp
+    satty
     golangci-lint
     wl-clipboard
     wine
