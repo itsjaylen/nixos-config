@@ -40,7 +40,7 @@
       
       (inputs.vortex.packages.${pkgs.system}.vortex.overrideAttrs (old: {
         pnpmDeps = old.pnpmDeps.overrideAttrs (oldDeps: {
-          outputHash = "sha256-iTeMC/DnMwKN3DhWMikywKcrExmmAcYl6tzmCPt7noY=";
+          outputHash = "sha256-M+5DG/b2+JdewJevUah91BQGbpwXM2itKMUu3CmuzYw=";
         });
       }))
     ];

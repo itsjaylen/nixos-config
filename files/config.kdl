@@ -869,7 +869,7 @@ binds {
     Mod+Shift+P { power-off-monitors; }
     Mod+Print { spawn-sh "noctalia msg screenshot-region"; }
     Print { spawn "/home/jaylen/.config/niri/scripts/uploader.sh" "--fast"; }
-    Mod+Ctrl+V { spawn-sh "noctalia msg panel-toggle launcher clipboard"; }
+    Mod+Ctrl+V { spawn-sh "noctalia msg panel-toggle clipboard"; }
     Mod+E { spawn "dolphin"; }
 }
 

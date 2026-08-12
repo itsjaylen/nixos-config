@@ -37,17 +37,6 @@
 
   services.ratbagd.enable = true;
 
-  # Use NixOS OBS program wrapper for NVENC + plugins
-  programs.obs-studio = {
-    enable = true;
-    package = pkgs.obs-studio.override {
-      cudaSupport = true;
-    };
-    plugins = with pkgs.obs-studio-plugins; [
-      obs-vaapi
-    ];
-  };
-
   environment.systemPackages = with pkgs; [
     piper
     nvidia-container-toolkit

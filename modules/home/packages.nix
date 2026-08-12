@@ -26,7 +26,6 @@
     wl-clipboard
     wine
     nerd-fonts.jetbrains-mono
-    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Custom Technorino Fork
         (chatterino2.overrideAttrs (oldAttrs: {
@@ -34,8 +33,8 @@
           src = fetchFromGitHub {
             owner = "itsjaylen";
             repo = "hvdras-technorino-fork";
-            rev = "779f5fd";
-            hash = "sha256-ud5nLXtA7vntTpNMtjI0YRi1+fFUcme1w3u5RfmpJNM=";
+            rev = "2e46bdd";
+            hash = "sha256-5hAguANdB5YYq/iuL1EOmjxb25nxLM4nWl0BuNgfCpA=";
             fetchSubmodules = true;
           };
         }))

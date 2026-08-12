@@ -5,11 +5,21 @@ let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in
 {
+  imports = [
+    # Import Zen Home Manager module from flake inputs
+    inputs.zen-browser.homeModules.beta
+  ];
+
   # Add user-level packages here
   home.packages = with pkgs; [
     kdePackages.kdeconnect-kde
     zed-editor
   ];
+
+  # Zen Browser Configuration
+  programs.zen-browser = {
+    enable = true;
+  };
 
   # Git
   programs.git = {
@@ -30,10 +40,11 @@ in
     vimAlias = true;
   };
 
-  # OBS Studio
+  # OBS Studio (with full CUDA/NVENC support via pkgs.pkgsCuda)
   programs.obs-studio = {
     enable = true;
-    plugins = with pkgs.obs-studio-plugins; [
+    package = pkgs.pkgsCuda.obs-studio;
+    plugins = with pkgs.pkgsCuda.obs-studio-plugins; [
       wlrobs
       obs-vkcapture
       obs-pipewire-audio-capture

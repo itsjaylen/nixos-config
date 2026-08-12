@@ -18,6 +18,12 @@
   home.username = "jaylen";
   home.homeDirectory = "/home/jaylen";
   home.stateVersion = "26.05";
+  xdg.mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "inode/directory" = [ "org.kde.dolphin.desktop" ];
+      };
+    };
 
 
   programs.home-manager.enable = true;
