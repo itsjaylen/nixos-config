@@ -163,6 +163,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+
   };
 <<<<<<< HEAD
 
@@ -211,7 +213,7 @@
 ||||||| parent of 91e4c16 (base config more)
 =======
 
-  outputs = { self, nixpkgs, home-manager, chaotic, spicetify-nix, zen-browser, noctalia, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, chaotic, spicetify-nix, zen-browser, noctalia, millennium, ... }@inputs:
     let
       system = "x86_64-linux";
 
@@ -223,13 +225,6 @@
           ./${hostName}
 
           chaotic.nixosModules.default
-
-          (
-            let
-              hwConfig = ./${hostName}/hardware-configuration.nix;
-            in
-            if builtins.pathExists hwConfig then hwConfig else {}
-          )
 
           home-manager.nixosModules.home-manager
           {
