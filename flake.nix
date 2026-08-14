@@ -1,5 +1,6 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   description = "Jaylen's SlopOS configuration";
 ||||||| parent of 78ad2bb (started remove of slop)
   description = "Jaylen's Modular NixOS Configuration";
@@ -13,6 +14,11 @@
 =======
   description = "Modular NixOS configuration for Desktop and Laptop";
 >>>>>>> 78ad2bb (started remove of slop)
+||||||| parent of 91e4c16 (base config more)
+  description = "Modular NixOS configuration for Desktop and Laptop";
+=======
+  description = "SlopOS configuration without slop.";
+>>>>>>> 91e4c16 (base config more)
 
   inputs = {
 <<<<<<< HEAD
@@ -127,34 +133,38 @@
       ];
 =======
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-  };
 
-  outputs = { self, nixpkgs, ... }@inputs:
-  let
-    system = "x86_64-linux";
-  in
-  {
-    nixosConfigurations = {
-      desktop = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./common/default.nix
-          ./desktop/hardware-configuration.nix
-          ./desktop/default.nix
-        ];
-      };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-      laptop = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./common/default.nix
-          ./laptop/hardware-configuration.nix
-          ./laptop/default.nix
-        ];
+    chaotic = {
+      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
       };
 >>>>>>> 78ad2bb (started remove of slop)
     };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
+<<<<<<< HEAD
 
   outputs =
     {
@@ -198,4 +208,53 @@
         };
       };
     };
+||||||| parent of 91e4c16 (base config more)
+=======
+
+  outputs = { self, nixpkgs, home-manager, chaotic, spicetify-nix, zen-browser, noctalia, ... }@inputs:
+    let
+      system = "x86_64-linux";
+
+      mkHost = hostName: nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./common
+          ./${hostName}
+
+          chaotic.nixosModules.default
+
+          (
+            let
+              hwConfig = ./${hostName}/hardware-configuration.nix;
+            in
+            if builtins.pathExists hwConfig then hwConfig else {}
+          )
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            
+            home-manager.extraSpecialArgs = { inherit inputs; };
+
+            home-manager.sharedModules = [
+              spicetify-nix.homeManagerModules.default
+              zen-browser.homeModules.beta
+            ];
+
+            home-manager.users.jaylen = import ./home-manager/${hostName}.nix;
+            home-manager.backupFileExtension = "hm-bkp-${self.shortRev or self.dirtyShortRev or "dirty"}";
+            nixpkgs.config.allowUnfree = true;
+          }
+        ];
+      };
+    in
+    {
+      nixosConfigurations = {
+        desktop = mkHost "desktop";
+        laptop  = mkHost "laptop";
+      };
+    };
+>>>>>>> 91e4c16 (base config more)
 }

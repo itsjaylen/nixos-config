@@ -1,34 +1,63 @@
 { pkgs, ... }:
 
 {
-  # Enable Nix Flakes and modern CLI commands
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Bootloader defaults
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Time zone and localization
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Common user definition
+  programs.niri.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    elisa
+    spectacle
+  ];
+
   users.users.jaylen = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
+    initialPassword = "password";
   };
 
-  # Common system packages across desktop & laptop
   environment.systemPackages = with pkgs; [
     git
     curl
     wget
     vim
     htop
+    zip
+    unzip
+    pciutils
+    usbutils
+    clinfo
+    nvtopPackages.nvidia
+    earlyoom
   ];
 
-  programs.zsh.enable = true;
+  services.displayManager = {
+    sddm.enable = true;
+    sddm.wayland.enable = true;
+    sddm.theme = "${pkgs.kdePackages.plasma-desktop}/share/sddm/themes/breeze";
+    autoLogin.enable = false;
+    defaultSession = "niri";
+  };
 
-  system.stateVersion = "24.11"; # Adjust to match your installed NixOS version
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  programs.fish.enable = true;
+
+  system.stateVersion = "26.11";
 }
