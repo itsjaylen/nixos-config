@@ -8,7 +8,7 @@
     isNormalUser = true;
     description = "jaylen";
     shell = pkgs.fish;
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
     packages = with pkgs; [
       kdePackages.kate
     ];
