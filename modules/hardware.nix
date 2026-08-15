@@ -1,44 +1,37 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
-  nixpkgs.config.allowUnfree = true;
+# modules/hardware/nvidia.nix
+{ config, lib, pkgs, ... }:
 
-  hardware.cpu.amd.updateMicrocode = true;
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
+let
+  cfg = config.mySystem.hardware.nvidia;
+in {
+  options.mySystem.hardware.nvidia = {
+    enable = lib.mkEnableOption "NVIDIA GPU drivers and container support";
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  config = lib.mkIf cfg.enable {
+    nixpkgs.config.allowUnfree = true;
 
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
-
-  # Enable NVIDIA Container Toolkit & CDI support on NixOS
-  hardware.nvidia-container-toolkit.enable = true;
-
-  virtualisation.docker = {
-    enable = true;
-    daemon.settings = {
-      features = {
-        cdi = true;
-      };
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
     };
+
+    services.xserver.videoDrivers = [ "nvidia" ];
+
+    hardware.nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+      open = false;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+    };
+
+    hardware.nvidia-container-toolkit.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      piper
+      nvidia-container-toolkit
+    ];
   };
-
-  services.ratbagd.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    piper
-    nvidia-container-toolkit
-  ];
 }

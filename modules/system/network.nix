@@ -1,8 +1,7 @@
-# modules/system/network.nix
-{ ... }:
+{ lib, ... }:
 
 {
-  networking.hostName = "nixos";
+  networking.hostName = lib.mkDefault "nixos";
   networking.networkmanager.enable = true;
   time.timeZone = "America/New_York";
 

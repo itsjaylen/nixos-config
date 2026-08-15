@@ -1,32 +1,75 @@
 #!/usr/bin/env bash
-# Exit immediately if a command exits with a non-zero status
-set -e
+set -euo pipefail
 
 # Colors for output
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+RED='\033[0;31m'
+NC='\033[0m'
 
-echo -e "${BLUE}==> Preparing Nix flake installation...${NC}"
+MODE="switch"
+TARGET_HOST=""
 
-# Optional: Automatically generate/refresh hardware-config if missing or on a new machine
-if [ ! -f "hardware-configuration.nix" ]; then
-    echo -e "${BLUE}==> Generating hardware-configuration.nix...${NC}"
-    sudo nixos-generate-config --show-hardware-config > hardware-configuration.nix
+# Parse positional arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        dry-build|dry)
+            MODE="dry-build"
+            shift
+            ;;
+        test)
+            MODE="test"
+            shift
+            ;;
+        boot)
+            MODE="boot"
+            shift
+            ;;
+        switch)
+            MODE="switch"
+            shift
+            ;;
+        vm)
+            MODE="vm"
+            shift
+            ;;
+        *)
+            TARGET_HOST="$1"
+            shift
+            ;;
+    esac
+done
+
+# Fallback to system hostname if no host argument was provided
+HOSTNAME="${TARGET_HOST:-$(hostname -s)}"
+
+echo -e "${BLUE}==> Preparing Nix flake (Mode: ${GREEN}$MODE${BLUE}, Host: ${GREEN}$HOSTNAME${BLUE})...${NC}"
+
+HOST_DIR="hosts/$HOSTNAME"
+
+if [ -d "$HOST_DIR" ]; then
+    if [ ! -f "$HOST_DIR/hardware-configuration.nix" ]; then
+        echo -e "${BLUE}==> Generating $HOST_DIR/hardware-configuration.nix...${NC}"
+        sudo nixos-generate-config --show-hardware-config > "$HOST_DIR/hardware-configuration.nix"
+    fi
+else
+    echo -e "${RED}==> Warning: Host directory '$HOST_DIR' does not exist.${NC}"
+    echo -e "${BLUE}==> Proceeding, but ensure '$HOSTNAME' is defined in flake.nix.${NC}"
 fi
 
-# Ensure git is tracking files (Nix ignores untracked files in flakes!)
-if [ -n "$(git status --porcelain)" ]; then
-    echo -e "${BLUE}==> Staging untracked/modified files for the flake...${NC}"
-    git add .
+# Track newly generated and untracked files in Git so Nix Flakes can evaluate them
+if [ -d ".git" ]; then
+    echo -e "${BLUE}==> Tracking untracked files for Nix flake evaluation...${NC}"
+    git add -A
 fi
 
-# Automatically detect the current hostname if not specified
-HOSTNAME=$(hostname)
-echo -e "${BLUE}==> Target Hostname: ${GREEN}$HOSTNAME${NC}"
-
-# Run the nixos-rebuild switch command (without unsupported flags)
-echo -e "${BLUE}==> Rebuilding NixOS configuration...${NC}"
-sudo nixos-rebuild switch --flake ".#$HOSTNAME"
-
-echo -e "${BLUE}==> Installation complete! 🎉${NC}"
+# Execute mode logic
+if [ "$MODE" = "vm" ]; then
+    echo -e "${BLUE}==> Building QEMU VM for '$HOSTNAME'...${NC}"
+    nixos-rebuild build-vm --flake ".#$HOSTNAME" --accept-flake-config
+    echo -e "${GREEN}==> VM build complete! Run with: ./result/bin/run-$HOSTNAME-vm${NC}"
+else
+    echo -e "${BLUE}==> Running nixos-rebuild $MODE for '$HOSTNAME'...${NC}"
+    sudo nixos-rebuild "$MODE" --flake ".#$HOSTNAME" --accept-flake-config
+    echo -e "${GREEN}==> Operation '$MODE' for '$HOSTNAME' completed successfully! 🎉${NC}"
+fi

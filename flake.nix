@@ -1,5 +1,5 @@
 {
-  description = "Jaylen's Modular NixOS Configuration";
+  description = "Jaylen's Modular NixOS Multi-Host Configuration";
 
   nixConfig = {
     extra-substituters = [ "https://vortex-nix.cachix.org" ];
@@ -11,8 +11,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nirimod.url = "github:srinivasr/nirimod";
-    
-    # Added CachyOS Kernel input (release branch maps to binary cache builds)
+
+    # CachyOS Kernel input
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
     };
@@ -24,7 +24,6 @@
 
     millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
 
-    # Added Vortex-nix input
     vortex = {
       url = "github:crowquillx/vortex-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -47,36 +46,51 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, spicetify-nix, millennium, zen-browser, noctalia, nirimod, nix-cachyos-kernel, vortex, ... }@inputs: {
-    nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+    let
+      # Shared home-manager configuration block
+      sharedHomeManager = {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.extraSpecialArgs = { inherit inputs; };
+        home-manager.users."jaylen" = import ./modules/home.nix;
+        home-manager.backupFileExtension = "bak";
+      };
 
-      # Pass inputs down to modules
-      specialArgs = { inherit inputs; };
-
-      modules = [
-        ./hardware-configuration.nix
+      # Common NixOS modules used across all machines
+      commonModules = [
         ./modules/core.nix
-        ./modules/hardware.nix
-        ./modules/desktop.nix
         ./modules/audio.nix
-        ./modules/gaming.nix
+        ./modules/desktop.nix
         ./modules/system/niri.nix
-
-        # Add Home Manager as a module
+        ./modules/gaming.nix
         home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-
-          # Pass inputs to Home Manager modules
-          home-manager.extraSpecialArgs = { inherit inputs; };
-
-          # Pass user config to Home Manager
-          home-manager.users."jaylen" = import ./modules/home.nix;
-          home-manager.backupFileExtension = "bak";
-        }
+        sharedHomeManager
       ];
+    in
+    {
+      nixosConfigurations = {
+        # Desktop Host Configuration
+        desktop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = commonModules ++ [
+            ./hosts/desktop/configuration.nix
+            ./hosts/desktop/hardware-configuration.nix
+            ./modules/hardware.nix
+            ./modules/gaming.nix
+          ];
+        };
+
+        # Laptop Host Configuration
+        laptop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = commonModules ++ [
+            ./hosts/laptop/configuration.nix
+            ./hosts/laptop/hardware-configuration.nix
+          ];
+        };
+      };
     };
-  };
 }

@@ -12,5 +12,6 @@
     packages = with pkgs; [
       kdePackages.kate
     ];
+    initialPassword = "password";
   };
 }

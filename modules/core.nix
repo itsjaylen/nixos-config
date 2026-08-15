@@ -40,7 +40,7 @@
   boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
 
   # Custom Module Switches
-  mySystem.gaming.enable = true;
+  # mySystem.gaming.enable = true;
   mySystem.extras.enable = true;
   mySystem.vpn.enable = true;
   mySystem.virtualisation.enable = true;
