@@ -1,6 +1,7 @@
 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   description = "Jaylen's SlopOS configuration";
 ||||||| parent of 78ad2bb (started remove of slop)
   description = "Jaylen's Modular NixOS Configuration";
@@ -19,8 +20,14 @@
 =======
   description = "SlopOS configuration without slop.";
 >>>>>>> 91e4c16 (base config more)
+||||||| parent of 121ad01 (restructure: repair broken refs and update tracking)
+  description = "SlopOS configuration without slop.";
+=======
+  description = "Jaylen's SlopOS configuration";
+>>>>>>> 121ad01 (restructure: repair broken refs and update tracking)
 
   inputs = {
+<<<<<<< HEAD
 <<<<<<< HEAD
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -133,21 +140,37 @@
       ];
 =======
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+||||||| parent of 121ad01 (restructure: repair broken refs and update tracking)
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+=======
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    chaotic.url = "github:chaotic-cx/nyx";
+>>>>>>> 121ad01 (restructure: repair broken refs and update tracking)
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    maple-mono = {
+      url = "github:subframe7536/maple-font?ref=v7.8";
+      flake = false;
     };
 
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+<<<<<<< HEAD
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
@@ -156,15 +179,31 @@
         home-manager.follows = "home-manager";
       };
 >>>>>>> 78ad2bb (started remove of slop)
-    };
+||||||| parent of 121ad01 (restructure: repair broken refs and update tracking)
 
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+=======
+    superfile.url = "github:yorukot/superfile";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake/beta";
+    millennium = {
+      url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+      # Ensure it follows your nixpkgs version to prevent duplicate dependencies
+      inputs.nixpkgs.follows = "nixpkgs";
+>>>>>>> 121ad01 (restructure: repair broken refs and update tracking)
+    };
     noctalia = {
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
-
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 <<<<<<< HEAD
 
@@ -213,42 +252,46 @@
 ||||||| parent of 91e4c16 (base config more)
 =======
 
-  outputs = { self, nixpkgs, home-manager, chaotic, spicetify-nix, zen-browser, noctalia, millennium, ... }@inputs:
+  outputs =
+    {
+      nixpkgs,
+      chaotic,
+      self,
+      ...
+    }@inputs:
     let
+      username = "jaylen";
       system = "x86_64-linux";
-
-      mkHost = hostName: nixpkgs.lib.nixosSystem {
+      pkgs = import nixpkgs {
         inherit system;
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./common
-          ./${hostName}
-
-          chaotic.nixosModules.default
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            
-            home-manager.extraSpecialArgs = { inherit inputs; };
-
-            home-manager.sharedModules = [
-              spicetify-nix.homeManagerModules.default
-              zen-browser.homeModules.beta
-            ];
-
-            home-manager.users.jaylen = import ./home-manager/${hostName}.nix;
-            home-manager.backupFileExtension = "hm-bkp-${self.shortRev or self.dirtyShortRev or "dirty"}";
-            nixpkgs.config.allowUnfree = true;
-          }
-        ];
+        config.allowUnfree = true;
       };
+      lib = nixpkgs.lib;
     in
     {
       nixosConfigurations = {
-        desktop = mkHost "desktop";
-        laptop  = mkHost "laptop";
+        desktop = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            chaotic.nixosModules.default
+            ./hosts/desktop
+          ];
+          specialArgs = {
+            host = "desktop";
+            inherit self inputs username;
+          };
+        };
+        laptop = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            chaotic.nixosModules.default
+            ./hosts/laptop
+          ];
+          specialArgs = {
+            host = "laptop";
+            inherit self inputs username;
+          };
+        };
       };
     };
 >>>>>>> 91e4c16 (base config more)

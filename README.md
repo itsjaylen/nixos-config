@@ -1,3 +1,0 @@
-# My Slopos configuration WITHOUT slop....
-
-how to install ./install.sh

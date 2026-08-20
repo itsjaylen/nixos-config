@@ -85,6 +85,7 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         *)
+<<<<<<< HEAD
             TARGET_HOST="$1"
             shift
             ;;
@@ -194,6 +195,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             # If it's not a recognized mode keyword, treat it as the target host
+||||||| parent of 121ad01 (restructure: repair broken refs and update tracking)
+            # If it's not a recognized mode keyword, treat it as the target host
+=======
+>>>>>>> 121ad01 (restructure: repair broken refs and update tracking)
             TARGET_HOST="$1"
             shift
             ;;
@@ -205,6 +210,7 @@ HOSTNAME="${TARGET_HOST:-$(hostname -s)}"
 
 echo -e "${BLUE}==> Preparing Nix flake (Mode: ${GREEN}$MODE${BLUE}, Host: ${GREEN}$HOSTNAME${BLUE})...${NC}"
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 # Optional Flake Input Updates
 if [ "$DO_UPDATE" = true ]; then
@@ -221,6 +227,11 @@ fi
 =======
 HOST_DIR="./$HOSTNAME"
 >>>>>>> 91e4c16 (base config more)
+||||||| parent of 121ad01 (restructure: repair broken refs and update tracking)
+HOST_DIR="./$HOSTNAME"
+=======
+HOST_DIR="hosts/$HOSTNAME"
+>>>>>>> 121ad01 (restructure: repair broken refs and update tracking)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -312,21 +323,22 @@ else
     echo -e "${BLUE}==> Proceeding, but ensure '$HOSTNAME' is defined in flake.nix.${NC}"
 fi
 
-# Track untracked files for Nix Flakes
+# Track newly generated and untracked files in Git so Nix Flakes can evaluate them
 if [ -d ".git" ]; then
     echo -e "${BLUE}==> Tracking untracked files for Nix flake evaluation...${NC}"
-    git add -N .
+    git add -A
 fi
 
 # Execute mode logic
 if [ "$MODE" = "vm" ]; then
     echo -e "${BLUE}==> Building QEMU VM for '$HOSTNAME'...${NC}"
-    nixos-rebuild build-vm --flake ".#$HOSTNAME"
-    echo -e "${GREEN}==> VM build complete! Run it with: ./result/bin/run-$HOSTNAME-vm${NC}"
+    nixos-rebuild build-vm --flake ".#$HOSTNAME" --accept-flake-config
+    echo -e "${GREEN}==> VM build complete! Run with: ./result/bin/run-$HOSTNAME-vm${NC}"
 else
     echo -e "${BLUE}==> Running nixos-rebuild $MODE for '$HOSTNAME'...${NC}"
-    sudo nixos-rebuild "$MODE" --flake ".#$HOSTNAME"
+    sudo nixos-rebuild "$MODE" --flake ".#$HOSTNAME" --accept-flake-config
     echo -e "${GREEN}==> Operation '$MODE' for '$HOSTNAME' completed successfully! 🎉${NC}"
+<<<<<<< HEAD
 fi
 <<<<<<< HEAD
 
@@ -345,3 +357,8 @@ sudo nixos-rebuild "${ACTION}" --flake ".#${TARGET_HOST}"
 echo -e "${GREEN}==> Done! 🎉${NC}"
 =======
 >>>>>>> 91e4c16 (base config more)
+||||||| parent of 121ad01 (restructure: repair broken refs and update tracking)
+fi
+=======
+fi
+>>>>>>> 121ad01 (restructure: repair broken refs and update tracking)
