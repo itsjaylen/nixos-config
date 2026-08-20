@@ -1,5 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 {
+
+  imports = [
+      inputs.noctalia.homeModules.default
+    ];
+  
   # Enable Noctalia via Home Manager module / package
   programs.noctalia.enable = true;
 

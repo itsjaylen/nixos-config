@@ -1,4 +1,10 @@
 { pkgs, ... }:
+
+let
+  obs-cuda = pkgs.obs-studio.override {
+    cudaSupport = true;
+  };
+in
 {
   home.packages = with pkgs; [
     ## Multimedia
@@ -7,9 +13,8 @@
     pavucontrol
     video-trimmer
 
-    # OBS with CUDA support and plugins inline
-    (pkgs.wrapOBS {
-      obs-studio = pkgs.obs-studio.override { cudaSupport = true; };
+    # OBS with CUDA support and plugins
+    (wrapOBS.override { obs-studio = obs-cuda; } {
       plugins = with pkgs.obs-studio-plugins; [
         wlrobs
         obs-pipewire-audio-capture

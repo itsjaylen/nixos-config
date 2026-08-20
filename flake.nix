@@ -31,14 +31,18 @@
     superfile.url = "github:yorukot/superfile";
     zen-browser.url = "github:0xc000022070/zen-browser-flake/beta";
     millennium = {
-        url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
-        # Ensure it follows your nixpkgs version to prevent duplicate dependencies
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-      noctalia = {
-           url = "github:noctalia-dev/noctalia";
-           inputs.nixpkgs.follows = "nixpkgs";
-         };
+      url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+      # Ensure it follows your nixpkgs version to prevent duplicate dependencies
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
