@@ -1,9 +1,0 @@
-
-files/noctalia/plugins/
-# Ignore root hardware config if generated dynamically
-/hardware-configuration.nix
-
-# Do NOT ignore host-specific hardware configurations
-!hosts/**/hardware-configuration.nix
-laptop.qcow2
-result/
