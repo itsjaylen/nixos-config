@@ -1,10 +1,6 @@
-{ pkgs, inputs, ... }:
-let
-  system = pkgs.stdenv.hostPlatform.system;
-  superfile = inputs.superfile.packages.${system}.default;
-in
+{ pkgs, ... }:
 {
-  home.packages = [ superfile ];
+  home.packages = [ pkgs.superfile ];
 
   xdg.configFile."superfile/config.toml".source = ./config.toml;
 }

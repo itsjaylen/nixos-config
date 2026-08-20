@@ -37,6 +37,14 @@
 
     # Enable direct USB device passthrough in virt-manager
     spiceUSBRedirection.enable = true;
+
+    # Override hardware specs for testing with `nixos-rebuild build-vm`
+    vmVariant = {
+      virtualisation = {
+        memorySize = 8192; # 8GB RAM
+        cores = 4;        # 4 CPU cores
+      };
+    };
   };
 
   # Enables SPICE agent daemon for seamless clipboard sharing and auto-resizing

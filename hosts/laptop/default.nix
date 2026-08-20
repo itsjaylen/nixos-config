@@ -14,7 +14,7 @@ in
 
   imports = [
     ./hardware-configuration.nix
-     ./../../modules/core  <-- Uncomment once created
+    ./../../modules/core
   ];
 
   config = {
@@ -22,13 +22,13 @@ in
     custom.hardware.nvidia.enable = false;
 
     boot = {
-      kernelPackages = pkgs.linuxPackages_latest;
+      kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
       kernelModules = [ "hid-nintendo" "acpi_call" ];
       extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
       supportedFilesystems = [ "ntfs" ];
     };
 
-    system.stateVersion = "24.11";
+    system.stateVersion = "26.05";
 
     environment.systemPackages = with pkgs; [
       acpi
@@ -68,5 +68,26 @@ in
     };
 
     powerManagement.cpuFreqGovernor = if cfg.maxPerformance then "performance" else "powersave";
+
+    # VM overrides inside config block
+    virtualisation.vmVariant = {
+          virtualisation = {
+            memorySize = lib.mkForce 4096;
+            cores = 4;
+    
+            # Enable QEMU display window and virtio GPU
+            graphics = true;
+            qemu.options = [
+              "-vga virtio"
+              "-display sdl,gl=on" # or "-display default"
+            ];
+          };
+    
+          # Auto-login to bypass password/keyring prompts in test VM
+          services.displayManager.autoLogin = {
+            enable = true;
+            user = "jaylen";
+          };
+        };
   };
 }
