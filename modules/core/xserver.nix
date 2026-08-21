@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, ... }:
 {
   services.xserver.enable = true;
 
@@ -7,11 +7,6 @@
       enable = true;
       wayland.enable = true;
       package = pkgs.kdePackages.sddm; # Qt6 SDDM
-    };
-
-    autoLogin = {
-      enable = true;
-      user = "${username}";
     };
 
     defaultSession = "niri";

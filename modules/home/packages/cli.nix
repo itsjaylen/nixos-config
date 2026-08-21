@@ -12,6 +12,8 @@
     ncdu                              # disk space
     ripgrep                           # grep replacement
     tldr
+    tree
+    zoxide
 
     ## Tools / useful cli
     binsider

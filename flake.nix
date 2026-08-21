@@ -59,7 +59,6 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake/beta";
     millennium = {
       url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
-      # Ensure it follows your nixpkgs version to prevent duplicate dependencies
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {

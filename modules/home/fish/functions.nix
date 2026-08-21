@@ -11,7 +11,6 @@
       end
     '';
 
-    # Yazi file manager wrapper for auto-cd
     y = ''
       set tmp (mktemp -t "yazi-cwd.XXXXXX")
       yazi $argv --cwd-file="$tmp"

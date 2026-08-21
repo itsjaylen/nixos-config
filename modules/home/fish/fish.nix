@@ -1,13 +1,12 @@
 { pkgs, ... }:
 
 {
-
   programs.fish = {
     enable = true;
 
-    # Universal & Interactive Initialization
     interactiveShellInit = ''
-      set -U fish_color_command green
+      # Added quotes around "green" so Fish sets the actual color string
+      set -U fish_color_command "green"
 
       # Disable the default fish welcome message
       set fish_greeting

@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, username, ... }:
 {
   nixpkgs.overlays = [
     inputs.millennium.overlays.default
@@ -22,7 +22,24 @@
         "--expose-wayland"
       ];
     };
+
+    gamemode = {
+      enable = true;
+      enableRenice = true;
+      settings = {
+        general = {
+          softrealtime = "auto";
+          renice = 10;
+        };
+        custom = {
+          start = "${pkgs.libnotify}/bin/notify-send 'GameMode' 'Started'";
+          end = "${pkgs.libnotify}/bin/notify-send 'GameMode' 'Ended'";
+        };
+      };
+    };
   };
+
+  users.users.${username}.extraGroups = [ "gamemode" ];
 
   hardware.steam-hardware.enable = true;
 }

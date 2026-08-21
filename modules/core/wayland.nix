@@ -40,17 +40,19 @@
   # XDG Desktop Portals configuration
     xdg.portal = {
       enable = true;
-      wlr.enable = false; # Handled natively or by extraPortals
-      
+      wlr.enable = false;
+  
       extraPortals = [
+        pkgs.xdg-desktop-portal-gnome
         pkgs.kdePackages.xdg-desktop-portal-kde
         pkgs.xdg-desktop-portal-gtk
       ];
   
       config = {
-        # Override the upstream programs.niri module default ("gnome;gtk")
-        # so Dolphin uses native KDE dialogs in Niri
         niri = {
+          # Use KDE for file dialogs, GNOME for screencasting, GTK for fallback
+          "org.freedesktop.impl.portal.Screencast" = [ "gnome" ];
+          "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];
           default = lib.mkForce [ "kde" "gtk" ];
         };
         common = {

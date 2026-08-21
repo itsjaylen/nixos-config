@@ -4,13 +4,26 @@
 LOCKFILE="/tmp/screenshot_uploader.lock"
 exec 200>"$LOCKFILE"
 if ! flock -n 200; then
-  # Another instance is already running (Satty, slurp, or upload active)
+  # Another instance is actively running
   exit 0
 fi
+
+# Store PID into lockfile for easy debugging
+echo $$ >&200
+
+# Ensure lock FD is NOT inherited by child processes (Satty, Grim, Curl, etc.)
+# This prevents stale locks when background GUI tools open
+exec 200>&-
 
 # Configuration
 LOG_DIR="$HOME/.config/niri/data"
 API_URL="https://segs.lol/api/upload"
+
+# Cleanup trap to remove leftover lock & temp files on exit
+cleanup() {
+  rm -f "$LOCKFILE" "${file:-}" "${annotated_file:-}"
+}
+trap cleanup EXIT
 
 # Parse CLI flags
 FAST_MODE=false
@@ -32,10 +45,11 @@ send_toast() {
   case "$type" in
     warning|error) urgency="critical" ;;
     notice|info)   urgency="normal" ;;
-    *)             urgency="$type" ;;
+    *)              urgency="$type" ;;
   esac
 
-  local json=$(jq -n -c \
+  local json
+  json=$(jq -n -c \
     --arg app_name "Screenshot" \
     --arg summary "$title" \
     --arg body "$body" \
@@ -58,7 +72,6 @@ fi
 
 if [[ ! -s "$file" ]]; then
   send_toast "Screenshot" "Cancelled by user or capture failed" "low" "camera-photo"
-  rm -f "$file"
   exit 1
 fi
 
@@ -74,7 +87,6 @@ if [ "$FAST_MODE" = false ]; then
   # If closed without saving (Esc), cancel upload
   if [[ ! -s "$annotated_file" ]]; then
     send_toast "Screenshot" "Annotation cancelled" "low" "camera-photo"
-    rm -f "$file" "$annotated_file"
     exit 1
   fi
 
@@ -82,11 +94,8 @@ if [ "$FAST_MODE" = false ]; then
 fi
 
 # 3. Upload to segs.lol
-response=$(curl -sS -F "file=@$upload_target" "$API_URL")
-
-if [ $? -ne 0 ]; then
+if ! response=$(curl -sS -F "file=@$upload_target" "$API_URL"); then
   send_toast "Upload Failed" "Could not connect to segs.lol" "error" "network-error"
-  rm -f "$file" "${annotated_file:-}"
   exit 1
 fi
 
@@ -109,6 +118,3 @@ log_file="$LOG_DIR/$(date +%F).txt"
   echo "Delete: $delete"
   echo ""
 } >> "$log_file"
-
-# Cleanup
-rm -f "$file" "${annotated_file:-}"
