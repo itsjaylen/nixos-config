@@ -17,8 +17,11 @@
       color.ui = true;
 
       url = {
-        "git@github.com:".insteadOf = [ "gh:" ];
-        "git@github.com:itsjaylen/".insteadOf = [ "ij:" "https://github.com/itsjaylen/" ];
+        "git@github.com:".insteadOf = [
+          "gh:"
+          "https://github.com/"
+        ];
+        "git@github.com:itsjaylen/".insteadOf = "ij:";
       };
 
       core.excludesFile = "${config.xdg.configHome}/git/.gitignore";
