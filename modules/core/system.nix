@@ -9,7 +9,7 @@
         "flakes"
       ];
       substituters = [
-        "https://cache.nixos.org" # <--- Critical: Offical NixOS cache
+        "https://cache.nixos.org"
         "https://nix-community.cachix.org"
         "https://nix-gaming.cachix.org"
         "https://nyx-cache.chaotic.cx"

@@ -7,7 +7,8 @@
       systemd-boot.configurationLimit = 10;
     };
 
-    kernelPackages = pkgs.linuxPackages_cachyos;
+    # Point to xddxdd's CachyOS kernel variant
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
 
     supportedFilesystems = [ "ntfs" ];
   };

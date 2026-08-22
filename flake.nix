@@ -4,7 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    chaotic.url = "github:chaotic-cx/nyx";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    nix-cachyos-kernel = {
+          url = "github:xddxdd/nix-cachyos-kernel/release";
+        };
 
     home-manager = {
       url = "github:nix-community/home-manager";

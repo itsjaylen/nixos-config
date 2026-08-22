@@ -9,6 +9,7 @@
         name = "itsjaylen";
         email = "bossjaylen145@gmail.com";
       };
+      credential.helper = "store";
 
       init.defaultBranch = "main";
       merge.conflictstyle = "diff3";

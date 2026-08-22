@@ -14,5 +14,12 @@
       HandlePowerKey = "ignore";
       HandleLidSwitchDocked = "ignore";
     };
+
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = true;
+      };
+    };
   };
 }
