@@ -6,11 +6,16 @@
 
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     nix-cachyos-kernel = {
-          url = "github:xddxdd/nix-cachyos-kernel/release";
-        };
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -55,6 +60,7 @@
     {
       nixpkgs,
       chaotic,
+      sops-nix,
       self,
       ...
     }@inputs:
@@ -73,6 +79,7 @@
           inherit system;
           modules = [
             chaotic.nixosModules.default
+            sops-nix.nixosModules.sops
             ./hosts/desktop
           ];
           specialArgs = {
@@ -84,6 +91,7 @@
           inherit system;
           modules = [
             chaotic.nixosModules.default
+            sops-nix.nixosModules.sops
             ./hosts/laptop
           ];
           specialArgs = {

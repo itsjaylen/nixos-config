@@ -11,6 +11,7 @@
     ./nh.nix
     ./pipewire.nix
     ./program.nix
+    ./sops.nix
     ./security.nix
     ./services.nix
     ./steam.nix

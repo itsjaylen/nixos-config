@@ -4,63 +4,58 @@
     enable = true;
     enableDefaultConfig = false;
 
-    matchBlocks = {
+    settings = {
       "*" = {
-        addKeysToAgent = "1h";
+        AddKeysToAgent = "1h";
 
         # Multiplexing (reuses single TCP connection for instant SSH calls)
-        controlMaster = "auto";
-        controlPath = "~/.ssh/control-%r@%h:%p";
-        controlPersist = "10m";
+        ControlMaster = "auto";
+        ControlPath = "~/.ssh/control-%r@%h:%p";
+        ControlPersist = "10m";
 
-        forwardAgent = false;
-        compression = false;
-        serverAliveInterval = 60;
-        serverAliveCountMax = 3;
-        hashKnownHosts = false;
-        userKnownHostsFile = "~/.ssh/known_hosts";
+        ForwardAgent = "no";
+        Compression = "no";
+        ServerAliveInterval = "60";
+        ServerAliveCountMax = "3";
+        HashKnownHosts = "no";
+        UserKnownHostsFile = "~/.ssh/known_hosts";
 
         # Default SSH key
-        identityFile = "~/.ssh/id_rsa";
+        IdentityFile = "~/.ssh/id_rsa";
       };
 
       # GitHub
       "github.com" = {
-        host = "github.com";
-        user = "git";
-        identityFile = "~/.ssh/id_rsa";
-        identitiesOnly = true;
+        User = "git";
+        IdentityFile = "~/.ssh/id_rsa";
+        IdentitiesOnly = "yes";
       };
 
       # Gitea - Domain (External / Tailscale / Cloudflare)
       "gitea.itsjaylen.com" = {
-        host = "gitea.itsjaylen.com";
-        user = "git";
-        identityFile = "~/.ssh/id_rsa";
-        identitiesOnly = true;
-        # If running SSH on custom port (e.g., 2222), uncomment and change:
-        # port = 2222;
+        User = "git";
+        IdentityFile = "~/.ssh/id_rsa";
+        IdentitiesOnly = "yes";
       };
 
       # Gitea - Local LAN IP (Direct access)
       "192.168.50.123" = {
-        host = "192.168.50.123";
-        user = "git";
-        identityFile = "~/.ssh/id_rsa";
-        identitiesOnly = true;
+        User = "git";
+        IdentityFile = "~/.ssh/id_rsa";
+        IdentitiesOnly = "yes";
       };
 
       # Shortcuts for direct terminal access
       "lab" = {
-        hostname = "192.168.50.178";
-        user = "root";
-        identityFile = "~/.ssh/id_rsa";
+        HostName = "192.168.50.178";
+        User = "root";
+        IdentityFile = "~/.ssh/id_rsa";
       };
 
       "home-lab" = {
-        hostname = "192.168.50.232";
-        user = "jaylen";
-        identityFile = "~/.ssh/id_rsa";
+        HostName = "192.168.50.232";
+        User = "jaylen";
+        IdentityFile = "~/.ssh/id_rsa";
       };
     };
   };
