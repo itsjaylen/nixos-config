@@ -11,7 +11,6 @@ let
       fetchSubmodules = true;
     };
     
-    # Suppress GCC 15 strict array bounds checks on Boost headers
     NIX_CFLAGS_COMPILE = "-Wno-error=array-bounds -Wno-array-bounds";
   });
 in
