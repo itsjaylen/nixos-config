@@ -1,3 +1,21 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+laptop.qcow2
+result/
+||||||| parent of 91e4c16 (base config more)
 
 files/noctalia/plugins/
 hardware-configuration.nix
+=======
+desktop/hardware-configuration.nix
+*.qcow2
+/result
+>>>>>>> 91e4c16 (base config more)
+||||||| parent of 121ad01 (restructure: repair broken refs and update tracking)
+desktop/hardware-configuration.nix
+*.qcow2
+/result
+=======
+laptop.qcow2
+result/
+>>>>>>> 121ad01 (restructure: repair broken refs and update tracking)

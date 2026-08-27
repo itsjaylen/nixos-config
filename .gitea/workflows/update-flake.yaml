@@ -1,0 +1,39 @@
+name: Update flake.lock
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *" # Runs daily at 3:00 AM UTC
+
+jobs:
+  update-lockfile:
+    runs-on: ubuntu-latest # Change this to your self-hosted runner label if needed (e.g., [self-hosted, linux])
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITEATOKEN }}
+          ref: main
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Update flake.lock
+        run: |
+          git config --global user.name "Gitea Actions Bot"
+          git config --global user.email "actions@gitea.local"
+          
+          # Run the flake update
+          nix flake update
+
+      - name: Push changes and create branch
+        run: |
+          if git diff --quiet flake.lock; then
+            echo "No updates available for flake.lock."
+          else
+            git checkout -b flake-update
+            git add flake.lock
+            git commit -m "flake.lock: automated daily update"
+            git push origin flake-update --force
+            echo "Changes pushed to branch 'flake-update'."
+          fi

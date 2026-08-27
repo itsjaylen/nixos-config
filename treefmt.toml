@@ -1,0 +1,21 @@
+# Set the root of the project (uses git root by default)
+root-in-project = true
+
+# Define formatters and the files they apply to
+[formatter.nix]
+command = "nixfmt"
+includes = ["*.nix"]
+
+[formatter.lua]
+command = "stylua"
+includes = ["*.lua"]
+
+[formatter.go]
+command = "gofmt"
+options = ["-w"]
+includes = ["*.go"]
+
+[formatter.shell]
+command = "shfmt"
+options = ["-i", "2", "-s", "-w"]
+includes = ["*.sh"]
