@@ -14,13 +14,17 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
+        with:
+          # Injects your personal GitHub token into Nix's access-tokens config
+          extra-nix-config: |
+            access-tokens = github.com=${{ secrets.GH_ACCESS_TOKEN }}
 
       - name: Update flake.lock
         run: |
           git config --global user.name "Gitea Actions Bot"
           git config --global user.email "actions@gitea.local"
           
-          # Run the flake update
+          # Run the flake update (now authenticated via your GitHub token)
           nix flake update
 
       - name: Push changes and create branch
