@@ -15,7 +15,7 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
         with:
-          # Injects your personal GitHub token into Nix's access-tokens config
+          # Injects your GitHub Personal Access Token to bypass the 403 rate limit
           extra-nix-config: |
             access-tokens = github.com=${{ secrets.GH_ACCESS_TOKEN }}
 
@@ -24,10 +24,10 @@ jobs:
           git config --global user.name "Gitea Actions Bot"
           git config --global user.email "actions@gitea.local"
           
-          # Run the flake update (now authenticated via your GitHub token)
+          # Run the flake update
           nix flake update
 
-      - name: Push changes and create branch
+      - name: Push changes and create Pull Request
         env:
           TOKEN: ${{ secrets.REGISTRY_TOKEN }}
         run: |
@@ -38,8 +38,22 @@ jobs:
             git add flake.lock
             git commit -m "flake.lock: automated daily update"
             
-            # Uses http:// and your token to push back to your local Gitea instance
+            # Configure remote and push branch to local Gitea instance
             git remote set-url origin http://oauth2:$TOKEN@192.168.50.123:3000/itsjaylen/nixos-config.git
             git push origin flake-update --force
             echo "Changes pushed to branch 'flake-update'."
+
+            # Automatically create a Pull Request via Gitea API
+            curl -s -X POST \
+              -H "Authorization: token $TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "base": "master",
+                "head": "flake-update",
+                "title": "flake.lock: automated daily update",
+                "body": "Automated daily update of flake.lock via Gitea Actions."
+              }' \
+              http://192.168.50.123:3000/api/v1/repos/itsjaylen/nixos-config/pulls
+            
+            echo "Pull Request created successfully!"
           fi
