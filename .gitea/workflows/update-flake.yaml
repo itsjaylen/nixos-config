@@ -7,13 +7,11 @@ on:
 
 jobs:
   update-lockfile:
-    runs-on: ubuntu-latest # Change this to your self-hosted runner label if needed (e.g., [self-hosted, linux])
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.REGISTRY_TOKEN }}
-          ref: main
+        # Removed the 'token:' line so it uses default local runner authentication
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
@@ -22,11 +20,12 @@ jobs:
         run: |
           git config --global user.name "Gitea Actions Bot"
           git config --global user.email "actions@gitea.local"
-          
-          # Run the flake update
           nix flake update
 
       - name: Push changes and create branch
+        env:
+          # Pass your token securely down to git push via environment variables
+          TOKEN: ${{ secrets.REGISTRY_TOKEN }}
         run: |
           if git diff --quiet flake.lock; then
             echo "No updates available for flake.lock."
@@ -34,6 +33,9 @@ jobs:
             git checkout -b flake-update
             git add flake.lock
             git commit -m "flake.lock: automated daily update"
+            
+            # Use the token to authenticate the push back to your local gitea
+            git remote set-url origin https://oauth2:$TOKEN@192.168.50.123:3000/itsjaylen/nixos-config.git
             git push origin flake-update --force
             echo "Changes pushed to branch 'flake-update'."
           fi
