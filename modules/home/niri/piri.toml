@@ -1,14 +1,20 @@
+# https://github.com/Asthestarsfalll/piri
 [piri.plugins]
 scratchpads = true
+empty = true
 
 [piri.scratchpad]
 default_size = "40% 60%"
 default_margin = 50
-move_to_workspace = "tmp" # 窗口隐藏后自动移动到工作区 tmp
+move_to_workspace = "tmp"
 
 [scratchpads.term]
 direction = "fromRight"
-command = "kitty"
+command = "kitty --class float.dropterm"
 app_id = "float.dropterm"
 size = "40% 60%"
 margin = 50
+auto_hide_on_focus_loss = true
+
+[empty]
+command = "kitty -e"

@@ -19,4 +19,11 @@
           xray false
       }
   }
+
+  window-rule {
+        match app-id="scratchpad-term"
+        open-floating true
+        default-column-width { fixed 1200; }
+        default-window-height { fixed 700; }
+    }
 ''
