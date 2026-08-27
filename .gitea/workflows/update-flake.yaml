@@ -14,16 +14,21 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
-        with:
-          # Pass your GitHub PAT here so the installer configures Nix authentication automatically
-          github-token: ${{ secrets.GH_ACCESS_TOKEN }}
+
+      - name: Configure Nix Authentication
+        run: |
+          # Create the Nix config directory if it doesn't exist
+          mkdir -p ~/.config/nix
+          
+          # Write the GitHub access token directly to Nix configuration
+          echo "access-tokens = github.com=${{ secrets.GH_ACCESS_TOKEN }}" >> ~/.config/nix/nix.conf
 
       - name: Update flake.lock
         run: |
           git config --global user.name "Gitea Actions Bot"
           git config --global user.email "actions@gitea.local"
           
-          # Run the flake update (now properly authenticated)
+          # Run the flake update with the persistent config token in place
           nix flake update
 
       - name: Push changes and create Pull Request
