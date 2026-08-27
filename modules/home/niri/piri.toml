@@ -1,0 +1,14 @@
+[piri.plugins]
+scratchpads = true
+
+[piri.scratchpad]
+default_size = "40% 60%"
+default_margin = 50
+move_to_workspace = "tmp" # 窗口隐藏后自动移动到工作区 tmp
+
+[scratchpads.term]
+direction = "fromRight"
+command = "kitty"
+app_id = "float.dropterm"
+size = "40% 60%"
+margin = 50

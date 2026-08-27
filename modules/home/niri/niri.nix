@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -12,8 +12,7 @@
     glib
     wayland
     direnv
+    inputs.niri-session-manager.packages.${pkgs.system}.default
+    inputs.piri.packages.${pkgs.system}.default
   ];
-
-  # Do NOT use inputs.niri.homeModules.niri or programs.niri.settings here
-  # Keep config.nix, binds.nix, and rules.nix in default.nix as you currently have them.
 }

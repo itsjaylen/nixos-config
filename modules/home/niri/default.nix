@@ -21,4 +21,8 @@ in
     source = ./scripts/uploader.sh;
     executable = true;
   };
+
+  xdg.configFile."niri/piri.toml" = {
+    source = ./piri.toml;
+  };
 }

@@ -20,10 +20,10 @@ in
 
   home.packages = with pkgs; [
     ## Multimedia
-    gimp
     media-downloader
     pavucontrol
     video-trimmer
+    gpu-screen-recorder-gtk
 
     ## Office
     libreoffice

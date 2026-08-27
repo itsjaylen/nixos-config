@@ -54,6 +54,17 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    niri-session-manager = {
+      url = "github:MTeaHead/niri-session-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Added piri input here:
+    piri = {
+      url = "github:Asthestarsfalll/piri";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
