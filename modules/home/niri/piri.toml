@@ -1,7 +1,5 @@
-# https://github.com/Asthestarsfalll/piri
 [piri.plugins]
 scratchpads = true
-empty = true
 
 [piri.scratchpad]
 default_size = "40% 60%"
@@ -15,6 +13,3 @@ app_id = "float.dropterm"
 size = "40% 60%"
 margin = 50
 auto_hide_on_focus_loss = true
-
-[empty]
-command = "kitty -e"

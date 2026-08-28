@@ -23,5 +23,6 @@
     # ./qmk.nix
     ./piper.nix
     ./nvidia.nix
+    ./niri-session-manager.nix
   ];
 }
