@@ -122,7 +122,7 @@
           deadnix
           nixfmt
           taplo
-          gofmt
+          go
           shfmt
         ];
         settings.treefmt.configFiles = [ ./treefmt.toml ];
