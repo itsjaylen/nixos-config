@@ -13,32 +13,32 @@ TARGET_HOST=""
 
 # Parse positional arguments
 while [[ $# -gt 0 ]]; do
-    case "$1" in
-        dry-build|dry)
-            MODE="dry-build"
-            shift
-            ;;
-        test)
-            MODE="test"
-            shift
-            ;;
-        boot)
-            MODE="boot"
-            shift
-            ;;
-        switch)
-            MODE="switch"
-            shift
-            ;;
-        vm)
-            MODE="vm"
-            shift
-            ;;
-        *)
-            TARGET_HOST="$1"
-            shift
-            ;;
-    esac
+  case "$1" in
+  dry-build | dry)
+    MODE="dry-build"
+    shift
+    ;;
+  test)
+    MODE="test"
+    shift
+    ;;
+  boot)
+    MODE="boot"
+    shift
+    ;;
+  switch)
+    MODE="switch"
+    shift
+    ;;
+  vm)
+    MODE="vm"
+    shift
+    ;;
+  *)
+    TARGET_HOST="$1"
+    shift
+    ;;
+  esac
 done
 
 # Fallback to system hostname if no host argument was provided
@@ -49,28 +49,28 @@ echo -e "${BLUE}==> Preparing Nix flake (Mode: ${GREEN}$MODE${BLUE}, Host: ${GRE
 HOST_DIR="hosts/$HOSTNAME"
 
 if [ -d "$HOST_DIR" ]; then
-    if [ ! -f "$HOST_DIR/hardware-configuration.nix" ]; then
-        echo -e "${BLUE}==> Generating $HOST_DIR/hardware-configuration.nix...${NC}"
-        sudo nixos-generate-config --show-hardware-config > "$HOST_DIR/hardware-configuration.nix"
-    fi
+  if [ ! -f "$HOST_DIR/hardware-configuration.nix" ]; then
+    echo -e "${BLUE}==> Generating $HOST_DIR/hardware-configuration.nix...${NC}"
+    sudo nixos-generate-config --show-hardware-config >"$HOST_DIR/hardware-configuration.nix"
+  fi
 else
-    echo -e "${RED}==> Warning: Host directory '$HOST_DIR' does not exist.${NC}"
-    echo -e "${BLUE}==> Proceeding, but ensure '$HOSTNAME' is defined in flake.nix.${NC}"
+  echo -e "${RED}==> Warning: Host directory '$HOST_DIR' does not exist.${NC}"
+  echo -e "${BLUE}==> Proceeding, but ensure '$HOSTNAME' is defined in flake.nix.${NC}"
 fi
 
 # Track newly generated and untracked files in Git so Nix Flakes can evaluate them
 if [ -d ".git" ]; then
-    echo -e "${BLUE}==> Tracking untracked files for Nix flake evaluation...${NC}"
-    git add -A
+  echo -e "${BLUE}==> Tracking untracked files for Nix flake evaluation...${NC}"
+  git add -A
 fi
 
 # Execute mode logic
 if [ "$MODE" = "vm" ]; then
-    echo -e "${BLUE}==> Building QEMU VM for '$HOSTNAME'...${NC}"
-    nixos-rebuild build-vm --flake ".#$HOSTNAME" --accept-flake-config
-    echo -e "${GREEN}==> VM build complete! Run with: ./result/bin/run-$HOSTNAME-vm${NC}"
+  echo -e "${BLUE}==> Building QEMU VM for '$HOSTNAME'...${NC}"
+  nixos-rebuild build-vm --flake ".#$HOSTNAME" --accept-flake-config
+  echo -e "${GREEN}==> VM build complete! Run with: ./result/bin/run-$HOSTNAME-vm${NC}"
 else
-    echo -e "${BLUE}==> Running nixos-rebuild $MODE for '$HOSTNAME'...${NC}"
-    sudo nixos-rebuild "$MODE" --flake ".#$HOSTNAME" --accept-flake-config
-    echo -e "${GREEN}==> Operation '$MODE' for '$HOSTNAME' completed successfully! 🎉${NC}"
+  echo -e "${BLUE}==> Running nixos-rebuild $MODE for '$HOSTNAME'...${NC}"
+  sudo nixos-rebuild "$MODE" --flake ".#$HOSTNAME" --accept-flake-config
+  echo -e "${GREEN}==> Operation '$MODE' for '$HOSTNAME' completed successfully! 🎉${NC}"
 fi

@@ -1,4 +1,9 @@
-{ pkgs, inputs, username, ... }:
+{
+  pkgs,
+  inputs,
+  username,
+  ...
+}:
 {
   nixpkgs.overlays = [
     inputs.millennium.overlays.default

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.custom.power;
@@ -23,7 +28,10 @@ in
 
     boot = {
       kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
-      kernelModules = [ "hid-nintendo" "acpi_call" ];
+      kernelModules = [
+        "hid-nintendo"
+        "acpi_call"
+      ];
       extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
       supportedFilesystems = [ "ntfs" ];
     };
@@ -71,23 +79,23 @@ in
 
     # VM overrides inside config block
     virtualisation.vmVariant = {
-          virtualisation = {
-            memorySize = lib.mkForce 4096;
-            cores = 4;
-    
-            # Enable QEMU display window and virtio GPU
-            graphics = true;
-            qemu.options = [
-              "-vga virtio"
-              "-display sdl,gl=on" # or "-display default"
-            ];
-          };
-    
-          # Auto-login to bypass password/keyring prompts in test VM
-          services.displayManager.autoLogin = {
-            enable = true;
-            user = "jaylen";
-          };
-        };
+      virtualisation = {
+        memorySize = lib.mkForce 4096;
+        cores = 4;
+
+        # Enable QEMU display window and virtio GPU
+        graphics = true;
+        qemu.options = [
+          "-vga virtio"
+          "-display sdl,gl=on" # or "-display default"
+        ];
+      };
+
+      # Auto-login to bypass password/keyring prompts in test VM
+      services.displayManager.autoLogin = {
+        enable = true;
+        user = "jaylen";
+      };
+    };
   };
 }

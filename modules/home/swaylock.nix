@@ -36,14 +36,14 @@
       text-wrong-color = "FBF1C7FF";
 
       # Ring indicator states
-      ring-color = "689D6AFF";         # Aqua / Idle
-      ring-clear-color = "D65D0EFF";   # Orange / Clear
-      ring-ver-color = "B8BB26FF";     # Green / Verifying
-      ring-wrong-color = "CC241DFF";   # Red / Wrong key
+      ring-color = "689D6AFF"; # Aqua / Idle
+      ring-clear-color = "D65D0EFF"; # Orange / Clear
+      ring-ver-color = "B8BB26FF"; # Green / Verifying
+      ring-wrong-color = "CC241DFF"; # Red / Wrong key
 
       # Keypress highlights
-      key-hl-color = "FABD2FFF";       # Yellow / Character typed
-      bs-hl-color = "FB4934FF";        # Red / Backspace pressed
+      key-hl-color = "FABD2FFF"; # Yellow / Character typed
+      bs-hl-color = "FB4934FF"; # Red / Backspace pressed
 
       # Inside circle fills (Gruvbox Dark bg with ~86% opacity)
       inside-color = "3C3836DD";

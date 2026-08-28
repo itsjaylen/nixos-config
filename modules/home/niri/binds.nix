@@ -169,10 +169,10 @@
 
       // Save Replay Clip (Alt + F10) + Send Desktop Notification
       Alt+F10 { spawn "sh" "-c" "killall -SIGUSR1 gpu-screen-recorder && notify-send 'GPU Screen Recorder' 'Replay clip saved!' -i video-x-generic"; }
-  
+
       // Toggle Overlay / GUI Settings (Alt + Z) - Prevents duplicate windows
       Alt+Z { spawn "sh" "-c" "pkill gpu-screen-rec || gpu-screen-recorder-gtk"; }
-  
+
       // Toggle Manual Recording On/Off (Alt + F9)
       Alt+F9 { spawn "sh" "-c" "killall -SIGINT gpu-screen-recorder || gpu-screen-recorder -w DP-2 -f 60 -c mp4 -a default_output -o ~/Videos/Replays"; }
       

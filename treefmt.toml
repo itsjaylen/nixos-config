@@ -1,14 +1,28 @@
-# Set the root of the project (uses git root by default)
+# Set the root of the project
 root-in-project = true
 
-# Define formatters and the files they apply to
+# Global excludes so treefmt ignores build outputs or flake locks if desired
+excludes = [
+  "result",
+  "result-*",
+]
+
+# Clean up unused code/variables in Nix files
+[formatter.deadnix]
+command = "deadnix"
+options = ["--edit"]
+includes = ["*.nix"]
+
+# Format Nix files (you can swap "nixfmt" for "alejandra" if you prefer)
 [formatter.nix]
 command = "nixfmt"
 includes = ["*.nix"]
 
-[formatter.lua]
-command = "stylua"
-includes = ["*.lua"]
+# Format TOML configuration files
+[formatter.toml]
+command = "taplo"
+options = ["fmt"]
+includes = ["*.toml"]
 
 [formatter.go]
 command = "gofmt"

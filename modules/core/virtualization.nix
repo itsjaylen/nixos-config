@@ -42,7 +42,7 @@
     vmVariant = {
       virtualisation = {
         memorySize = 8192; # 8GB RAM
-        cores = 4;        # 4 CPU cores
+        cores = 4; # 4 CPU cores
       };
     };
   };

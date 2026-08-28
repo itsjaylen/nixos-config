@@ -31,8 +31,8 @@ PIPE_MODE=false
 
 for arg in "$@"; do
   case "$arg" in
-    --fast) FAST_MODE=true ;;
-    --pipe) PIPE_MODE=true ;;
+  --fast) FAST_MODE=true ;;
+  --pipe) PIPE_MODE=true ;;
   esac
 done
 
@@ -43,9 +43,9 @@ send_toast() {
   local icon="${4:-camera-photo}"
 
   case "$type" in
-    warning|error) urgency="critical" ;;
-    notice|info)   urgency="normal" ;;
-    *)              urgency="$type" ;;
+  warning | error) urgency="critical" ;;
+  notice | info) urgency="normal" ;;
+  *) urgency="$type" ;;
   esac
 
   local json
@@ -65,12 +65,12 @@ file=$(mktemp --suffix=.png /tmp/kappa_XXXXXX)
 
 # 1. Capture Image
 if [ "$PIPE_MODE" = true ]; then
-  cat > "$file"
+  cat >"$file"
 else
   grim -g "$(slurp)" "$file"
 fi
 
-if [[ ! -s "$file" ]]; then
+if [[ ! -s $file ]]; then
   send_toast "Screenshot" "Cancelled by user or capture failed" "low" "camera-photo"
   exit 1
 fi
@@ -80,12 +80,12 @@ upload_target="$file"
 # 2. Annotation Step (Only run if NOT in fast mode)
 if [ "$FAST_MODE" = false ]; then
   annotated_file=$(mktemp --suffix=.png /tmp/kappa_edited_XXXXXX)
-  
+
   # Run Satty
-  satty --filename "$file" --output-filename - --early-exit > "$annotated_file"
+  satty --filename "$file" --output-filename - --early-exit >"$annotated_file"
 
   # If closed without saving (Esc), cancel upload
-  if [[ ! -s "$annotated_file" ]]; then
+  if [[ ! -s $annotated_file ]]; then
     send_toast "Screenshot" "Annotation cancelled" "low" "camera-photo"
     exit 1
   fi
@@ -117,4 +117,4 @@ log_file="$LOG_DIR/$(date +%F).txt"
   echo "View:   $link"
   echo "Delete: $delete"
   echo ""
-} >> "$log_file"
+} >>"$log_file"

@@ -10,7 +10,7 @@ let
       hash = "sha256-5hAguANdB5YYq/iuL1EOmjxb25nxLM4nWl0BuNgfCpA=";
       fetchSubmodules = true;
     };
-    
+
     NIX_CFLAGS_COMPILE = "-Wno-error=array-bounds -Wno-array-bounds";
   });
 in

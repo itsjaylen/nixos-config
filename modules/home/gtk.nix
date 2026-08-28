@@ -34,12 +34,12 @@ in
       name = "Maple Mono";
       size = if (host == "p14s") then 14 else 12;
     };
-    
+
     theme = {
       name = gtk-theme-name;
       package = gtk-theme;
     };
-    
+
     iconTheme = {
       name = icon-theme-name;
       package = pkgs.papirus-icon-theme.override { color = "green"; };

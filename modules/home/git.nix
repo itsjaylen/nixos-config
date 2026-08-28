@@ -42,10 +42,10 @@
   };
 
   home.packages = with pkgs; [
-    gh        # GitHub CLI
-    lazygit   # Terminal TUI for Git (required for 'g' alias)
-    serie     # Rich terminal commit tree visualizer
-    diffnav   # Interactive diff pager
+    gh # GitHub CLI
+    lazygit # Terminal TUI for Git (required for 'g' alias)
+    serie # Rich terminal commit tree visualizer
+    diffnav # Interactive diff pager
   ];
 
   xdg.configFile."git/.gitignore".text = ''
