@@ -60,7 +60,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Added piri input here:
     piri = {
       url = "github:Asthestarsfalll/piri";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -116,6 +115,17 @@
             inherit self inputs username;
           };
         };
+      };
+
+      formatter.${system} = pkgs.treefmt.withConfig {
+        runtimeInputs = with pkgs; [
+          deadnix
+          nixfmt
+          taplo
+          gofmt
+          shfmt
+        ];
+        settings.treefmt.configFiles = [ ./treefmt.toml ];
       };
     };
 }
