@@ -1,18 +1,74 @@
-name: "Format Check"
+name: "Auto-Format & Merge"
 
 on:
   push:
+    branches:
+      - main # Change to your default branch if different
   pull_request:
 
 jobs:
-  treefmt:
+  format:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Install Nix
         uses: cachix/install-nix-action@v30
 
-      - name: Run treefmt via Nix
-        run: nix fmt -- --fail-on-change
+      - name: Run treefmt
+        run: nix fmt
+
+      - name: Check for changes, push, create PR, and merge
+        env:
+          GITEA_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          API_URL: ${{ github.api_url }}
+          TARGET_BRANCH: ${{ github.ref_name }}
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "Formatting changes detected. Creating auto-format PR..."
+            
+            git config --global user.name "Treefmt Bot"
+            git config --global user.email "bot@gitea.local"
+            
+            BRANCH_NAME="auto-format-${{ github.run_id }}"
+            git checkout -b "$BRANCH_NAME"
+            git commit -am "style: auto-format codebase via treefmt"
+            git push origin "$BRANCH_NAME"
+
+            # Create Pull Request via Gitea API
+            PR_RESPONSE=$(curl -s -X POST "$API_URL/repos/$REPO/pulls" \
+              -H "Authorization: token $GITEA_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{
+                \"head\": \"$BRANCH_NAME\",
+                \"base\": \"$TARGET_BRANCH\",
+                \"title\": \"style: automatic code formatting\",
+                \"body\": \"Automated formatting applied via treefmt and Nix CI.\"
+              }")
+
+            PR_NUMBER=$(echo "$PR_RESPONSE" | jq -r '.number')
+
+            if [[ "$PR_NUMBER" != "null" && -n "$PR_NUMBER" ]]; then
+              echo "Created PR #$PR_NUMBER. Merging automatically..."
+              
+              # Merge Pull Request via Gitea API
+              curl -s -X POST "$API_URL/repos/$REPO/pulls/$PR_NUMBER/merge" \
+                -H "Authorization: token $GITEA_TOKEN" \
+                -H "Content-Type: application/json" \
+                -d "{
+                  \"Do\": \"merge\",
+                  \"MergeTitleImp\": \"Auto-merge formatting PR #$PR_NUMBER\"
+                }"
+              echo "Successfully merged formatting changes."
+            else
+              echo "Failed to create PR. Response: $PR_RESPONSE"
+              exit 1
+            fi
+          else
+            echo "Code is already formatted correctly. No action needed."
+          fi
