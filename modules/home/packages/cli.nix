@@ -30,7 +30,9 @@
     yt-dlp-light
     mdcat
     p7zip
+    zip
     deadnix
+    golangci-lint
 
     ## TUI
     epy # ebook reader
