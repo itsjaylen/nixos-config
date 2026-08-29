@@ -3,8 +3,12 @@ name: "Auto-Format & Merge"
 on:
   push:
     branches:
-      - main # Change to your default branch if different
+      - main
   pull_request:
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   format:
@@ -24,25 +28,25 @@ jobs:
 
       - name: Check for changes, push, create PR, and merge
         env:
-          GITEA_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-          API_URL: ${{ github.api_url }}
           TARGET_BRANCH: ${{ github.ref_name }}
         run: |
           if [[ -n "$(git status --porcelain)" ]]; then
             echo "Formatting changes detected. Creating auto-format PR..."
             
             git config --global user.name "Treefmt Bot"
-            git config --global user.email "bot@gitea.local"
+            git config --global user.email "bot@github.local"
             
             BRANCH_NAME="auto-format-${{ github.run_id }}"
             git checkout -b "$BRANCH_NAME"
             git commit -am "style: auto-format codebase via treefmt"
             git push origin "$BRANCH_NAME"
 
-            # Create Pull Request via Gitea API
-            PR_RESPONSE=$(curl -s -X POST "$API_URL/repos/$REPO/pulls" \
-              -H "Authorization: token $GITEA_TOKEN" \
+            # Create Pull Request via GitHub REST API
+            PR_RESPONSE=$(curl -s -X POST "https://api.github.com/repos/$REPO/pulls" \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
               -H "Content-Type: application/json" \
               -d "{
                 \"head\": \"$BRANCH_NAME\",
@@ -56,14 +60,15 @@ jobs:
             if [[ "$PR_NUMBER" != "null" && -n "$PR_NUMBER" ]]; then
               echo "Created PR #$PR_NUMBER. Merging automatically..."
               
-              # Merge Pull Request via Gitea API
-              curl -s -X POST "$API_URL/repos/$REPO/pulls/$PR_NUMBER/merge" \
-                -H "Authorization: token $GITEA_TOKEN" \
+              # Merge Pull Request via GitHub REST API (using squash merge)
+              curl -s -X PUT "https://api.github.com/repos/$REPO/pulls/$PR_NUMBER/merge" \
+                -H "Authorization: Bearer $GH_TOKEN" \
+                -H "Accept: application/vnd.github+json" \
                 -H "Content-Type: application/json" \
-                -d "{
-                  \"Do\": \"merge\",
-                  \"MergeTitleImp\": \"Auto-merge formatting PR #$PR_NUMBER\"
-                }"
+                -d '{
+                  "merge_method": "squash",
+                  "commit_title": "style: automatic code formatting (squashed)"
+                }'
               echo "Successfully merged formatting changes."
             else
               echo "Failed to create PR. Response: $PR_RESPONSE"

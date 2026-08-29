@@ -5,35 +5,38 @@ on:
   schedule:
     - cron: "0 3 * * *" # Runs daily at 3:00 AM UTC
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-lockfile:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
 
       - name: Configure Nix Authentication
         run: |
-          # Create the Nix config directory if it doesn't exist
           mkdir -p ~/.config/nix
-          
-          # Write the GitHub access token directly to Nix configuration
-          echo "access-tokens = github.com=${{ secrets.GH_ACCESS_TOKEN }}" >> ~/.config/nix/nix.conf
+          echo "access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}" >> ~/.config/nix/nix.conf
 
       - name: Update flake.lock
         run: |
-          git config --global user.name "Gitea Actions Bot"
-          git config --global user.email "actions@gitea.local"
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.local"
           
-          # Run the flake update with the persistent config token in place
           nix flake update
 
       - name: Push changes and create Pull Request
         env:
-          TOKEN: ${{ secrets.REGISTRY_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
         run: |
           if git diff --quiet flake.lock; then
             echo "No updates available for flake.lock."
@@ -42,22 +45,21 @@ jobs:
             git add flake.lock
             git commit -m "flake.lock: automated daily update"
             
-            # Configure remote and push branch to local Gitea instance
-            git remote set-url origin http://oauth2:$TOKEN@192.168.50.123:3000/itsjaylen/nixos-config.git
             git push origin flake-update --force
             echo "Changes pushed to branch 'flake-update'."
 
-            # Automatically create a Pull Request via Gitea API
+            # Automatically create a Pull Request via GitHub API
             curl -s -X POST \
-              -H "Authorization: token $TOKEN" \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
               -H "Content-Type: application/json" \
               -d '{
-                "base": "master",
+                "base": "main",
                 "head": "flake-update",
                 "title": "flake.lock: automated daily update",
-                "body": "Automated daily update of flake.lock via Gitea Actions."
+                "body": "Automated daily update of flake.lock via GitHub Actions."
               }' \
-              http://192.168.50.123:3000/api/v1/repos/itsjaylen/nixos-config/pulls
+              https://api.github.com/repos/$REPO/pulls
             
             echo "Pull Request created successfully!"
           fi
