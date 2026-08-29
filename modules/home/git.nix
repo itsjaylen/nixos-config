@@ -20,7 +20,6 @@
       url = {
         "git@github.com:".insteadOf = [
           "gh:"
-          "https://github.com/"
         ];
         "git@github.com:itsjaylen/".insteadOf = "ij:";
       };
@@ -42,10 +41,10 @@
   };
 
   home.packages = with pkgs; [
-    gh # GitHub CLI
-    lazygit # Terminal TUI for Git (required for 'g' alias)
-    serie # Rich terminal commit tree visualizer
-    diffnav # Interactive diff pager
+    gh
+    lazygit
+    serie
+    diffnav
   ];
 
   xdg.configFile."git/.gitignore".text = ''
