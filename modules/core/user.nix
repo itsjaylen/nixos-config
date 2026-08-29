@@ -7,9 +7,9 @@
   ...
 }:
 {
-  imports = lib.optionals (host != "server") [
+  imports = if host != "server" then [
     inputs.home-manager.nixosModules.home-manager
-  ];
+  ] else [];
 
   home-manager = lib.mkIf (host != "server") {
     useUserPackages = true;
@@ -37,8 +37,6 @@
     shell = pkgs.fish;
   };
 
-  # Required so NixOS registers fish as a valid login shell
   programs.fish.enable = true;
-
   nix.settings.allowed-users = [ "${username}" ];
 }
