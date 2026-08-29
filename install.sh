@@ -48,14 +48,16 @@ echo -e "${BLUE}==> Preparing Nix flake (Mode: ${GREEN}$MODE${BLUE}, Host: ${GRE
 
 HOST_DIR="hosts/$HOSTNAME"
 
-if [ -d "$HOST_DIR" ]; then
-  if [ ! -f "$HOST_DIR/hardware-configuration.nix" ]; then
-    echo -e "${BLUE}==> Generating $HOST_DIR/hardware-configuration.nix...${NC}"
-    sudo nixos-generate-config --show-hardware-config >"$HOST_DIR/hardware-configuration.nix"
-  fi
-else
-  echo -e "${RED}==> Warning: Host directory '$HOST_DIR' does not exist.${NC}"
-  echo -e "${BLUE}==> Proceeding, but ensure '$HOSTNAME' is defined in flake.nix.${NC}"
+# Automatically create the host directory if it doesn't exist yet
+if [ ! -d "$HOST_DIR" ]; then
+  echo -e "${BLUE}==> Creating missing host directory '$HOST_DIR'...${NC}"
+  mkdir -p "$HOST_DIR"
+fi
+
+# Generate hardware-configuration.nix if it's missing
+if [ ! -f "$HOST_DIR/hardware-configuration.nix" ]; then
+  echo -e "${BLUE}==> Generating $HOST_DIR/hardware-configuration.nix...${NC}"
+  sudo nixos-generate-config --show-hardware-config >"$HOST_DIR/hardware-configuration.nix"
 fi
 
 # Track newly generated and untracked files in Git so Nix Flakes can evaluate them
