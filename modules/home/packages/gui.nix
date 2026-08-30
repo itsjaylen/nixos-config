@@ -11,7 +11,6 @@ in
     enable = true;
     package = obs-cuda;
     plugins = with pkgs.obs-studio-plugins; [
-      wlrobs
       obs-pipewire-audio-capture
       obs-vkcapture
       obs-vaapi # Hardware acceleration & PipeWire capture support

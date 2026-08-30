@@ -1,12 +1,15 @@
 { pkgs, username, ... }:
 {
+  # Enable virt-manager service integration
+  programs.virt-manager.enable = true;
+
   # Add user to virtualization and container groups
   users.users.${username}.extraGroups = [
     "libvirtd"
     "docker"
   ];
 
-  # Install necessary packages for VM management and guest interaction
+  # Install necessary packages for VM management, guest interaction, and networking
   environment.systemPackages = with pkgs; [
     virt-manager
     virt-viewer
@@ -16,6 +19,7 @@
     virtio-win
     win-spice
     adwaita-icon-theme
+    dnsmasq # Required for libvirt default network DHCP/DNS
   ];
 
   # Manage virtualization daemons and hypervisor options
@@ -49,4 +53,7 @@
 
   # Enables SPICE agent daemon for seamless clipboard sharing and auto-resizing
   services.spice-vdagentd.enable = true;
+
+  # Optional: Trust the libvirt bridge interface to prevent firewall blocking
+  networking.firewall.trustedInterfaces = [ "virbr0" ];
 }

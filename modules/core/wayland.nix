@@ -39,30 +39,23 @@
 
   # XDG Desktop Portals configuration
   xdg.portal = {
-    enable = true;
-    wlr.enable = false;
-
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gnome
-      pkgs.kdePackages.xdg-desktop-portal-kde
-      pkgs.xdg-desktop-portal-gtk
-    ];
-
-    config = {
-      niri = {
-        # Use KDE for file dialogs, GNOME for screencasting, GTK for fallback
-        "org.freedesktop.impl.portal.Screencast" = [ "gnome" ];
-        "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];
-        default = lib.mkForce [
-          "kde"
-          "gtk"
-        ];
-      };
-      common = {
-        default = [ "gtk" ];
+      enable = true;
+      wlr.enable = true;
+  
+      extraPortals = [
+        pkgs.xdg-desktop-portal-wlr
+        pkgs.kdePackages.xdg-desktop-portal-kde
+        pkgs.xdg-desktop-portal-gtk
+      ];
+  
+      config = {
+        niri = lib.mkForce {
+          default = [ "wlr" "kde" "gtk" ];
+          "org.freedesktop.impl.portal.Screencast" = [ "wlr" ];
+          "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+        };
       };
     };
-  };
 
   # Enable D-Bus service for system communication and portals
   services.dbus.enable = true;

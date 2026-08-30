@@ -16,7 +16,6 @@ in
     ${niriRules}
   '';
 
-  # Copy and set execution permissions for the script
   xdg.configFile."niri/scripts/uploader.sh" = {
     source = ./scripts/uploader.sh;
     executable = true;

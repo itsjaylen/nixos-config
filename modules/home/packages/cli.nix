@@ -68,6 +68,7 @@
     xdg-utils
 
     winetricks
+    protontricks
     wineWow64Packages.waylandFull
   ];
 }
