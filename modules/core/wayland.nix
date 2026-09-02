@@ -37,22 +37,28 @@
     wl-clipboard
   ];
 
-  # XDG Desktop Portals configuration
-  xdg.portal = {
-      enable = true;
-      wlr.enable = true;
+  # D-Bus configuration
+    services.dbus = {
+      implementation = "broker";
+      packages = [ pkgs.nautilus ];
+    };
   
-      extraPortals = [
-        pkgs.xdg-desktop-portal-wlr
-        pkgs.kdePackages.xdg-desktop-portal-kde
-        pkgs.xdg-desktop-portal-gtk
-      ];
-  
-      config = {
-        niri = lib.mkForce {
-          default = [ "wlr" "kde" "gtk" ];
-          "org.freedesktop.impl.portal.Screencast" = [ "wlr" ];
-          "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+    # XDG Desktop Portals configuration (using Hyprland's portal for Niri to avoid wlr's first-frame bug)
+    xdg = {
+      mime.enable = true;
+      portal = {
+        enable = true;
+        xdgOpenUsePortal = true;
+        extraPortals = lib.mkForce [
+          pkgs.xdg-desktop-portal-hyprland
+          pkgs.xdg-desktop-portal-gtk
+        ];
+        config = {
+          niri = lib.mkForce {
+            default = [ "hyprland" "gtk" ];
+            "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
+            "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
+          };
         };
       };
     };
