@@ -2,7 +2,7 @@
   services.loki = {
     enable = true;
     configuration = {
-      server.http_port = 3100;
+      server.http_listen_port = 3100;
       auth_enabled = false;
       common = {
         path_prefix = "/var/lib/loki";
