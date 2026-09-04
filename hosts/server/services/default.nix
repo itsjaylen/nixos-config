@@ -8,5 +8,6 @@
     ./glance.nix
     ./prometheus.nix
     ./grafana.nix
+    ./loki.nix
   ];
 }
