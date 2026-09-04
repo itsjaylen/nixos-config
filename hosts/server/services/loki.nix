@@ -23,11 +23,9 @@
     };
   };
 
-  # Modern replacement for Promtail
   services.alloy = {
     enable = true;
-    extraFlags = [ ];
-    config = ''
+    configPath = pkgs.writeText "config.alloy" ''
       loki.relabel "journal" {
         rule {
           source_labels = ["__journal__systemd_unit"]
@@ -41,12 +39,6 @@
         rule {
           source_labels = ["__journal__systemd_unit"]
           target_label  = "unit"
-        }
-      }
-
-      lokirewrite "journal" {
-        endpoint {
-          url = "http://127.0.0.1:3100/loki/api/v1/push"
         }
       }
 
