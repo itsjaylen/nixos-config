@@ -39,6 +39,9 @@
   users.groups.minecraft = {};
 
   programs.fish.enable = true;
+  programs.fish.shellAliases = {
+    restic-garage = "sudo env (sudo cat /run/secrets/rendered/restic-env | string match -v '^#*') restic -r s3:http://127.0.0.1:3900/my-bucket";
+  };
 
   nix.settings.allowed-users = [ "@wheel" ];
 

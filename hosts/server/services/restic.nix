@@ -23,11 +23,23 @@
       # Feed decrypted S3 credentials and repository password
       environmentFile = config.sops.templates."restic-env".path;
 
+      # Dump PostgreSQL prior to snapshotting
+      backupPrepareCommand = ''
+        ${pkgs.coreutils}/bin/mkdir -p /var/backup/postgresql
+        ${pkgs.postgresql}/bin/pg_dumpall -U postgres | ${pkgs.gzip}/bin/gzip > /var/backup/postgresql/dump.sql.gz
+      '';
+
+      # Remove local dump file after backup completes
+      backupCleanupCommand = ''
+        ${pkgs.coreutils}/bin/rm -f /var/backup/postgresql/dump.sql.gz
+      '';
+
       # What paths/services to back up
       paths = [
+        "/var/backup/postgresql"
         "/var/lib/gitea"
         "/var/lib/minecraft"
-        "/etc/nixos"
+        "/home/jaylen/nixos-config"
       ];
 
       # Backup schedule (Daily at 2:00 AM)
