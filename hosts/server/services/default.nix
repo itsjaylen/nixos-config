@@ -3,5 +3,6 @@
     ./postgresql.nix
     ./gitea.nix
     ./cloudflared.nix
+    ./garage.nix
   ];
 }
