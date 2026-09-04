@@ -4,5 +4,6 @@
     ./gitea.nix
     ./cloudflared.nix
     ./garage.nix
+    ./restic.nix
   ];
 }
