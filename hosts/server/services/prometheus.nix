@@ -4,9 +4,6 @@
     enable = true;
     port = 9100;
     enabledCollectors = [ "cpu" "stat" "systemd" "diskstats" "filesystem" "meminfo" "netdev" ];
-        extraFlags = [
-          "--collector.systemd.include=(gitea|postgresql|grafana|prometheus|sshd)\\.service"
-        ];
   };
 
   # PostgreSQL metric exporter
