@@ -4,7 +4,7 @@
     content = ''
       GARAGE_RPC_SECRET=${config.sops.placeholder.garage_rpc_secret}
     '';
-    owner = "garage";
+    owner = "root"; # Changed from "garage" to "root"
   };
 
   services.garage = {
