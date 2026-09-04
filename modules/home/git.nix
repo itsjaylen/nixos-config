@@ -5,6 +5,10 @@
     Host github.com
       User git
       IdentityFile ~/.ssh/id_ed25519
+
+    Host git.itsjaylen.com
+      User git
+      IdentityFile ~/.ssh/id_ed25519
   '';
 
   programs.git = {
@@ -28,6 +32,12 @@
           "gh:"
         ];
         "git@github.com:itsjaylen/".insteadOf = "ij:";
+
+        # Gitea shorthands
+        "git@git.itsjaylen.com:".insteadOf = [
+          "gt:"
+        ];
+        "git@git.itsjaylen.com:itsjaylen/".insteadOf = "gtj:";
       };
 
       core.excludesFile = "${config.xdg.configHome}/git/.gitignore";
