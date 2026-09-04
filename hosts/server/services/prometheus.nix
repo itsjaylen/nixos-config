@@ -1,9 +1,15 @@
-{ ... }: {
-  # Hardware & system metric exporter
+{ config, pkgs, ... }: {
   services.prometheus.exporters.node = {
     enable = true;
     enabledCollectors = [ "systemd" "diskstats" "filesystem" "meminfo" "netdev" ];
     port = 9100;
+  };
+
+  # PostgreSQL metric exporter
+  services.prometheus.exporters.postgres = {
+    enable = true;
+    port = 9187;
+    dataSourceName = "postgresql:///postgres?host=/run/postgresql&sslmode=disable";
   };
 
   # Main Prometheus daemon
@@ -24,8 +30,14 @@
           { targets = [ "127.0.0.1:3000" ]; }
         ];
       }
+      {
+        job_name = "postgres";
+        static_configs = [
+          { targets = [ "127.0.0.1:9187" ]; }
+        ];
+      }
     ];
   };
 
-  networking.firewall.allowedTCPPorts = [ 9090 9100 ];
+  networking.firewall.allowedTCPPorts = [ 9090 9100 9187 ];
 }

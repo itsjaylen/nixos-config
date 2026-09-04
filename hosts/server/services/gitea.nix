@@ -20,6 +20,9 @@
       service = {
         DISABLE_REGISTRATION = false;
       };
+      metrics = {
+        ENABLED = true;
+      };
     };
   };
 
