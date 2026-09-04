@@ -40,10 +40,8 @@
 
   programs.fish.enable = true;
 
-  # Nix settings
   nix.settings.allowed-users = [ "@wheel" ];
 
-  # Server overrides
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
   boot.tmp.useTmpfs = lib.mkForce false;
 }
