@@ -1,7 +1,15 @@
 { config, pkgs, ... }: {
+  # Format secret as an environment variable file for Garage
+  sops.templates."garage-env" = {
+    content = ''
+      GARAGE_RPC_SECRET=${config.sops.placeholder.garage_rpc_secret}
+    '';
+    owner = "garage";
+  };
+
   services.garage = {
     enable = true;
-    package = pkgs.garage; # Fixes the missing package definition
+    package = pkgs.garage;
 
     settings = {
       replication_factor = 1;
@@ -19,6 +27,11 @@
         metadata_dir = "/var/lib/garage/meta";
       };
     };
+  };
+
+  # Feed the sops template into garage.service
+  systemd.services.garage.serviceConfig = {
+    EnvironmentFile = config.sops.templates."garage-env".path;
   };
 
   networking.firewall.allowedTCPPorts = [ 3900 ];

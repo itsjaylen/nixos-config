@@ -28,7 +28,8 @@
         owner = "jaylen";
         group = "users";
       };
-      
+      # Declare garage_rpc_secret here so sops-nix decrypts it
+      "garage_rpc_secret" = { };
     };
   };
 
