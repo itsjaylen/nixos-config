@@ -13,7 +13,7 @@
     settings = {
       server = {
         HTTP_PORT = 3000;
-        HTTP_ADDR = "127.0.0.1";
+        HTTP_ADDR = "0.0.0.0";
         ROOT_URL = "http://localhost:3000/"; # Replace with Cloudflare domain URL
         SSH_PORT = 2222;
       };
@@ -23,5 +23,6 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 2222 ];
+  # Allow HTTP and SSH ports for Gitea
+  networking.firewall.allowedTCPPorts = [ 3000 2222 ];
 }
