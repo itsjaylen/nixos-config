@@ -1,8 +1,7 @@
 { config, pkgs, ... }: {
-  # Hardware & system metric exporter
+  # Hardware & system metric exporter (using default collectors)
   services.prometheus.exporters.node = {
     enable = true;
-    enabledCollectors = [ "cpu" "stat" "systemd" "diskstats" "filesystem" "meminfo" "netdev" ];
     port = 9100;
   };
 
