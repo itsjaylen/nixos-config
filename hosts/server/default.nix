@@ -12,7 +12,6 @@
     ../../modules/home/bat.nix
     ../../modules/home/direnv.nix
     ../../modules/home/btop.nix
-    ../../modules/home/superfine
     ../../modules/home/fzf.nix
   ];
 
