@@ -33,6 +33,7 @@
       "garage_s3_secret_key" = { };
       "restic_password" = { };
       "grafana_admin_password" = { };
+      "grafana_secret_key" = { };
     };
   };
 
