@@ -23,6 +23,10 @@
         secret_key = "$__file{${config.sops.secrets."grafana_secret_key".path}}";
         cookie_secure = false;
       };
+      "auth.anonymous" = {
+        enabled = true;
+        org_role = "Viewer";
+      };
     };
   };
 
