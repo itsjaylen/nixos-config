@@ -21,7 +21,11 @@
                       title = "Core Infrastructure";
                       sites = [
                         { title = "Gitea"; url = "http://localhost:3000"; }
-                        { title = "Garage S3"; url = "http://localhost:3900"; }
+                        { 
+                          title = "Garage S3"; 
+                          url = "http://localhost:3900"; 
+                          alt-status-codes = [ 403 ]; 
+                        }
                         { title = "Grafana"; url = "http://localhost:3001"; }
                       ];
                     }

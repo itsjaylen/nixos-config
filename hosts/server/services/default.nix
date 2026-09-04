@@ -9,5 +9,6 @@
     ./prometheus.nix
     ./grafana.nix
     ./loki.nix
+    ./adguard.nix
   ];
 }
