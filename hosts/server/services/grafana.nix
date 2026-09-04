@@ -2,9 +2,6 @@
   services.grafana = {
     enable = true;
 
-    # Secret file containing environment variables for Grafana
-    secretFile = config.sops.templates."grafana-env".path;
-
     settings = {
       server = {
         http_addr = "0.0.0.0";
@@ -31,7 +28,9 @@
     };
   };
 
-  # Generate environment variable file for Grafana systemd service
+  # Pass decrypted environment file containing GF_SECURITY_SECRET_KEY to systemd
+  systemd.services.grafana.serviceConfig.EnvironmentFile = config.sops.templates."grafana-env".path;
+
   sops.templates."grafana-env" = {
     content = ''
       GF_SECURITY_SECRET_KEY=${config.sops.placeholder.grafana_secret_key}
