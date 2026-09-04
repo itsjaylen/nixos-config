@@ -23,27 +23,46 @@
     };
   };
 
-  services.promtail = {
+  # Modern replacement for Promtail
+  services.alloy = {
     enable = true;
-    configuration = {
-      server = {
-        http_port = 3032;
-        grpc_port = 0;
-      };
-      clients = [{ url = "http://127.0.0.1:3100/loki/api/v1/push"; }];
-      scrape_configs = [{
-        job_name = "journal";
-        journal = {
-          max_age = "12h";
-          path = "/var/log/journal";
-          labels = { job = "systemd-journal"; };
-        };
-        relabel_configs = [{
-          source_labels = [ "__journal__systemd_unit" ];
-          target_label = "unit";
-        }];
-      }];
-    };
+    extraFlags = [ ];
+    config = ''
+      loki.relabel "journal" {
+        rule {
+          source_labels = ["__journal__systemd_unit"]
+          target_label  = "unit"
+        }
+      }
+
+      discovery.relabel "journal" {
+        targets = []
+
+        rule {
+          source_labels = ["__journal__systemd_unit"]
+          target_label  = "unit"
+        }
+      }
+
+      lokirewrite "journal" {
+        endpoint {
+          url = "http://127.0.0.1:3100/loki/api/v1/push"
+        }
+      }
+
+      loki.source.journal "journal" {
+        max_age   = "12h"
+        path      = "/var/log/journal"
+        relabel_rules = loki.relabel.journal.rules
+        forward_to = [loki.write.endpoint.receiver]
+      }
+
+      loki.write "endpoint" {
+        endpoint {
+          url = "http://127.0.0.1:3100/loki/api/v1/push"
+        }
+      }
+    '';
   };
 
   networking.firewall.allowedTCPPorts = [ 3100 ];
