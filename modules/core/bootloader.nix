@@ -7,9 +7,20 @@
       systemd-boot.configurationLimit = 10;
     };
 
-    # Point to xddxdd's CachyOS kernel variant
     kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
 
     supportedFilesystems = [ "ntfs" ];
+
+    # Save SSD writes by mounting /tmp in RAM
+    tmp = {
+      useTmpfs = true;
+      tmpfsSize = "32G"; 
+    };
+  };
+
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+    priority = 5;
   };
 }

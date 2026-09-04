@@ -1,29 +1,13 @@
-{ ... }:
+{ lib, ... }:
+
 {
-  imports = [
-    ./nixpkgs.nix
-    ./bootloader.nix
-    ./torrent.nix
-    ./hardware.nix
-    ./xserver.nix
-    ./network.nix
-    ./bluetooth.nix
-    ./fonts.nix
-    ./nh.nix
-    ./pipewire.nix
-    ./program.nix
-    ./sops.nix
-    ./security.nix
-    ./services.nix
-    ./steam.nix
-    ./system.nix
-    ./flatpak.nix
-    ./user.nix
-    ./wayland.nix
-    ./virtualization.nix
-    # ./qmk.nix
-    ./piper.nix
-    ./nvidia.nix
-    ./niri-session-manager.nix
-  ];
+  imports = 
+    let
+      dirFiles = builtins.readDir ./.;
+      
+      isNixFile = name: type: type == "regular" && lib.hasSuffix ".nix" name && name != "default.nix";
+      
+      validFiles = lib.filterAttrs isNixFile dirFiles;
+    in
+      map (name: ./${name}) (builtins.attrNames validFiles);
 }
