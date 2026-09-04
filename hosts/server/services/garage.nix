@@ -1,10 +1,12 @@
 { config, pkgs, ... }: {
   services.garage = {
     enable = true;
+    package = pkgs.garage; # Fixes the missing package definition
+
     settings = {
       replication_factor = 1;
       rpc_bind_addr = "[::]:3901";
-      
+
       s3_api = {
         s3_region = "garageland";
         api_bind_addr = "127.0.0.1:3900";
@@ -19,6 +21,5 @@
     };
   };
 
-  # Open port for local access if needed
   networking.firewall.allowedTCPPorts = [ 3900 ];
 }
