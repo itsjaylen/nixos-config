@@ -11,6 +11,7 @@
       security = {
         admin_user = "admin";
         admin_password = "$__file{${config.sops.secrets."grafana_admin_password".path}}";
+        secret_key = "$__file{${config.sops.secrets."grafana_secret_key".path}}";
       };
     };
 
@@ -26,16 +27,6 @@
         }
       ];
     };
-  };
-
-  # Pass decrypted environment file containing GF_SECURITY_SECRET_KEY to systemd
-  systemd.services.grafana.serviceConfig.EnvironmentFile = config.sops.templates."grafana-env".path;
-
-  sops.templates."grafana-env" = {
-    content = ''
-      GF_SECURITY_SECRET_KEY=${config.sops.placeholder.grafana_secret_key}
-    '';
-    owner = "grafana";
   };
 
   networking.firewall.allowedTCPPorts = [ 3001 ];
