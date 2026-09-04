@@ -11,16 +11,16 @@
 
     supportedFilesystems = [ "ntfs" ];
 
-    # Save SSD writes by mounting /tmp in RAM
     tmp = {
       useTmpfs = true;
-      tmpfsSize = "32G"; 
+      # Automatically scales to 50% of installed RAM on any machine
+      tmpfsSize = "50%"; 
     };
   };
 
   zramSwap = {
     enable = true;
     memoryPercent = 50;
-    priority = 5;
+    priority = 100; # Higher priority so zram is used before disk swap
   };
 }

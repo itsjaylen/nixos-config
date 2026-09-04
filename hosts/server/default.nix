@@ -8,7 +8,6 @@
     ../../modules/core/security.nix
   ];
 
-  # Inline user configuration completely bypassing user.nix and home-manager
   users.users = {
     "${username}" = {
       isNormalUser = true;
@@ -20,9 +19,9 @@
       ];
       shell = pkgs.fish;
       openssh.authorizedKeys.keys = [
-        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCeOD9pGd9bBTlxxorOmjM23pObPLDFyjGIbgvOz+BqdLIp1ngsNB/SyQSAPoKzhpIn5mQKX414SjPfZ9e83j4PUK+7AzWey/yIn9ul9FnUmIluVNIHr3W9uIFVaZGHQBZzmzb8tqNRHNp+EnZhekJKmiZtgUMong2qh61ssUoozbbTO6+YRoZJakNZhwWeIXZD0bXEv5x0UEjv8GF0na+OOC2RTfCvNUxAvlqZmxr365tBgrvB6kpekpFKHvEhziWRCJqzdyG9mKGRnCZrVnQCXiFhauRmlxKnPngiWE2q0fM++VVUPRsT0MAvslYiLY+VxQS78okCJ9nB5YRA25CaJhR/O+o47AQsNTtjZZbt0uAnTCB537x0P08rf8qZViaa+zaYeVouHfIhbR+9f7ZCeMdHbyKEz+7yLSR/Li5Y6yo79khiBGNYZucPJuDPXpB486dwpVnnNvURXluTtNsTXcwXtyAYt8luUtkmggL8JLR1MiQnYxh96npOuzPuRQvBaDbWVelMhaEZLTpHnLFsAszZ/12zzLTO7xK6Srn0FKI36tBsj2t4CKJlm7g+orG73i8E7AN4TZZzh062x1wxUjRy7D7ibM21G+SdxnrfmOVsOxfKvVjLeHdEOi0DKHElzkXD+re5HElUAesBmBrMv2mTeYRZUBUTh/c3/YY2qw== bossjaylen145@gmail.com"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... your_key_here"
       ];
-      linger = true;
+      linger = true; # Keeps user systemd services running after logout
     };
 
     minecraft = {
@@ -37,12 +36,11 @@
   users.groups.minecraft = {};
 
   programs.fish.enable = true;
-  nix.settings.allowed-users = [ "${username}" ];
 
-  # Server-specific overrides
+  # Nix settings
+  nix.settings.allowed-users = [ "@wheel" ]; # Allows your admin user and root
+
+  # Server overrides
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
-  security.pam.services.login.kwallet.enable = lib.mkForce false;
-  security.pam.services.swaylock.kwallet.enable = lib.mkForce false;
-  environment.systemPackages = lib.mkForce [];
-  security.sudo.wheelNeedsPassword = false;
+  boot.tmp.useTmpfs = lib.mkForce false; # Routes /tmp to SSD to save RAM on 24GB node
 }
