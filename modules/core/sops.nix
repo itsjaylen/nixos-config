@@ -4,11 +4,18 @@
   environment.systemPackages = with pkgs; [
     sops
     age
+    ssh-to-age
   ];
 
   sops = {
     defaultSopsFile = ../../secrets/secrets.yaml;
-    age.keyFile = "/var/lib/sops-nix/key.txt";
+    defaultSopsFormat = "yaml";
+
+    # Tells sops-nix to use the host's SSH ed25519 key for decryption
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
+    # Automatically creates /var/lib/sops-nix/key.txt on boot if it does not exist
+    age.generateKey = true;
 
     secrets = {
       "github_ssh_key" = {
