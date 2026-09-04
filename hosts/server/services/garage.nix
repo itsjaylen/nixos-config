@@ -1,10 +1,9 @@
 { config, pkgs, ... }: {
-  # Format secret as an environment variable file for Garage
   sops.templates."garage-env" = {
     content = ''
       GARAGE_RPC_SECRET=${config.sops.placeholder.garage_rpc_secret}
     '';
-    owner = "root"; # Changed from "garage" to "root"
+    owner = "root";
   };
 
   services.garage = {
@@ -27,9 +26,26 @@
         metadata_dir = "/var/lib/garage/meta";
       };
     };
+
+    # Declarative Provisioning using your SOPS secrets
+    provision = {
+      enable = true;
+
+      keys = {
+        main-key = {
+          accessKeyIdFile = config.sops.secrets."garage_s3_access_key".path;
+          secretAccessKeyFile = config.sops.secrets."garage_s3_secret_key".path;
+        };
+      };
+
+      buckets = {
+        my-bucket = {
+          authorizedKeys = [ "main-key" ];
+        };
+      };
+    };
   };
 
-  # Feed the sops template into garage.service
   systemd.services.garage.serviceConfig = {
     EnvironmentFile = config.sops.templates."garage-env".path;
   };

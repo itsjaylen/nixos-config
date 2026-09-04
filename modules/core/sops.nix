@@ -28,8 +28,10 @@
         owner = "jaylen";
         group = "users";
       };
-      # Declare garage_rpc_secret here so sops-nix decrypts it
+      # Declare Garage secrets here so sops-nix decrypts them into /run/secrets/
       "garage_rpc_secret" = { };
+      "garage_s3_access_key" = { };
+      "garage_s3_secret_key" = { };
     };
   };
 
