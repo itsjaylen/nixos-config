@@ -8,10 +8,6 @@
     ../../modules/core/security.nix
     ../../modules/core/nh.nix
     ../../modules/home/starship.nix
-    ../../modules/home/zoxide.nix
-    ../../modules/home/direnv.nix
-    ../../modules/home/btop.nix
-    ../../modules/home/fzf.nix
   ];
 
   users.users = {
