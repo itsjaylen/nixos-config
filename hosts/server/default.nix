@@ -8,6 +8,7 @@
     ../../modules/core/system.nix
     ../../modules/core/security.nix
     ../../modules/core/nh.nix
+    ../../modules/core/sops.nix
   ];
 
   users.users = {
@@ -21,9 +22,9 @@
       ];
       shell = pkgs.fish;
       openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... your_key_here"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPCHsjBvdZ7/oqWa0YK1dD6NLSgr1d+eJk9YnrD3tAGj bossjaylen145@gmail.com"
       ];
-      linger = true; # Keeps user systemd services running after logout
+      linger = true;
     };
 
     minecraft = {
@@ -40,9 +41,9 @@
   programs.fish.enable = true;
 
   # Nix settings
-  nix.settings.allowed-users = [ "@wheel" ]; # Allows your admin user and root
+  nix.settings.allowed-users = [ "@wheel" ];
 
   # Server overrides
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
-  boot.tmp.useTmpfs = lib.mkForce false; # Routes /tmp to SSD to save RAM on 24GB node
+  boot.tmp.useTmpfs = lib.mkForce false;
 }
