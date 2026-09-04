@@ -7,7 +7,6 @@
     ../../modules/core/system.nix
     ../../modules/core/security.nix
     ../../modules/core/nh.nix
-    ../../modules/home/starship.nix
   ];
 
   users.users = {
