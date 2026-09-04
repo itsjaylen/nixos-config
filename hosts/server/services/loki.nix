@@ -31,38 +31,23 @@
   };
 
   services.alloy = {
-    enable = true;
-    configPath = pkgs.writeText "config.alloy" ''
-      loki.relabel "journal" {
-        rule {
-          source_labels = ["__journal__systemd_unit"]
-          target_label  = "unit"
+      enable = true;
+      configPath = pkgs.writeText "config.alloy" ''
+        loki.source.journal "journal" {
+          max_age = "12h"
+          forward_to = [loki.write.endpoint.receiver]
+          labels = {
+            job = "systemd-journal",
+          }
         }
-      }
-
-      discovery.relabel "journal" {
-        targets = []
-
-        rule {
-          source_labels = ["__journal__systemd_unit"]
-          target_label  = "unit"
+  
+        loki.write "endpoint" {
+          endpoint {
+            url = "http://127.0.0.1:3100/loki/api/v1/push"
+          }
         }
-      }
-
-      loki.source.journal "journal" {
-        max_age   = "12h"
-        path      = "/var/log/journal"
-        relabel_rules = loki.relabel.journal.rules
-        forward_to = [loki.write.endpoint.receiver]
-      }
-
-      loki.write "endpoint" {
-        endpoint {
-          url = "http://127.0.0.1:3100/loki/api/v1/push"
-        }
-      }
-    '';
-  };
+      '';
+    };
 
   # Grant alloy permission to read systemd journal logs
   systemd.services.alloy.serviceConfig.SupplementaryGroups = [ "systemd-journal" ];
