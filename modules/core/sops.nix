@@ -13,12 +13,18 @@
     secrets = {
       "github_ssh_key" = {
         owner = "jaylen";
-        path = "/home/jaylen/.ssh/id_rsa";
+        group = "users";
+        path = "/home/jaylen/.ssh/id_ed25519";
         mode = "0600";
       };
       "gitea_token" = {
         owner = "jaylen";
+        group = "users";
       };
     };
   };
+
+  system.activationScripts.ensureSshDir = ''
+    install -d -m 700 -o jaylen -g users /home/jaylen/.ssh
+  '';
 }

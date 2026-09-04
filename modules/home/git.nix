@@ -1,6 +1,12 @@
-{ pkgs, config, ... }:
+{ config, pkgs, ... }:
 
 {
+  xdg.configFile."ssh/config".text = ''
+    Host github.com
+      User git
+      IdentityFile ~/.ssh/id_ed25519
+  '';
+
   programs.git = {
     enable = true;
 

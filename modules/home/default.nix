@@ -1,32 +1,21 @@
-{ ... }:
+{ lib, ... }:
+
 {
-  imports = [
-    ./bat.nix # better cat command
-    ./browser.nix # firefox based browser
-    ./btop.nix # resources monitor
-    ./chatterino.nix # chatterino
-    ./direnv.nix
-    ./discord.nix # discord
-    ./fastfetch/fastfetch.nix # fetch tool
-    ./fish # shell
-    ./fzf.nix # fuzzy finder
-    ./gaming.nix # packages related to gaming
-    ./git.nix # version control
-    ./gtk.nix # gtk theme
-    ./kde.nix # kde apps
-    ./kitty.nix # terminal
-    ./lazygit.nix
-    ./niri # window manager
-    ./noctalia/noctalia.nix # desktop components & notifications
-    ./nvim.nix # neovim editor
-    ./packages # other packages
-    ./spicetify.nix # spotify client
-    ./ssh.nix # ssh config
-    ./starship.nix # starship prompt
-    ./superfile/superfile.nix # terminal file manager
-    ./swaylock.nix # lock screen
-    ./swaync/swaync.nix # notification daemon
-    ./xdg-mines.nix # xdg config
-    ./zoxide.nix # zoxide
-  ];
+  imports = 
+    let
+      # Filter out default.nix itself and non-nix files, or look for subdirs
+      subFiles = builtins.attrNames (builtins.readDir ./.);
+      
+      toImport = lib.filter (file: 
+        let
+          path = ./. + "/${file}";
+          type = builtins.typeOf path; # or check attributes via readDir
+        in
+        file != "default.nix" && (
+          lib.hasSuffix ".nix" file || 
+          (builtins.pathExists (path + "/default.nix"))
+        )
+      ) subFiles;
+    in
+    map (file: ./. + "/${file}") toImport;
 }

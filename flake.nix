@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    winchain.url = "github:bytez1337/winchain";
+
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
@@ -71,6 +73,7 @@
       nixpkgs,
       chaotic,
       sops-nix,
+      winchain,
       self,
       ...
     }@inputs:
@@ -90,8 +93,11 @@
           modules = [
             chaotic.nixosModules.default
             sops-nix.nixosModules.sops
+            winchain.nixosModules.default
             {
               nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
+              boot.loader.systemd-boot.winchain.enable = true;
+              boot.loader.systemd-boot.winchain.partuuid = "36d12ef2-c336-4656-98f2-25b3f98a7469";
             }
             ./hosts/desktop
           ];
