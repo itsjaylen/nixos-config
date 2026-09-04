@@ -1,6 +1,7 @@
 { config, pkgs, lib, username, ... }: {
   imports = [
     ./hardware-configuration.nix
+    ./services
     ../../modules/core/bootloader.nix
     ../../modules/core/network.nix
     ../../modules/core/services.nix
