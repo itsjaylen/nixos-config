@@ -1,3 +1,0 @@
-[submodule "hosts/server/services/minecraft"]
-	path = hosts/server/services/minecraft
-	url = https://git.itsjaylen.com/itsjaylen/nixos-minecraft
