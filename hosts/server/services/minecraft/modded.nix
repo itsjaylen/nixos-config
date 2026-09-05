@@ -50,9 +50,9 @@ in
           '';
 
           "plugins/BlueMap.jar" = pkgs.fetchurl {
-                url = "https://cdn.modrinth.com/data/swbUV1cr/versions/K5U1ASjn/bluemap-5.23-paper.jar";
-                sha512 = "sha512-qHiT11FkBd+kXhK0R73r0E7ktCP/TRCWQgB5bZDla/eJ7a8gPsMBP5JigGl7EpD7zXJUT9GSkQxF+IzlW5eLsQ==";
-              };
+                  url = "https://cdn.modrinth.com/data/swbUV1cr/versions/K5U1ASjn/bluemap-5.23-paper.jar";
+                  sha512 = "sha512-qHiT11FkBd+kXhK0R73r0E7ktCP/TRCWQgB5bZDla/eJ7a8gPsMBP5JigGl7EpD7zXJUT9GSkQxF+IzlW5eLsQ==";
+                };
 
           "plugins/BlueMap/core.conf" = pkgs.writeText "core.conf" ''
                       # BlueMap Core Config
@@ -60,9 +60,9 @@ in
                     '';
 
           "plugins/FreedomChat.jar" = pkgs.fetchurl {
-                url = "https://cdn.modrinth.com/data/MubyTbnA/versions/Pqu2VLTB/FreedomChat-Paper-1.7.9.jar";
-                sha512 = "94c97628e4b13762d9ba029fa1130300dccd63d31f15b5f29e96fc0586abd7392315fed8f51c772ba7e14fc4738a31d7bbd3c8c106d9929d378334ffe65c96d2";
-              };
+                  url = "https://cdn.modrinth.com/data/MubyTbnA/versions/Pqu2VLTB/FreedomChat-Paper-1.7.9.jar";
+                  sha512 = "94c97628e4b13762d9ba029fa1130300dccd63d31f15b5f29e96fc0586abd7392315fed8f51c772ba7e14fc4738a31d7bbd3c8c106d9929d378334ffe65c96d2";
+                };
           
             "mods/Terralith.jar" = pkgs.fetchurl {
                     url = "https://cdn.modrinth.com/data/8oi3bsk5/versions/lqrGyTjO/Terralith_26.2_v2.6.4_Neoforge.jar";
@@ -84,12 +84,12 @@ in
                     sha512 = "202e1f23c64c37330d3ec0bfd80331355d15cc8d01f151edc4dabfa8ce719650d10f468df5bf523a93461d78c3660a2cdedbc1037fb08396c13f22b6457352f0";
                   };
 
-            "mods/Structory.jar" = pkgs.fetchurl {
+            "mods/Structory" = pkgs.fetchurl {
                     url = "https://cdn.modrinth.com/data/aKCwCJlY/versions/TUbwu7eG/Structory_26.2_v1.3.7.jar";
                     sha512 = "4178a15f32f6ed3d59a7eb2222a8e3f539efd7b54d8ffb790cbf1dfe5c54c6ce6ec33220e148424109c6360c4c6f081b9fbebfe74745fe3c8f05619a06ccb9ec";
                   };
 
-            "mods/StructoryTowers.jar" = pkgs.fetchurl {
+            "mods/Structory:Towers" = pkgs.fetchurl {
                     url = "https://cdn.modrinth.com/data/j3FONRYr/versions/ziO4YIv1/Structory_Towers_26.2_v1.0.17.jar";
                     sha512 = "74b1f29439e2946ef9b3f9d8d7915bc112239d5009587c7817c4f45bee7e7a48906ffcddab67f0078fe82e996093657ab874a5a0498ccc045dda4bd562bc7702";
                   };
