@@ -139,7 +139,7 @@
                     chaotic.nixosModules.default
                     sops-nix.nixosModules.sops
                     microvm.nixosModules.host
-                    inputs.nix-minecraft.nixosModules.
+                    inputs.nix-minecraft.nixosModules
                     {
                       nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
                     }
