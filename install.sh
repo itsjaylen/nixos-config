@@ -55,6 +55,8 @@ if [ "$DO_PULL" = true ]; then
   if [ -d ".git" ]; then
     echo -e "${BLUE}==> Pulling latest changes from Git...${NC}"
     git pull
+    echo -e "${BLUE}==> Updating Git submodules...${NC}"
+    git submodule update --init --recursive
   else
     echo -e "${RED}==> Error: Not a Git repository, cannot pull updates.${NC}"
     exit 1
