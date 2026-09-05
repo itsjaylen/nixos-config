@@ -62,8 +62,12 @@ in
             "mods/Terralith.jar" = pkgs.fetchurl {
                     url = "https://cdn.modrinth.com/data/8oi3bsk5/versions/lqrGyTjO/Terralith_26.2_v2.6.4_Neoforge.jar";
                     sha512 = "b66ade8d34cb61af8174eac4af9905d741a456fdd4c32f1674d106a47094ae560cd9652cf4904ebff591c931134dc3d307fbfa0904503d202e1048289b6f8d3b";
-                  };      
-                
+                  };
+
+            "mods/lithostitched.jar" = pkgs.fetchurl {
+                    url = "//cdn.modrinth.com/data/XaDC71GB/versions/uJERiR1V/lithostitched-1.8.0%2Bbeta3-neoforge-26.2.jar";
+                    sha512 = "9a8b6b38c58076d601c25b03eeb3f398385467ffd5029ebc7b6f403289ad150fd4a0b550de0bd3bfa0af49f308c2eb633743677630821c10849318b42e7dd229";
+                  };
         };
   };
 }
