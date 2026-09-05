@@ -113,6 +113,36 @@ in
                     url = "https://cdn.modrinth.com/data/HjmxVlSr/versions/8MMBHdSy/YungsBetterMineshafts-26.1.2-NeoForge-6.1.0.jar";
                     sha512 = "babcbabfb041f28cd64650dfc579671fc7d314b225f8dba9672c21c8420735fd99c9ffd354d98a6652ebc3e27d72d6830f23985b88c0ef983116c7eb311d2ed9";
                   };
+
+            "mods/YungsBetterOceanMonuments" = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/3dT9sgt4/versions/ovS6Blc2/YungsBetterOceanMonuments-26.1.2-NeoForge-5.1.0.jar";
+                    sha512 = "2e154f3e336b7f22f1604ad9dff1b721f7bba311889b01caabd6e8b6cada65da8043f338a73ddfeb362df78d4f7533e52e2627d9101474856416fbe142a5c495";
+                  };
+
+            "mods/YungsBetterJungleTemples" = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/z9Ve58Ih/versions/CkjyYvLs/YungsBetterJungleTemples-26.1.2-NeoForge-4.1.0.jar";
+                    sha512 = "c4a9c218111dd6ed4c429562444b644b9fed4f9e015f35424bf32bd2c41641f123d56ff1d81f6f60b87028e0021c0cd24873126f78ae095c6684f91c46915373";
+                  };
+
+            "mods/YungsBetterEndIsland" = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/2BwBOmBQ/versions/iGCLljb0/YungsBetterEndIsland-26.1.2-NeoForge-4.1.0.jar";
+                    sha512 = "21df39ce903fbcd9a8705847bbb06f46d6792835d1aca891a664388fb9104dcccbbba37973bc211e79f86d4fa2ac5f352bd6b14dca89ae030ac1397336ba18da";
+                  };
+
+            "mods/YungsBetterStrongholds" = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/kidLKymU/versions/r6czw4RL/YungsBetterStrongholds-26.1.2-NeoForge-6.1.0.jar";
+                    sha512 = "1733152eb159299f06a583fa1295cd8c7803b1ce33456459793b6f2496075b11f8c8c784664eed472f3b74e201d5651c25e94ac8a0e428759a8aed97464e84af";
+                  };
+
+            "mods/YungsBetterWitchHuts" = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/t5FRdP87/versions/9ZLhxr84/YungsBetterWitchHuts-26.1.2-NeoForge-5.1.0.jar";
+                    sha512 = "3c29d3a78d10fd9be657d888ca3d93847bf93fb61ac21374ba3ed4c7a7fb856059410288a124790276cf86d66f6d47522e717194132913efa36634a45d46bc74";
+                  };
+
+            "mods/YungsBetterDesertTemples" = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/XNlO7sBv/versions/PdYp5G62/YungsBetterDesertTemples-26.1.2-NeoForge-5.1.0.jar";
+                    sha512 = "d9996a8cfb6684cb147ece0ed512736eb6581687d22e26ecf02c7ce033171d6eda744cc85fb3ef6e005619350002e3a22fca1f6289d3d09dd6167ed3cb6e1359";
+                  };
         };
   };
 }
