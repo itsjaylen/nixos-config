@@ -9,7 +9,7 @@
   services.minecraft-servers = {
     enable = true;
     eula = true;
-    openFirewall = true; # Automatically opens required ports;
   };
 
+  networking.firewall.allowedTCPPorts = [ 25565 25566 25567 ];
 }
