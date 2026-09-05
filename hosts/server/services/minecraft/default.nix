@@ -17,9 +17,9 @@
       
       # Start a detached tmux session using Adoptium Temurin OpenJDK
       ExecStart = ''
-        ${pkgs.tmux}/bin/tmux new-session -d -s minecraft \
-        "${pkgs.temurin-bin}/bin/java -Xmx2G -Xms2G -jar /var/lib/minecraft/server.jar nogui"
-      '';
+              ${pkgs.tmux}/bin/tmux new-session -d -s minecraft \
+              "${pkgs.temurin-bin}/bin/java -Xmx2G -Xms2G -jar /var/lib/minecraft/versions/26.2/server-26.2.jar nogui"
+            '';
 
       # Send 'stop' to the tmux session gracefully on shutdown
       ExecStop = "${pkgs.tmux}/bin/tmux send-keys -t minecraft stop Enter";
