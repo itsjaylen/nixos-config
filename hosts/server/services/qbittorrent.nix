@@ -32,21 +32,7 @@
         enable = true;
       };
 
-      # Write the qBittorrent configuration file with your pre-hashed password
-      environment.etc."qBittorrent/qBittorrent.conf" = {
-        text = ''
-          [Preferences]
-          Connection\Interface=CloudflareWARP
-          LegalNotice\Accepted=true
-
-          [WebUI]
-          Address=*
-          LocalHostAuth=false
-          Username=admin
-          Password_PBKDF2=@ByteArray(HGtDalIr2OpxnZjQ1uzIGQ==:covuupiN1IIL/wZt7/FX2+Gw7PKjpRrCU7yQwAMs9/7WyXyF5PUplznPKAlApUuOpisDk7TDjwyjDbTyALZ/Eg==)
-        '';
-      };
-
+      # Write the config directly to where qBittorrent-nox expects it
       systemd.services.qbittorrent = {
         enable = true;
         unitConfig = {
@@ -58,7 +44,21 @@
           Group = "qbittorrent";
           Restart = "always";
           RestartSec = 3;
-          # Point qbittorrent-nox to read the config directory
+          ExecStartPre = pkgs.writeShellScript "setup-qbittorrent-config" ''
+            mkdir -p /var/lib/qbittorrent/.config/qBittorrent
+            cat << 'EOF' > /var/lib/qbittorrent/.config/qBittorrent/qBittorrent.conf
+            [Preferences]
+            Connection\Interface=CloudflareWARP
+            LegalNotice\Accepted=true
+
+            [WebUI]
+            Address=*
+            LocalHostAuth=false
+            Username=admin
+            Password_PBKDF2=@ByteArray(HGtDalIr2OpxnZjQ1uzIGQ==:covuupiN1IIL/wZt7/FX2+Gw7PKjpRrCU7yQwAMs9/7WyXyF5PUplznPKAlApUuOpisDk7TDjwyjDbTyALZ/Eg==)
+            EOF
+            chmod -R 700 /var/lib/qbittorrent/.config
+          '';
           ExecStart = "${lib.getExe' pkgs.qbittorrent-nox "qbittorrent-nox"} --webui-port=5000 --profile=/var/lib/qbittorrent";
           StandardError = "journal";
           StandardOutput = "journal";
