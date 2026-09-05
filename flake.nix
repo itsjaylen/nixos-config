@@ -79,6 +79,7 @@
       chaotic,
       sops-nix,
       winchain,
+      microvm,
       self,
       ...
     }@inputs:
