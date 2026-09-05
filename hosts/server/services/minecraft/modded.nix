@@ -1,26 +1,28 @@
 { pkgs, ... }:
 
-let
-  youerServerJar = pkgs.fetchurl {
-    url = "https://api.mohistmc.com/project/youer/26.2/builds/latest/download";
-    sha512 = "sha512-JoXYlni7aJUqXxIQcaCttQDRGkHM6H5knpiqzVu4Hf9U2Njoi4ngy+FZi8y0lVE0+WXmttExYEsu4RfumP0O0g==";
-  };
-in
 {
-  services.minecraft-servers.servers.youer = {
+  services.minecraft-servers.servers.neoforge = {
     enable = true;
+    # Use a custom fetchurl package for the Youer jar
+    package = pkgs.stdenv.mkDerivation {
+      pname = "youer-server";
+      version = "26.2";
+      src = pkgs.fetchurl {
+        url = "https://api.mohistmc.com/project/youer/26.2/builds/latest/download";
+        sha512 = "47116296239b3f114c82166fd3a45ca26c8875e277906dd8289099628af09926"; # Note: If nix complains it expects sha256 instead of sha512, swap this with the sha256 hash
+      };
+      dontUnpack = true;
+      installPhase = ''
+        mkdir -p $out/bin
+        cp $src $out/youer.jar
+      '';
+    };
     
-    # Use standard openjdk package
-    package = pkgs.jdk21;
-
-    # Explicitly force the service to run as the correct user/group so sockets match
-    # (nix-minecraft defaults to the minecraft user)
-    # Pass arguments properly
-    jvmOpts = "-Xms2G -Xmx2G -jar ${youerServerJar} nogui";
+    jvmOpts = "-Xms2G -Xmx2G";
 
     serverProperties = {
       server-port = 25566;
-      motd = "Youer NeoForge + Paper Hybrid";
+      motd = "Modded Youer Server";
     };
 
     symlinks = {
@@ -33,14 +35,9 @@ in
         url = "https://cdn.modrinth.com/data/l6YH9Als/versions/DdMsOH3O/spark-1.10.173-neoforge.jar";
         sha512 = "f40b72761c2137debe90c836a32918e4e3aa2629db4b50e9b78bdcacdbe6e484682ba7e11535bee7fcf581abe944948dde48dda37ee45d3966a5d7e450191173";
       };
-    };
-  };
-  
-  # Ensure systemd service explicitly runs as the minecraft user to fix socket ownership
-  systemd.services.minecraft-server-youer = {
-    serviceConfig = {
-      User = "minecraft";
-      Group = "minecraft";
+      
+      # You can also add plugins to a plugins/ folder if needed:
+      # "plugins/YourPlugin.jar" = pkgs.fetchurl { ... };
     };
   };
 }
