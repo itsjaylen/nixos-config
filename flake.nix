@@ -66,6 +66,11 @@
       url = "github:Asthestarsfalll/piri";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    microvm = {
+          url = "github:astro/microvm.nix";
+          inputs.nixpkgs.follows = "nixpkgs";
+        };
   };
 
   outputs =
@@ -122,20 +127,21 @@
           };
         };
         server = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            chaotic.nixosModules.default
-            sops-nix.nixosModules.sops
-            {
-              nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
-            }
-            ./hosts/server
-          ];
-          specialArgs = {
-            host = "server";
-            inherit self inputs username;
-          };
-        };
+                  inherit system;
+                  modules = [
+                    chaotic.nixosModules.default
+                    sops-nix.nixosModules.sops
+                    microvm.nixosModules.host
+                    {
+                      nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
+                    }
+                    ./hosts/server
+                  ];
+                  specialArgs = {
+                    host = "server";
+                    inherit self inputs username;
+                  };
+                };
       };
 
       formatter.${system} = pkgs.treefmt.withConfig {
