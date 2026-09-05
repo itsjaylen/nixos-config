@@ -52,14 +52,14 @@
         wantedBy = [ "multi-user.target" ];
       };
 
-      # Ensure the dynamic user has a home directory for qbittorrent config/logs state
-      users.users.qbittorrent = lib.mkIf config.systemd.services.qbittorrent.serviceConfig.DynamicUser {
-        isSystemUser = true;
-        group = "qbittorrent";
-        home = "/var/lib/qbittorrent";
-        createHome = true;
-      };
-      users.groups.qbittorrent = {};
+      # Explicitly declare the qbittorrent user and group for state persistence
+            users.users.qbittorrent = {
+              isSystemUser = true;
+              group = "qbittorrent";
+              home = "/var/lib/qbittorrent";
+              createHome = true;
+            };
+            users.groups.qbittorrent = {};
 
       microvm.shares = [{
         tag = "ro-store";
