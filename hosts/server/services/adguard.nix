@@ -10,13 +10,11 @@
           "192.168.50.188" 
         ];
         port = 53;
-        # Use clean IP-only upstream definitions
         upstream_dns = [
           "9.9.9.9"
           "149.112.112.112"
           "1.1.1.1"
         ];
-        # Explicitly define bootstrap resolvers for safety
         bootstrap_dns = [
           "9.9.9.9"
           "1.1.1.1"
@@ -80,6 +78,11 @@
           enabled = true;
           url = "https://v.firebog.net/hosts/AdguardDNS.txt";
           name = "Firebog Trusted";
+        }
+        {
+          enabled = true;
+          url = "https://raw.githubusercontent.com/r0xd4n3t/pihole-adblock-lists/main/pihole_adlists.txt";
+          name = "Pi-hole Adblock Lists";
         }
       ];
       user_rules = [
