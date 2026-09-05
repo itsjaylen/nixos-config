@@ -32,7 +32,21 @@
         enable = true;
       };
 
-      # Raw systemd service definition replacing the broken module
+      # Write the qBittorrent configuration file with your pre-hashed password
+      environment.etc."qBittorrent/qBittorrent.conf" = {
+        text = ''
+          [Preferences]
+          Connection\Interface=CloudflareWARP
+          LegalNotice\Accepted=true
+
+          [WebUI]
+          Address=*
+          LocalHostAuth=false
+          Username=admin
+          Password_PBKDF2=@ByteArray(HGtDalIr2OpxnZjQ1uzIGQ==:covuupiN1IIL/wZt7/FX2+Gw7PKjpRrCU7yQwAMs9/7WyXyF5PUplznPKAlApUuOpisDk7TDjwyjDbTyALZ/Eg==)
+        '';
+      };
+
       systemd.services.qbittorrent = {
         enable = true;
         unitConfig = {
@@ -42,24 +56,23 @@
           Type = "exec";
           User = "qbittorrent";
           Group = "qbittorrent";
-          DynamicUser = true; # Automatically creates the user/group securely
           Restart = "always";
           RestartSec = 3;
-          ExecStart = "${lib.getExe' pkgs.qbittorrent-nox "qbittorrent-nox"} --webui-port=5000";
+          # Point qbittorrent-nox to read the config directory
+          ExecStart = "${lib.getExe' pkgs.qbittorrent-nox "qbittorrent-nox"} --webui-port=5000 --profile=/var/lib/qbittorrent";
           StandardError = "journal";
           StandardOutput = "journal";
         };
         wantedBy = [ "multi-user.target" ];
       };
 
-      # Explicitly declare the qbittorrent user and group for state persistence
-            users.users.qbittorrent = {
-              isSystemUser = true;
-              group = "qbittorrent";
-              home = "/var/lib/qbittorrent";
-              createHome = true;
-            };
-            users.groups.qbittorrent = {};
+      users.users.qbittorrent = {
+        isSystemUser = true;
+        group = "qbittorrent";
+        home = "/var/lib/qbittorrent";
+        createHome = true;
+      };
+      users.groups.qbittorrent = {};
 
       microvm.shares = [{
         tag = "ro-store";
