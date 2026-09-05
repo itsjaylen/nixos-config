@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   microvm.vms.qbittorrent = {
     autostart = true;
 
@@ -32,27 +32,34 @@
         enable = true;
       };
 
-      services.qbittorrent = {
-              enable = true;
-              openFirewall = true;
-              webuiPort = 5000;
-              serverConfig = {
-                Preferences = {
-                  Connection = {
-                    Interface = "CloudflareWARP";
-                  };
-                  LegalNotice = {
-                    Accepted = true;
-                  };
-                };
-                WebUI = {
-                  Address = "*";
-                  LocalHostAuth = false;
-                  BypassLocalAuth = true;
-                  Username = "admin";
-                };
-              };
-            };
+      # Raw systemd service definition replacing the broken module
+      systemd.services.qbittorrent = {
+        enable = true;
+        unitConfig = {
+          After = [ "network-online.target" ];
+        };
+        serviceConfig = {
+          Type = "exec";
+          User = "qbittorrent";
+          Group = "qbittorrent";
+          DynamicUser = true; # Automatically creates the user/group securely
+          Restart = "always";
+          RestartSec = 3;
+          ExecStart = "${lib.getExe' pkgs.qbittorrent-nox "qbittorrent-nox"} --webui-port=5000";
+          StandardError = "journal";
+          StandardOutput = "journal";
+        };
+        wantedBy = [ "multi-user.target" ];
+      };
+
+      # Ensure the dynamic user has a home directory for qbittorrent config/logs state
+      users.users.qbittorrent = lib.mkIf config.systemd.services.qbittorrent.serviceConfig.DynamicUser {
+        isSystemUser = true;
+        group = "qbittorrent";
+        home = "/var/lib/qbittorrent";
+        createHome = true;
+      };
+      users.groups.qbittorrent = {};
 
       microvm.shares = [{
         tag = "ro-store";
