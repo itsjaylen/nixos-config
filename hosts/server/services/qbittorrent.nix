@@ -46,7 +46,7 @@
                   };
                 };
                 WebUI = {
-                  LocalHostAuth = false; # Disables auth for requests coming through localhost/port-forwarding
+                  Address = "*"; # Ensure it listens on all guest interfaces
                 };
               };
             };
@@ -61,4 +61,5 @@
       networking.useDHCP = true;
     };
   };
+  networking.firewall.allowedTCPPorts = [ 5000 ];
 }
