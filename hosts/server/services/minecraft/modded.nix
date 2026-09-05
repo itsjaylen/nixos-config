@@ -12,9 +12,14 @@
     };
 
     symlinks = {
-      "mods/jade.jar" = pkgs.fetchurl {
-        url = "https://cdn.modrinth.com/data/nvQzSEkH/versions/GBES6etT/Jade-mc26.2-NeoForge-26.2.10.jar";
-        sha512 = "23c4ce0e0aec0d70b38ba5c8a346e5233aaa3923a94f54dc1b412e48ef98d394d3a1ac3ceaa9fe674dc1653bbef489a228be167f011d163db7ae6e4a947051b9";
+      "mods/FerriteCore.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/uXXizFIs/versions/LtVvw4uS/ferritecore-9.0.0-neoforge.jar";
+        sha512 = "e96a99ac5539f56a1f4cd109d62b668ebd5283f0068491ede956f52e67023beba7abe2e40021499352ffc41ead950bebcabce7792352249a1b45c5dccb3cf99c";
+      };
+
+      "mods/Spark.jar" = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/l6YH9Als/versions/DdMsOH3O/spark-1.10.173-neoforge.jar";
+        sha512 = "f40b72761c2137debe90c836a32918e4e3aa2629db4b50e9b78bdcacdbe6e484682ba7e11535bee7fcf581abe944948dde48dda37ee45d3966a5d7e450191173";
       };
     };
   };
