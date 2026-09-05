@@ -54,6 +54,16 @@ in
                   sha512 = "sha512-qHiT11FkBd+kXhK0R73r0E7ktCP/TRCWQgB5bZDla/eJ7a8gPsMBP5JigGl7EpD7zXJUT9GSkQxF+IzlW5eLsQ==";
                 };
 
+            "plugins/BlueMap/core.conf" = pkgs.runCommand "bluemap-core.conf" {
+                        src = pkgs.fetchurl {
+                          url = "https://raw.githubusercontent.com/BlueMap-Minecraft/BlueMap/master/BlueMapCommon/src/main/resources/core.conf";
+                          sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Replace with correct hash or let Nix fetch it
+                        };
+                      } ''
+                        substitute $src $out \
+                          --replace "accept-download: false" "accept-download: true"
+                      '';
+
           "plugins/FreedomChat.jar" = pkgs.fetchurl {
                   url = "https://cdn.modrinth.com/data/MubyTbnA/versions/Pqu2VLTB/FreedomChat-Paper-1.7.9.jar";
                   sha512 = "94c97628e4b13762d9ba029fa1130300dccd63d31f15b5f29e96fc0586abd7392315fed8f51c772ba7e14fc4738a31d7bbd3c8c106d9929d378334ffe65c96d2";
