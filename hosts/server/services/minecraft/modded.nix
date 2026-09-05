@@ -78,6 +78,7 @@ in
                     url = "https://cdn.modrinth.com/data/LPjGiSO4/versions/lpsdO6Sg/Nullscape_26.2_v1.2.20.jar";
                     sha512 = "8c8f5ec050fb038da653c1023d2bbaf01cf0a88354d8081dbf99513375a64ebc18c669650d017c938ab4c4314c47f8b706422d8df43f4652c6c85460a63b6f01";
                   };
+                  
         };
   };
 }
