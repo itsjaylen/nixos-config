@@ -83,6 +83,7 @@ fi
 if [ -d ".git" ]; then
   echo -e "${BLUE}==> Tracking untracked files for Nix flake evaluation...${NC}"
   git add --ignore-removal .
+  git submodule update --init --recursive
 fi
 
 # Execute mode logic
