@@ -3,7 +3,7 @@
 {
   imports = [
     ./vanilla.nix
-    ./modded
+    ./modded.nix
   ];
 
   services.minecraft-servers = {

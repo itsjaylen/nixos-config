@@ -23,6 +23,7 @@ in
       enforce-secure-profile = false;
     };
 
-    symlinks = import ./mods.nix { inherit pkgs; };
+    # Imports the master mod router directory
+    symlinks = import ./mods { inherit pkgs; };
   };
 }

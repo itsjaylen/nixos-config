@@ -1,58 +1,13 @@
-# mods.nix
 { pkgs }:
 
 let
-  # Helpers to avoid repetitive boilerplate for mods and plugins
   mod = name: url: sha512: {
     name = "mods/${name}.jar";
     value = pkgs.fetchurl { inherit url sha512; };
   };
-
-  plugin = name: url: sha512: {
-    name = "plugins/${name}.jar";
-    value = pkgs.fetchurl { inherit url sha512; };
-  };
 in
-builtins.listToAttrs [
-  # --- SERVER UTILITIES & PLUGINS ---
-  (mod "Spark" 
-    "https://cdn.modrinth.com/data/l6YH9Als/versions/DdMsOH3O/spark-1.10.173-neoforge.jar" 
-    "f40b72761c2137debe90c836a32918e4e3aa2629db4b50e9b78bdcacdbe6e484682ba7e11535bee7fcf581abe944948dde48dda37ee45d3966a5d7e450191173")
-
-  (plugin "WorldEdit" 
-    "https://cdn.modrinth.com/data/1u6JkXh5/versions/F5ea2ov3/worldedit-bukkit-7.4.5.jar" 
-    "sha512-o4NJL6xr+01Dolffp7X8B2quUDpxFRtGPeT+gObz1fwRIJ6vQJe6oRXz/r8K3EDKCh7Noie4Q5tCnQpLo6Y6Tw==")
-
-  (plugin "EssentialsX" 
-    "https://cdn.modrinth.com/data/hXiIvTyT/versions/nY6VN1XH/EssentialsX-2.22.0.jar" 
-    "sha512-Ry7PcZJIAXI2Q8puH5kxKX3lqgh0pUT4pxni4vfIGvge97y9OLbkPwJgqdrmq+Qsl5B+cOJDDjJv+M/xLr1hzw==")
-
-  (plugin "BlueMap" 
-    "https://cdn.modrinth.com/data/swbUV1cr/versions/K5U1ASjn/bluemap-5.23-paper.jar" 
-    "sha512-qHiT11FkBd+kXhK0R73r0E7ktCP/TRCWQgB5bZDla/eJ7a8gPsMBP5JigGl7EpD7zXJUT9GSkQxF+IzlW5eLsQ==")
-
-  (plugin "FreedomChat" 
-    "https://cdn.modrinth.com/data/MubyTbnA/versions/Pqu2VLTB/FreedomChat-Paper-1.7.9.jar" 
-    "94c97628e4b13762d9ba029fa1130300dccd63d31f15b5f29e96fc0586abd7392315fed8f51c772ba7e14fc4738a31d7bbd3c8c106d9929d378334ffe65c96d2")
-
-  # --- WORLD GENERATION & OVERWORLD ---
-  (mod "Terralith" 
-    "https://cdn.modrinth.com/data/8oi3bsk5/versions/lqrGyTjO/Terralith_26.2_v2.6.4_Neoforge.jar" 
-    "b66ade8d34cb61af8174eac4af9905d741a456fdd4c32f1674d106a47094ae560cd9652cf4904ebff591c931134dc3d307fbfa0904503d202e1048289b6f8d3b")
-
-  (mod "lithostitched" 
-    "https://cdn.modrinth.com/data/XaDC71GB/versions/uJERiR1V/lithostitched-1.8.0%2Bbeta3-neoforge-26.2.jar" 
-    "9a8b6b38c58076d601c25b03eeb3f398385467ffd5029ebc7b6f403289ad150fd4a0b550de0bd3bfa0af49f308c2eb633743677630821c10849318b42e7dd229")
-
-  (mod "Nullscape" 
-    "https://cdn.modrinth.com/data/LPjGiSO4/versions/lpsdO6Sg/Nullscape_26.2_v1.2.20.jar" 
-    "8c8f5ec050fb038da653c1023d2bbaf01cf0a88354d8081dbf99513375a64ebc18c669650d017c938ab4c4314c47f8b706422d8df43f4652c6c85460a63b6f01")
-
-  (mod "Incendium" 
-    "https://cdn.modrinth.com/data/ZVzW5oNS/versions/vPwuqZ5y/Incendium_26.2_v5.5.1.jar" 
-    "202e1f23c64c37330d3ec0bfd80331355d15cc8d01f151edc4dabfa8ce719650d10f468df5bf523a93461d78c3660a2cdedbc1037fb08396c13f22b6457352f0")
-
-  # --- STRUCTURES (STRUCTORY & MOOG'S) ---
+[
+  # Structory Family
   (mod "Structory" 
     "https://cdn.modrinth.com/data/aKCwCJlY/versions/TUbwu7eG/Structory_26.2_v1.3.7.jar" 
     "4178a15f32f6ed3d59a7eb2222a8e3f539efd7b54d8ffb790cbf1dfe5c54c6ce6ec33220e148424109c6360c4c6f081b9fbebfe74745fe3c8f05619a06ccb9ec")
@@ -61,7 +16,9 @@ builtins.listToAttrs [
     "https://cdn.modrinth.com/data/j3FONRYr/versions/ziO4YIv1/Structory_Towers_26.2_v1.0.17.jar" 
     "74b1f29439e2946ef9b3f9d8d7915bc112239d5009587c7817c4f45bee7e7a48906ffcddab67f0078fe82e996093657ab874a5a0498ccc045dda4bd562bc7702")
 
-  # --- YUNG'S BETTER MODS COLLECTION ---
+  # Moog's Voyager Structures & Library Dependency
+
+  # YUNG's Collection & API
   (mod "YungsApi" 
     "https://cdn.modrinth.com/data/Ua7DFN59/versions/K3Dp2T0P/YungsApi-1.21.1-NeoForge-5.1.8.jar" 
     "83520e057a949ed6e8dcee33984ae0eef83c2e57d001ffbbba0b51090176608f7378327ece773312543cd8cbb802f951b7c24b57f3ab6cf19d2be10b47af30d0")
