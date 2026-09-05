@@ -39,10 +39,14 @@ in
       };
     };
 
-    files = {
-      "plugins/Essentials/config.yml".value = {
-        allow-unsafe-enchants = true;
-      };
-    };
+    files."plugins/Essentials/config.yml".source = pkgs.runCommand "essentials-config.yml" {
+          src = pkgs.fetchurl {
+            url = "https://raw.githubusercontent.com/EssentialsX/Essentials/2.22.0/Essentials/src/main/resources/config.yml";
+            sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Temporary placeholder
+          };
+        } ''
+          substitute $src $out \
+            --replace "unsafe-enchantments: false" "unsafe-enchantments: true"
+        '';
   };
 }
