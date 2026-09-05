@@ -1,14 +1,14 @@
 { pkgs, ... }:
 
 {
-  services.minecraft-servers.servers.paper = {
-    enable = true;
-    package = pkgs.paperServers.paper-26_2e;
-    jvmOpts = "-Xms2G -Xmx2G";
+  services.minecraft-servers.servers.modded = {
+    enable = true; 
+    package = pkgs.neoforgeServers.neoforge;
+    jvmOpts = "-Xms4G -Xmx4G";
 
     serverProperties = {
-      server-port = 25565;
-      motd = "Vanilla Survival";
+      server-port = 25566;
+      motd = "Modded Chaos";
     };
   };
 }
