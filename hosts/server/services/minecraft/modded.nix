@@ -65,7 +65,7 @@ in
                   };
 
             "mods/lithostitched.jar" = pkgs.fetchurl {
-                    url = "//cdn.modrinth.com/data/XaDC71GB/versions/uJERiR1V/lithostitched-1.8.0%2Bbeta3-neoforge-26.2.jar";
+                    url = "https://cdn.modrinth.com/data/XaDC71GB/versions/uJERiR1V/lithostitched-1.8.0%2Bbeta3-neoforge-26.2.jar";
                     sha512 = "9a8b6b38c58076d601c25b03eeb3f398385467ffd5029ebc7b6f403289ad150fd4a0b550de0bd3bfa0af49f308c2eb633743677630821c10849318b42e7dd229";
                   };
         };
