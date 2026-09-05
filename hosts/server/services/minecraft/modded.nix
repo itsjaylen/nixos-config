@@ -11,12 +11,11 @@
       motd = "Modded";
     };
 
-    # Declaratively add mods from Modrinth
     files = {
       "mods/jade.jar" = {
-        value = pkgs.fetchModrinthMod {
-          mod = "jade";
-          sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+        value = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/nvQzSEkH/versions/GBES6etT/Jade-mc26.2-NeoForge-26.2.10.jar";
+          sha512 = "23c4ce0e0aec0d70b38ba5c8a346e5233aaa3923a94f54dc1b412e48ef98d394d3a1ac3ceaa9fe674dc1653bbef489a228be167f011d163db7ae6e4a947051b9";
         };
       };
     };
