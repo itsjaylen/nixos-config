@@ -3,7 +3,7 @@
 let
   youerServerJar = pkgs.fetchurl {
     url = "https://api.mohistmc.com/project/youer/26.2/builds/latest/download";
-    sha512 = "47116296239b3f114c82166fd3a45ca26c8875e277906dd8289099628af0992647116296239b3f114c82166fd3a45ca26c8875e277906dd8289099628af09926";
+    sha512 = "sha512-JoXYlni7aJUqXxIQcaCttQDRGkHM6H5knpiqzVu4Hf9U2Njoi4ngy+FZi8y0lVE0+WXmttExYEsu4RfumP0O0g==";
   };
 in
 {
