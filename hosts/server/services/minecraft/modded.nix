@@ -3,20 +3,12 @@
 {
   services.minecraft-servers.servers.neoforge = {
     enable = true;
-    # Use a custom fetchurl package for the Youer jar
-    package = pkgs.stdenv.mkDerivation {
-      pname = "youer-server";
-      version = "26.2";
+    package = pkgs.neoforgeServers.neoforge-26_2.overrideAttrs (old: {
       src = pkgs.fetchurl {
         url = "https://api.mohistmc.com/project/youer/26.2/builds/latest/download";
-        sha512 = "47116296239b3f114c82166fd3a45ca26c8875e277906dd8289099628af09926"; # Note: If nix complains it expects sha256 instead of sha512, swap this with the sha256 hash
+        sha256 = "47116296239b3f114c82166fd3a45ca26c8875e277906dd8289099628af09926";
       };
-      dontUnpack = true;
-      installPhase = ''
-        mkdir -p $out/bin
-        cp $src $out/youer.jar
-      '';
-    };
+    });
     
     jvmOpts = "-Xms2G -Xmx2G";
 
@@ -35,9 +27,6 @@
         url = "https://cdn.modrinth.com/data/l6YH9Als/versions/DdMsOH3O/spark-1.10.173-neoforge.jar";
         sha512 = "f40b72761c2137debe90c836a32918e4e3aa2629db4b50e9b78bdcacdbe6e484682ba7e11535bee7fcf581abe944948dde48dda37ee45d3966a5d7e450191173";
       };
-      
-      # You can also add plugins to a plugins/ folder if needed:
-      # "plugins/YourPlugin.jar" = pkgs.fetchurl { ... };
     };
   };
 }
