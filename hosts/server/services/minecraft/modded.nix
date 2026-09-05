@@ -3,23 +3,14 @@
 let
   youerServerJar = pkgs.fetchurl {
     url = "https://api.mohistmc.com/project/youer/26.2/builds/latest/download";
-    sha512 = "47116296239b3f114c82166fd3a45ca26c8875e277906dd8289099628af0992647116296239b3f114c82166fd3a45ca26c8875e277906dd8289099628af09926"; # Note: update hash if the nightly changes
+    sha512 = "47116296239b3f114c82166fd3a45ca26c8875e277906dd8289099628af0992647116296239b3f114c82166fd3a45ca26c8875e277906dd8289099628af09926";
   };
-  
-  # Wrapping the jar into a custom executable package for the Nix Minecraft module
-  youerCustomPackage = pkgs.runCommand "youer-server" {
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-  } ''
-    mkdir -p $out/bin
-    echo "java -jar ${youerServerJar} nogui" > $out/bin/youer-server
-    chmod +x $out/bin/youer-server
-  '';
 in
 {
   services.minecraft-servers.servers.youer = {
     enable = true;
     package = pkgs.writeShellScriptBin "minecraft-server" ''
-      exec ${pkgs.jre_21}/bin/java -Xms2G -Xmx2G -jar ${youerServerJar} nogui
+      exec ${pkgs.jdk21}/bin/java -Xms2G -Xmx2G -jar ${youerServerJar} nogui
     '';
 
     serverProperties = {
