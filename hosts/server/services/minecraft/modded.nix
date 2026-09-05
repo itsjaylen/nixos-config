@@ -94,6 +94,11 @@ in
                     sha512 = "74b1f29439e2946ef9b3f9d8d7915bc112239d5009587c7817c4f45bee7e7a48906ffcddab67f0078fe82e996093657ab874a5a0498ccc045dda4bd562bc7702";
                   };
 
+            "mods/YungsApi" = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/Ua7DFN59/versions/K3Dp2T0P/YungsApi-1.21.1-NeoForge-5.1.8.jar";
+                    sha512 = "83520e057a949ed6e8dcee33984ae0eef83c2e57d001ffbbba0b51090176608f7378327ece773312543cd8cbb802f951b7c24b57f3ab6cf19d2be10b47af30d0";
+                  };
+
             "mods/YungsBetterDungeons" = pkgs.fetchurl {
                     url = "https://cdn.modrinth.com/data/o1C1Dkj5/versions/nYyCiHOI/YungsBetterDungeons-26.1.2-NeoForge-6.1.0.jar";
                     sha512 = "45a51d3bbd88611ac12bf198ad1d2736998c91283e9cb509d1d20d4ea9894427404bdb1d72826981b7a73ccae8b489996e54308f9656c8cc195bc404c227824d";
@@ -104,9 +109,9 @@ in
                     sha512 = "dc167a75a8a8b32ede142d33aa8ad4584d4361d76e21c350ae87b5be26fea77de9df5e185d4928facab3fbe3c3b368e772fe16cf549af665eda09e5103e6f49d";
                   };
 
-            "mods/" = pkgs.fetchurl {
-                    url = "";
-                    sha512 = "";
+            "mods/YungsBetterMineshafts" = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/HjmxVlSr/versions/8MMBHdSy/YungsBetterMineshafts-26.1.2-NeoForge-6.1.0.jar";
+                    sha512 = "babcbabfb041f28cd64650dfc579671fc7d314b225f8dba9672c21c8420735fd99c9ffd354d98a6652ebc3e27d72d6830f23985b88c0ef983116c7eb311d2ed9";
                   };
         };
   };
