@@ -33,20 +33,25 @@
       };
 
       services.qbittorrent = {
-        enable = true;
-        openFirewall = true;
-        webuiPort = 5000;
-        serverConfig = {
-          Preferences = {
-            Connection = {
-              Interface = "CloudflareWARP";
+              enable = true;
+              openFirewall = true;
+              webuiPort = 5000;
+              serverConfig = {
+                Preferences = {
+                  Connection = {
+                    Interface = "CloudflareWARP";
+                  };
+                  LegalNotice = {
+                    Accepted = true;
+                  };
+                  # Optional: Bypass auth for local/proxied requests or set defaults
+                  WebUI = {
+                    AlternativeUIEnabled = false;
+                    # Add other preferences here if needed
+                  };
+                };
+              };
             };
-            LegalNotice = {
-              Accepted = true;
-            };
-          };
-        };
-      };
 
       microvm.shares = [{
         tag = "ro-store";
