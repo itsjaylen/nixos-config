@@ -52,13 +52,14 @@
             LegalNotice\Accepted=true
 
             [WebUI]
-            Address=*
+            Address=0.0.0.0
             LocalHostAuth=false
             Username=admin
             Password_PBKDF2=@ByteArray(HGtDalIr2OpxnZjQ1uzIGQ==:covuupiN1IIL/wZt7/FX2+Gw7PKjpRrCU7yQwAMs9/7WyXyF5PUplznPKAlApUuOpisDk7TDjwyjDbTyALZ/Eg==)
             EOF
             chmod -R 700 /var/lib/qbittorrent/.config
-          '';
+            chown -R qbittorrent:qbittorrent /var/lib/qbittorrent
+        '';
           ExecStart = "${lib.getExe' pkgs.qbittorrent-nox "qbittorrent-nox"} --webui-port=5000 --profile=/var/lib/qbittorrent";
           StandardError = "journal";
           StandardOutput = "journal";
