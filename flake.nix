@@ -71,6 +71,12 @@
           url = "github:astro/microvm.nix";
           inputs.nixpkgs.follows = "nixpkgs";
         };
+
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -133,6 +139,7 @@
                     chaotic.nixosModules.default
                     sops-nix.nixosModules.sops
                     microvm.nixosModules.host
+                    inputs.nix-minecraft.nixosModules.
                     {
                       nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
                     }
