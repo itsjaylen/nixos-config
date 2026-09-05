@@ -5,24 +5,16 @@ let
     url = "https://api.mohistmc.com/project/youer/26.2/builds/latest/download";
     sha512 = "sha512-JoXYlni7aJUqXxIQcaCttQDRGkHM6H5knpiqzVu4Hf9U2Njoi4ngy+FZi8y0lVE0+WXmttExYEsu4RfumP0O0g==";
   };
-
-  youerServerPkg = pkgs.stdenv.mkDerivation {
-    pname = "youer-server";
-    version = "26.2";
-    dontUnpack = true;
-    installPhase = ''
-      mkdir -p $out/bin
-      cat << EOF > $out/bin/minecraft-server
-      exec ${pkgs.jdk21}/bin/java -Xms2G -Xmx2G -jar ${youerServerJar} nogui
-      EOF
-      chmod +x $out/bin/minecraft-server
-    '';
-  };
 in
 {
   services.minecraft-servers.servers.youer = {
     enable = true;
-    package = youerServerPkg;
+    
+    # Use the jdk21 runtime package from nixpkgs directly
+    package = pkgs.jdk21;
+
+    # Pass the custom Youer jar through JVM arguments
+    jvmOpts = "-Xms2G -Xmx2G -jar ${youerServerJar} nogui";
 
     serverProperties = {
       server-port = 25566;
