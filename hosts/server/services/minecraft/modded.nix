@@ -1,16 +1,14 @@
 { pkgs, ... }:
 
 {
-  services.minecraft-servers.servers.modded = {
+  services.minecraft-servers.servers.paper = {
     enable = true;
-    package = pkgs.neoforgeServers.neoforge.override {
-      jre = pkgs.temurin-bin-21;
-    };
-    jvmOpts = "-Xms4G -Xmx4G";
+    package = pkgs.paperServers.paper-26_2e;
+    jvmOpts = "-Xms2G -Xmx2G";
 
     serverProperties = {
-      server-port = 25566;
-      motd = "Modded Chaos";
+      server-port = 25565;
+      motd = "Vanilla Survival";
     };
   };
 }

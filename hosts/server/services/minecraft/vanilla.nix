@@ -3,9 +3,7 @@
 {
   services.minecraft-servers.servers.paper = {
     enable = true;
-    package = pkgs.paperServers.paper-26_2.override {
-      jre = pkgs.temurin-bin-21;
-    };
+    package = pkgs.paperServers.paper-26_2;
     jvmOpts = "-Xms2G -Xmx2G";
 
     serverProperties = {
