@@ -27,8 +27,17 @@
       ];
       linger = true;
     };
+
+    minecraft = {
+      isSystemUser = true;
+      group = "minecraft";
+      home = "/var/lib/minecraft";
+      createHome = true;
+      description = "Minecraft daemon user";
+    };
   };
 
+  users.groups.minecraft = {};
 
   programs.fish.enable = true;
   programs.fish.shellAliases = {
