@@ -1,4 +1,4 @@
-{ config, pkgs, lib, username, ... }: {
+{ config, pkgs, lib, username, inputs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./services
@@ -9,6 +9,7 @@
     ../../modules/core/security.nix
     ../../modules/core/nh.nix
     ../../modules/core/sops.nix
+    inputs.microvm.nixosModules.host
   ];
 
   users.users = {

@@ -20,7 +20,7 @@
               widgets = [
                 {
                   type = "weather";
-                  location = "New York, NY";
+                  location = "Atlanta, GA";
                   units = "imperial";
                   hour-format = "12h";
                 }
