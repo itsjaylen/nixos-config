@@ -4,7 +4,6 @@
 
     config = {
       imports = [
-        # Correct path from hosts/server/services/ back to modules/core/
         ../../../modules/core/nixpkgs.nix
       ];
 
@@ -17,6 +16,7 @@
         {
           type = "user";
           id = "qbt-net";
+          mac = "02:00:00:00:00:01"; # <-- Add a unique locally-administered MAC address
         }
       ];
 
