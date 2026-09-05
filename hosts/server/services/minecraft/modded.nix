@@ -4,7 +4,7 @@
   services.minecraft-servers.servers.modded = {
     enable = true; 
     package = pkgs.neoforgeServers.neoforge.override {
-      jre_headless = pkgs.temurin-bin-21;
+      jre_headless = pkgs.temurin-bin-25;
     };
     jvmOpts = "-Xms4G -Xmx4G";
 

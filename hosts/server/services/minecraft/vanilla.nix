@@ -3,8 +3,8 @@
 {
   services.minecraft-servers.servers.paper = {
     enable = true;
-    package = pkgs.paperServers.paper-26_2e.override {
-      jre_headless = pkgs.temurin-bin-21;
+    package = pkgs.paperServers.paper-26_2.override {
+      jre_headless = pkgs.temurin-bin-25;
     };
     jvmOpts = "-Xms2G -Xmx2G";
 
