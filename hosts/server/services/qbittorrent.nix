@@ -44,11 +44,9 @@
                   LegalNotice = {
                     Accepted = true;
                   };
-                  # Optional: Bypass auth for local/proxied requests or set defaults
-                  WebUI = {
-                    AlternativeUIEnabled = false;
-                    # Add other preferences here if needed
-                  };
+                };
+                WebUI = {
+                  LocalHostAuth = false; # Disables auth for requests coming through localhost/port-forwarding
                 };
               };
             };
