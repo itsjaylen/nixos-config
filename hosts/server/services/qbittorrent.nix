@@ -1,8 +1,8 @@
 { config, pkgs, ... }: {
   microvm.vms.qbittorrent = {
     autostart = true;
-    mem = 256; 
-    vcpu = 1; # <-- Change 'cores' to 'vcpu'
+    mem = 256; # Megabytes of RAM for the microVM
+    vcpu = 1;  
     
     networking.primaryInterface = "enp1s0";
 
