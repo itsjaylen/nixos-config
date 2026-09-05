@@ -1,15 +1,15 @@
 { config, pkgs, ... }: {
-  # Define the microVM on the host system
   microvm.vms.qbittorrent = {
     autostart = true;
-    restartTriggers = [ ];
-    mem = 256; # MB of RAM
-    cores = 1;
+    mem = 256; 
+    vcpu = 1; # <-- Change 'cores' to 'vcpu'
     
-    # Networking for the microVM (using SLIRP or bridge)
-    networking.primaryInterface = "enp1s0"; # Adjust if using a bridged setup
+    networking.primaryInterface = "enp1s0";
 
     config = {
+      imports = [
+        ../../modules/core/nixpkgs.nix
+      ];
 
       system.stateVersion = "26.05";
 
@@ -33,7 +33,6 @@
         };
       };
 
-      # Share the host's /nix/store to keep disk usage near zero inside the VM
       microvm.shares = [{
         tag = "ro-store";
         source = "/nix/store";
