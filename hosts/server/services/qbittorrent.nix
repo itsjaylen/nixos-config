@@ -48,7 +48,7 @@
                 WebUI = {
                   Address = "*";
                   Username = "admin";
-                  Password_PBKDF2 = "@ByteArray(EjRWeJCrze/FM5BxmaFbFkXS0XSGwU5jbBsE5J3N6MzqSExdnBukZic1Ar+MGFTxesc5jTyLih+mL9r1KaWrDODpVlHXTtxb)";
+                  Password_PBKDF2 = "@ByteArray(EjRWeJCrze87iy9BDFVH0uBHliecc71DHx6gTTWabULcvyqTJTkiBZhuaTmNO6Bye4Ybjqr2yz+mo1itfQaJ0IEKTQA+2uUl)";
                 };
               };
             };
