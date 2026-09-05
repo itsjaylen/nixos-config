@@ -41,7 +41,7 @@ in
           "plugins/Essentials/config.yml" = pkgs.runCommand "essentials-config.yml" {
             src = pkgs.fetchurl {
               url = "https://raw.githubusercontent.com/EssentialsX/Essentials/2.22.0/Essentials/src/main/resources/config.yml";
-              sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+              sha256 = "sha256-M4As04JRLI8dHUtBBY8gMBR8RtbxRaIRBMlQioG7MhA=";
             };
           } ''
             substitute $src $out \
