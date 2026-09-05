@@ -27,10 +27,6 @@ in
     };
 
     symlinks = {
-      "mods/FerriteCore.jar" = pkgs.fetchurl {
-        url = "https://cdn.modrinth.com/data/uXXizFIs/versions/LtVvw4uS/ferritecore-9.0.0-neoforge.jar";
-        sha512 = "e96a99ac5539f56a1f4cd109d62b668ebd5283f0068491ede956f52e67023beba7abe2e40021499352ffc41ead950bebcabce7792352249a1b45c5dccb3cf99c";
-      };
 
       "mods/Spark.jar" = pkgs.fetchurl {
         url = "https://cdn.modrinth.com/data/l6YH9Als/versions/DdMsOH3O/spark-1.10.173-neoforge.jar";
