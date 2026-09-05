@@ -59,6 +59,11 @@ in
                   sha512 = "94c97628e4b13762d9ba029fa1130300dccd63d31f15b5f29e96fc0586abd7392315fed8f51c772ba7e14fc4738a31d7bbd3c8c106d9929d378334ffe65c96d2";
                 };
           
+            "plugins/Terralith.jar" = pkgs.fetchurl {
+                    url = "//cdn.modrinth.com/data/8oi3bsk5/versions/lqrGyTjO/Terralith_26.2_v2.6.4_Neoforge.jar";
+                    sha512 = "b66ade8d34cb61af8174eac4af9905d741a456fdd4c32f1674d106a47094ae560cd9652cf4904ebff591c931134dc3d307fbfa0904503d202e1048289b6f8d3b";
+                  };      
+                
         };
   };
 }
