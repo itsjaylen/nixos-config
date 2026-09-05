@@ -61,14 +61,6 @@ builtins.listToAttrs [
     "https://cdn.modrinth.com/data/j3FONRYr/versions/ziO4YIv1/Structory_Towers_26.2_v1.0.17.jar" 
     "74b1f29439e2946ef9b3f9d8d7915bc112239d5009587c7817c4f45bee7e7a48906ffcddab67f0078fe82e996093657ab874a5a0498ccc045dda4bd562bc7702")
 
-  (mod "MoogsStructureLib" 
-    "https://cdn.modrinth.com/data/moogs_structures/versions/LATEST/moogs_structures-neoforge.jar" 
-    "INSERT_HASH_HERE")
-
-  (mod "MoogsVoyagerStructures" 
-    "https://cdn.modrinth.com/data/OQAgZMH1/versions/LATEST/mvs-neoforge.jar" 
-    "INSERT_HASH_HERE")
-
   # --- YUNG'S BETTER MODS COLLECTION ---
   (mod "YungsApi" 
     "https://cdn.modrinth.com/data/Ua7DFN59/versions/K3Dp2T0P/YungsApi-1.21.1-NeoForge-5.1.8.jar" 
