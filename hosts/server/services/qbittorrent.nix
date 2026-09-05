@@ -48,9 +48,9 @@
                 WebUI = {
                   Address = "*";
                   LocalHostAuth = false;
-                  # Bypass authentication for local network / host requests
-                  AuthSubnetWhitelistEnabled = true;
-                  AuthSubnetWhitelist = "0.0.0.0/0"; # Or specify your host/bridge subnet
+                  Username = "admin";
+                  # This is the official PBKDF2 hash for the password: adminadmin
+                  Password_PBKDF2 = "@ByteArray(ARQ77eY1NUZaQsuDHbIMCA==:0WMRkYTUWVT9wVvdDtHAjU9b3b7uB8NR1Gur2hmQCvCDpm39Q+PsJRJPaCU51dEiz+dTzh8qbPsL8WkFljQYFQ==)";
                 };
               };
             };
