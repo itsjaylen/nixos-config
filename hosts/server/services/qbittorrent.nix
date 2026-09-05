@@ -4,20 +4,20 @@
     vcpu = 1;
     mem = 256;
 
-    # Define the network interface attached to the microVM
-    interfaces = [
-      {
-        type = "user"; # User-mode networking (SLiRP), requires no extra host bridge setup
-        id = "qbt-net";
-      }
-    ];
-
     config = {
       imports = [
         ../../modules/core/nixpkgs.nix
       ];
 
       system.stateVersion = "26.05";
+
+      # Interfaces belong inside the microVM's own configuration block
+      microvm.interfaces = [
+        {
+          type = "user";
+          id = "qbt-net";
+        }
+      ];
 
       services.cloudflare-warp = {
         enable = true;
