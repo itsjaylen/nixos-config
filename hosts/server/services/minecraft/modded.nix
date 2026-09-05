@@ -143,6 +143,26 @@ in
                     url = "https://cdn.modrinth.com/data/XNlO7sBv/versions/PdYp5G62/YungsBetterDesertTemples-26.1.2-NeoForge-5.1.0.jar";
                     sha512 = "d9996a8cfb6684cb147ece0ed512736eb6581687d22e26ecf02c7ce033171d6eda744cc85fb3ef6e005619350002e3a22fca1f6289d3d09dd6167ed3cb6e1359";
                   };
+
+            "mods/YungsBridges" = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/Ht4BfYp6/versions/fi6Ilg6W/YungsBridges-26.1.2-NeoForge-6.1.0.jar";
+                    sha512 = "7da18f1b8ff6a781886cd634ef6d15d5518f1608358d1d0d0cf01dc33ddbbfc5e5782cd122afc4fdc7e0b7a1ddff7591931dd5ed0e62f3ac8aa43600853737fe";
+                  };
+
+            "mods/YungsExtras" = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/ZYgyPyfq/versions/nxaj9k0R/YungsExtras-26.1.2-NeoForge-6.1.0.jar";
+                    sha512 = "cca70df46c3cb455601cf0fb55076a5e9be01dbe58f88a418a54b8c0c570ea254d746eec28dd4886daa212a2eecc061a3d2a77118070dafd6ada28adeebf9222";
+                  };
+
+            "mods/YungsCaveBiomes" = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/cs7iGVq1/versions/oXLoOQEW/YungsCaveBiomes-26.1.2-NeoForge-4.1.1.jar";
+                    sha512 = "b506d8a05f916b5690582f511a64ffb26e413f86faa7b7fc718729f8d4e351262494a8637dee569e458219a46e507bff6443b96320472cb0539cd13524a61b05";
+                  };
+
+            "mods/YungsBetterCaves" = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/Dfu00ggU/versions/Feo6YOjN/YungsBetterCaves-1.21.1-NeoForge-3.1.6.jar";
+                    sha512 = "a5fa3881a32a96c25c8012aac347221363792d68491ae1f6e26d345264f7acff7c7562d6c96e0ee2f00c63ad50351742763a740f0965cc9ca0b97808f8847bba";
+                  };
         };
   };
 }
