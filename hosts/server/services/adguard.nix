@@ -5,12 +5,15 @@
     port = 3005;
     settings = {
       dns = {
-        bind_hosts = [ "0.0.0.0" ];
+        # Bind only to loopback to prevent hijacking systemd-resolved globally
+        bind_hosts = [ "127.0.0.1" ];
         port = 53;
         upstream_dns = [
-          "9.9.9.9#dns.quad9.net"
-          "149.112.112.112#dns.quad9.net"
         ];
+      };
+      # Explicitly disable built-in DHCP server to prevent interface warnings
+      dhcp = {
+        enabled = false;
       };
       filters = [
         {
