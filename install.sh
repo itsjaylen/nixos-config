@@ -82,7 +82,7 @@ fi
 # Track newly generated and untracked files in Git so Nix Flakes can evaluate them
 if [ -d ".git" ]; then
   echo -e "${BLUE}==> Tracking untracked files for Nix flake evaluation...${NC}"
-  git add -A
+  git add --ignore-removal .
 fi
 
 # Execute mode logic
