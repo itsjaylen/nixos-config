@@ -32,7 +32,6 @@
         enable = true;
       };
 
-      # Write the config directly to where qBittorrent-nox expects it
       systemd.services.qbittorrent = {
         enable = true;
         unitConfig = {
@@ -48,7 +47,6 @@
             mkdir -p /var/lib/qbittorrent/.config/qBittorrent
             cat << 'EOF' > /var/lib/qbittorrent/.config/qBittorrent/qBittorrent.conf
             [Preferences]
-            Connection\Interface=CloudflareWARP
             LegalNotice\Accepted=true
 
             [WebUI]
@@ -59,7 +57,7 @@
             EOF
             chmod -R 700 /var/lib/qbittorrent/.config
             chown -R qbittorrent:qbittorrent /var/lib/qbittorrent
-        '';
+          '';
           ExecStart = "${lib.getExe' pkgs.qbittorrent-nox "qbittorrent-nox"} --webui-port=5000 --profile=/var/lib/qbittorrent";
           StandardError = "journal";
           StandardOutput = "journal";
