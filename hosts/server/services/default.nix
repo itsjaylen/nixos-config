@@ -10,6 +10,6 @@
     ./grafana.nix
     ./loki.nix
     ./adguard.nix
-    ./qbittorrent.nix
+    ./minecraft
   ];
 }
