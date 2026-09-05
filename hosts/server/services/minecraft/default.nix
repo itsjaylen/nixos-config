@@ -9,7 +9,7 @@
       enable = true;
 
       # Use the package provided by nix-minecraft.
-      package = pkgs.minecraftServers.vanilla;
+      package = pkgs.paperServers.paper-26_2;
 
       jvmOpts = "-Xms2G -Xmx2G";
 
