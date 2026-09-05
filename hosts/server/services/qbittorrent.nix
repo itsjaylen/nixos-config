@@ -2,8 +2,15 @@
   microvm.vms.qbittorrent = {
     autostart = true;
     vcpu = 1;
-    
-    networking.primaryInterface = "enp1s0";
+    mem = 256;
+
+    # Define the network interface attached to the microVM
+    interfaces = [
+      {
+        type = "user"; # User-mode networking (SLiRP), requires no extra host bridge setup
+        id = "qbt-net";
+      }
+    ];
 
     config = {
       imports = [
@@ -11,8 +18,6 @@
       ];
 
       system.stateVersion = "26.05";
-
-      microvm.mem = 256;
 
       services.cloudflare-warp = {
         enable = true;
