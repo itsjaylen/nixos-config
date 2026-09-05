@@ -20,6 +20,7 @@ in
     serverProperties = {
       server-port = 25566;
       motd = "Modded";
+      enforce-secure-profile = false;
     };
 
     symlinks = {
@@ -47,6 +48,17 @@ in
             substitute $src $out \
               --replace "unsafe-enchantments: false" "unsafe-enchantments: true"
           '';
+
+          "plugins/BlueMap.jar" = pkgs.fetchurl {
+                  url = "https://cdn.modrinth.com/data/swbUV1cr/versions/K5U1ASjn/bluemap-5.23-paper.jar";
+                  sha512 = "sha512-qHiT11FkBd+kXhK0R73r0E7ktCP/TRCWQgB5bZDla/eJ7a8gPsMBP5JigGl7EpD7zXJUT9GSkQxF+IzlW5eLsQ==";
+                };
+
+          "plugins/FreedomChat.jar" = pkgs.fetchurl {
+                  url = "https://cdn.modrinth.com/data/MubyTbnA/versions/Pqu2VLTB/FreedomChat-Paper-1.7.9.jar";
+                  sha512 = "94c97628e4b13762d9ba029fa1130300dccd63d31f15b5f29e96fc0586abd7392315fed8f51c772ba7e14fc4738a31d7bbd3c8c106d9929d378334ffe65c96d2";
+                };
+          
         };
   };
 }
