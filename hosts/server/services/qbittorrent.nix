@@ -4,12 +4,12 @@
 
     config = {
       imports = [
-        ../../modules/core/nixpkgs.nix
+        # Correct path from hosts/server/services/ back to modules/core/
+        ../../../modules/core/nixpkgs.nix
       ];
 
       system.stateVersion = "26.05";
 
-      # Hypervisor resource configurations belong inside the guest config block
       microvm.mem = 256;
       microvm.vcpu = 1;
 
