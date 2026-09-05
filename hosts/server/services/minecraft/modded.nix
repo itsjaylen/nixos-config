@@ -1,4 +1,4 @@
-modded.nix { pkgs, ... }:
+{ pkgs, ... }:
 
 {
   services.minecraft-servers.servers.neoforge = {
