@@ -12,6 +12,47 @@
           "149.112.112.112#dns.quad9.net"
         ];
       };
+      filters = [
+        {
+          enabled = true;
+          url = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt";
+          name = "AdGuard DNS filter";
+        }
+        {
+          enabled = true;
+          url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/privacy_essentials.txt";
+          name = "Yokoffing Privacy Essentials";
+        }
+        {
+          enabled = true;
+          url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/annoyance_list.txt";
+          name = "Yokoffing Annoyances";
+        }
+        {
+          enabled = true;
+          url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/youtube_clear_view.txt";
+          name = "Yokoffing YouTube Clear View";
+        }
+        {
+          enabled = true;
+          url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/click2load.txt";
+          name = "Yokoffing Click2Load";
+        }
+        {
+          enabled = true;
+          url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/clean_reading_experience.txt";
+          name = "Yokoffing Clean Reading Experience";
+        }
+        {
+          enabled = true;
+          url = "https://v.firebog.net/hosts/AdguardDNS.txt";
+          name = "Firebog Trusted";
+        }
+      ];
+      user_rules = [
+        "||ads.example.com^"
+        "||trackers.example.org^"
+      ];
     };
   };
 
