@@ -21,7 +21,6 @@ in
       server-port = 25566;
       motd = "Modded";
       enforce-secure-profile = false;
-      level-type = "terralith:default";
     };
 
     symlinks = {
