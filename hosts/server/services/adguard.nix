@@ -20,6 +20,26 @@
         }
         {
           enabled = true;
+          url = "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt";
+          name = "uBlock Origin – Filters";
+        }
+        {
+          enabled = true;
+          url = "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.txt";
+          name = "uBlock Origin – Badware risks";
+        }
+        {
+          enabled = true;
+          url = "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt";
+          name = "uBlock Origin – Privacy";
+        }
+        {
+          enabled = true;
+          url = "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/annoyances.txt";
+          name = "uBlock Origin – Annoyances";
+        }
+        {
+          enabled = true;
           url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/privacy_essentials.txt";
           name = "Yokoffing Privacy Essentials";
         }
