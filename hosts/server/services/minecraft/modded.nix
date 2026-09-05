@@ -4,25 +4,30 @@
   services.minecraft-servers.servers.neoforge = {
     enable = true;
     
-    # Package Youer as a custom server derivation that provides an executable jar
-    package = let
-      youerJar = pkgs.fetchurl {
+    package = pkgs.stdenv.mkDerivation rec {
+      pname = "youer-server";
+      version = "26.2";
+      
+      src = pkgs.fetchurl {
         url = "https://api.mohistmc.com/project/youer/26.2/builds/latest/download";
         sha256 = "47116296239b3f114c82166fd3a45ca26c8875e277906dd8289099628af09926";
       };
-    in pkgs.stdenv.mkDerivation {
-      pname = "youer-server";
-      version = "26.2.75";
-      src = youerJar;
-      
+
       dontUnpack = true;
-      
+
       installPhase = ''
-        mkdir -p $out/share/youer
+        mkdir -p $out/bin $out/share/youer
         cp $src $out/share/youer/youer.jar
+
+        # Create the exact executable wrapper expected by nix-minecraft
+        cat <<EOF > $out/bin/minecraft-server
+        #!/usr/bin/env bash
+        exec ${pkgs.jre_headless}/bin/java \$JVM_OPTS -jar $out/share/youer/youer.jar nogui "\$@"
+        EOF
+        chmod +x $out/bin/minecraft-server
       '';
-      
-      meta.mainProgram = "youer.jar";
+
+      meta.mainProgram = "minecraft-server";
     };
 
     jvmOpts = "-Xms2G -Xmx2G";
