@@ -10,10 +10,16 @@ NC='\033[0m' # No Color
 # Default values
 MODE="switch"
 TARGET_HOST=""
+DO_PULL=false
 
 # Parse positional arguments
 while [[ $# -gt 0 ]]; do
   case "$1" in
+  update)
+    MODE="switch"
+    DO_PULL=true
+    shift
+    ;;
   dry-build | dry)
     MODE="dry-build"
     shift
@@ -43,6 +49,17 @@ done
 
 # Fallback to system hostname if no host argument was provided
 HOSTNAME="${TARGET_HOST:-$(hostname -s)}"
+
+# Perform git pull if update was specified
+if [ "$DO_PULL" = true ]; then
+  if [ -d ".git" ]; then
+    echo -e "${BLUE}==> Pulling latest changes from Git...${NC}"
+    git pull
+  else
+    echo -e "${RED}==> Error: Not a Git repository, cannot pull updates.${NC}"
+    exit 1
+  fi
+fi
 
 echo -e "${BLUE}==> Preparing Nix flake (Mode: ${GREEN}$MODE${BLUE}, Host: ${GREEN}$HOSTNAME${BLUE})...${NC}"
 
