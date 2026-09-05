@@ -43,6 +43,7 @@
                         { title = "Garage S3"; url = "http://localhost:3900"; alt-status-codes = [ 403 ]; }
                         { title = "Grafana"; url = "http://localhost:3001"; }
                         { title = "AdGuard Home"; url = "http://localhost:3005"; }
+                        { title = "Qbittorrent"; url = "http://localhost:5000"; }
                       ];
                     }
                   ];

@@ -16,7 +16,14 @@
         {
           type = "user";
           id = "qbt-net";
-          mac = "02:00:00:00:00:01"; # <-- Add a unique locally-administered MAC address
+          mac = "02:00:00:00:00:01";
+          forward = [
+            {
+              from = "host";
+              host.port = 5000;
+              guest.port = 5000;
+            }
+          ];
         }
       ];
 
@@ -27,7 +34,7 @@
       services.qbittorrent = {
         enable = true;
         openFirewall = true;
-        webuiPort = 9090;
+        webuiPort = 5000;
         serverConfig = {
           Preferences = {
             Connection = {
