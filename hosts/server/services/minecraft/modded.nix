@@ -3,30 +3,28 @@
 {
   services.minecraft-servers.servers.neoforge = {
     enable = true;
-    # Completely replace the package definition with Youer
-    package = pkgs.stdenv.mkDerivation {
-      pname = "youer-server";
-      version = "26.2";
-      
-      src = pkgs.fetchurl {
+    
+    # Package Youer as a custom server derivation that provides an executable jar
+    package = let
+      youerJar = pkgs.fetchurl {
         url = "https://api.mohistmc.com/project/youer/26.2/builds/latest/download";
         sha256 = "47116296239b3f114c82166fd3a45ca26c8875e277906dd8289099628af09926";
       };
-
+    in pkgs.stdenv.mkDerivation {
+      pname = "youer-server";
+      version = "26.2.75";
+      src = youerJar;
+      
       dontUnpack = true;
-
+      
       installPhase = ''
-        mkdir -p $out/bin
-        # Create an executable wrapper that runs the Youer jar
-        cat <<EOF > $out/bin/youer-server
-        exec ${pkgs.jre_headless}/bin/java \$JVM_OPTS -jar $src nogui
-        EOF
-        chmod +x $out/bin/youer-server
+        mkdir -p $out/share/youer
+        cp $src $out/share/youer/youer.jar
       '';
       
-      meta.mainProgram = "youer-server";
+      meta.mainProgram = "youer.jar";
     };
-    
+
     jvmOpts = "-Xms2G -Xmx2G";
 
     serverProperties = {
