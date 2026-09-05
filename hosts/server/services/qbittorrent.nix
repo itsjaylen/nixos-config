@@ -1,8 +1,6 @@
 { config, pkgs, ... }: {
   microvm.vms.qbittorrent = {
     autostart = true;
-    vcpu = 1;
-    mem = 256;
 
     config = {
       imports = [
@@ -11,7 +9,10 @@
 
       system.stateVersion = "26.05";
 
-      # Interfaces belong inside the microVM's own configuration block
+      # Hypervisor resource configurations belong inside the guest config block
+      microvm.mem = 256;
+      microvm.vcpu = 1;
+
       microvm.interfaces = [
         {
           type = "user";
