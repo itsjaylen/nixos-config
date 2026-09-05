@@ -6,10 +6,29 @@
         port = 8080;
         host = "0.0.0.0";
       };
+      theme = {
+        background-color = "220 15 15";
+        primary-color = "200 80 50";
+        contrast-multiplier = 1.1;
+      };
       pages = [
         {
           name = "Home";
           columns = [
+            {
+              size = "small";
+              widgets = [
+                {
+                  type = "weather";
+                  location = "New York, NY";
+                  units = "imperial";
+                  hour-format = "12h";
+                }
+                {
+                  type = "calendar";
+                }
+              ];
+            }
             {
               size = "full";
               widgets = [
@@ -26,6 +45,15 @@
                         { title = "AdGuard Home"; url = "http://localhost:3005"; }
                       ];
                     }
+                  ];
+                }
+                {
+                  type = "rss";
+                  title = "Tech News";
+                  limit = 5;
+                  feeds = [
+                    { title = "Hacker News"; url = "https://news.ycombinator.com/rss"; }
+                    { title = "NixOS Blog"; url = "https://nixos.org/blog/announcements-rss.xml"; }
                   ];
                 }
               ];
