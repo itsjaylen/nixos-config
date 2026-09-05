@@ -1,8 +1,6 @@
 { pkgs, ... }:
 
 let
-  # Use vanillaServers.vanilla as a base to get the standard launch wrapper,
-  # but override the jar source with the Youer download.
   youerPackage = pkgs.vanillaServers.vanilla.overrideAttrs (oldAttrs: {
     pname = "youer-server";
     version = "26.2";
@@ -16,9 +14,7 @@ in
   services.minecraft-servers.servers.neoforge = {
     enable = true;
     
-    # Swap out the neoforge package for your custom Youer derivation
     package = youerPackage;
-    
     jvmOpts = "-Xms2G -Xmx2G";
 
     serverProperties = {
@@ -38,10 +34,15 @@ in
       };
 
       "plugins/EssentialsX.jar" = pkgs.fetchurl {
-              url = "https://cdn.modrinth.com/data/hXiIvTyT/versions/nY6VN1XH/EssentialsX-2.22.0.jar";
-              sha512 = "sha512-Ry7PcZJIAXI2Q8puH5kxKX3lqgh0pUT4pxni4vfIGvge97y9OLbkPwJgqdrmq+Qsl5B+cOJDDjJv+M/xLr1hzw==";
-            };
-      
+        url = "https://cdn.modrinth.com/data/hXiIvTyT/versions/nY6VN1XH/EssentialsX-2.22.0.jar";
+        sha512 = "sha512-Ry7PcZJIAXI2Q8puH5kxKX3lqgh0pUT4pxni4vfIGvge97y9OLbkPwJgqdrmq+Qsl5B+cOJDDjJv+M/xLr1hzw==";
+      };
+    };
+
+    files = {
+      "plugins/Essentials/config.yml".value = {
+        allow-unsafe-enchants = true;
+      };
     };
   };
 }
