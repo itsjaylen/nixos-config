@@ -3,7 +3,6 @@
   services.prometheus.exporters.node = {
     enable = true;
     port = 9100;
-    enabledCollectors = [ "cpu" "stat" "systemd" "diskstats" "filesystem" "meminfo" "netdev" ];
   };
 
   # PostgreSQL metric exporter
