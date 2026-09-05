@@ -46,7 +46,9 @@
                   };
                 };
                 WebUI = {
-                  Address = "*"; # Ensure it listens on all guest interfaces
+                  Address = "*";
+                  Username = "admin";
+                  Password_PBKDF2 = "@ByteArray(EjRWeJCrze/FM5BxmaFbFkXS0XSGwU5jbBsE5J3N6MzqSExdnBukZic1Ar+MGFTxesc5jTyLih+mL9r1KaWrDODpVlHXTtxb)";
                 };
               };
             };
