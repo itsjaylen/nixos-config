@@ -5,13 +5,17 @@
     port = 3005;
     settings = {
       dns = {
-        # Bind only to loopback to prevent hijacking systemd-resolved globally
-        bind_hosts = [ "127.0.0.1" ];
+        # Bind to both loopback and your server's local LAN IP
+        bind_hosts = [ 
+          "127.0.0.1" 
+          "192.168.50.188" 
+        ];
         port = 53;
         upstream_dns = [
+          "9.9.9.9#dns.quad9.net"
+          "149.112.112.112#dns.quad9.net"
         ];
       };
-      # Explicitly disable built-in DHCP server to prevent interface warnings
       dhcp = {
         enabled = false;
       };
