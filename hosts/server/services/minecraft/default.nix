@@ -4,7 +4,6 @@
   imports = [
     ./vanilla.nix
     ./modded.nix
-    ./creative.nix # Comment this line out to completely "disable" it
   ];
 
   services.minecraft-servers = {

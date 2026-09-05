@@ -1,9 +1,11 @@
 { pkgs, ... }:
 
 {
-  services.minecraft-servers.servers.neoforge = {
+  services.minecraft-servers.servers.paper = {
     enable = true;
-    package = pkgs.neoforgeServers.neoforge;
+    package = pkgs.paperServers.paper-26_2e.override {
+      jre_headless = pkgs.temurin-bin-21;
+    };
     jvmOpts = "-Xms2G -Xmx2G";
 
     serverProperties = {

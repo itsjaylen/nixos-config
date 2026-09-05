@@ -2,8 +2,10 @@
 
 {
   services.minecraft-servers.servers.modded = {
-    enable = true; # Set to false to disable this server instantly without deleting code
-    package = pkgs.paperServers.paper-26_2;
+    enable = true; 
+    package = pkgs.neoforgeServers.neoforge.override {
+      jre_headless = pkgs.temurin-bin-21;
+    };
     jvmOpts = "-Xms4G -Xmx4G";
 
     serverProperties = {
