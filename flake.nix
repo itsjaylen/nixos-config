@@ -4,9 +4,15 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     winchain.url = "github:bytez1337/winchain";
 
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
     };
@@ -68,15 +74,9 @@
     };
 
     microvm = {
-          url = "github:astro/microvm.nix";
-          inputs.nixpkgs.follows = "nixpkgs";
-        };
-
-    nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft";
+      url = "github:astro/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
   outputs =
@@ -92,64 +92,89 @@
     let
       username = "jaylen";
       system = "x86_64-linux";
+
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
       };
-      lib = nixpkgs.lib;
     in
     {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           inherit system;
+
           modules = [
             chaotic.nixosModules.default
             sops-nix.nixosModules.sops
             winchain.nixosModules.default
+
             {
-              nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
+              nixpkgs.overlays = [
+                inputs.nix-cachyos-kernel.overlays.pinned
+              ];
+
               boot.loader.systemd-boot.winchain.enable = true;
-              boot.loader.systemd-boot.winchain.partuuid = "36d12ef2-c336-4656-98f2-25b3f98a7469";
+              boot.loader.systemd-boot.winchain.partuuid =
+                "36d12ef2-c336-4656-98f2-25b3f98a7469";
             }
+
             ./hosts/desktop
           ];
+
           specialArgs = {
             host = "desktop";
             inherit self inputs username;
           };
         };
+
         laptop = nixpkgs.lib.nixosSystem {
           inherit system;
+
           modules = [
             chaotic.nixosModules.default
             sops-nix.nixosModules.sops
+
             {
-              nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
+              nixpkgs.overlays = [
+                inputs.nix-cachyos-kernel.overlays.pinned
+              ];
             }
+
             ./hosts/laptop
           ];
+
           specialArgs = {
             host = "laptop";
             inherit self inputs username;
           };
         };
+
         server = nixpkgs.lib.nixosSystem {
-                  inherit system;
-                  modules = [
-                    chaotic.nixosModules.default
-                    sops-nix.nixosModules.sops
-                    microvm.nixosModules.host
-                    inputs.nix-minecraft.nixosModules
-                    {
-                      nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
-                    }
-                    ./hosts/server
-                  ];
-                  specialArgs = {
-                    host = "server";
-                    inherit self inputs username;
-                  };
-                };
+          inherit system;
+
+          modules = [
+            chaotic.nixosModules.default
+            sops-nix.nixosModules.sops
+            microvm.nixosModules.host
+
+            # Correct nix-minecraft module import
+            inputs.nix-minecraft.nixosModules.minecraft-servers
+
+            {
+              nixpkgs.overlays = [
+                inputs.nix-cachyos-kernel.overlays.pinned
+                inputs.nix-minecraft.overlay
+              ];
+            }
+
+            ./hosts/server
+          ];
+
+          specialArgs = {
+            host = "server";
+            inherit self inputs username;
+          };
+        };
       };
 
       formatter.${system} = pkgs.treefmt.withConfig {
@@ -160,7 +185,10 @@
           go
           shfmt
         ];
-        settings.treefmt.configFiles = [ ./treefmt.toml ];
+
+        settings.treefmt.configFiles = [
+          ./treefmt.toml
+        ];
       };
     };
 }

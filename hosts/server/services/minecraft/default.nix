@@ -8,21 +8,23 @@
     servers.minecraft = {
       enable = true;
 
-      package = pkgs.minecraftServers.vanilla-26_2;
+      # Use the package provided by nix-minecraft.
+      package = pkgs.minecraftServers.vanilla;
 
-      memory = {
-        min = "2G";
-        max = "2G";
-      };
+      jvmOpts = "-Xms2G -Xmx2G";
 
       serverProperties = {
         server-port = 25565;
         motd = "Jaylen's Minecraft Server";
         online-mode = true;
         enable-command-block = true;
+        view-distance = 10;
+        simulation-distance = 10;
       };
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 25565 ];
+  networking.firewall.allowedTCPPorts = [
+    25565
+  ];
 }
