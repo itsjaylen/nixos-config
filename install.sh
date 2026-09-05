@@ -55,12 +55,16 @@ if [ "$DO_PULL" = true ]; then
   if [ -d ".git" ]; then
     echo -e "${BLUE}==> Pulling latest changes from Git...${NC}"
     git pull
-    echo -e "${BLUE}==> Updating Git submodules...${NC}"
-    git submodule update --init --recursive
   else
     echo -e "${RED}==> Error: Not a Git repository, cannot pull updates.${NC}"
     exit 1
   fi
+fi
+
+# Always ensure submodules are updated locally before Nix evaluates the flake
+if [ -d ".git" ]; then
+  echo -e "${BLUE}==> Updating Git submodules...${NC}"
+  git submodule update --init --recursive
 fi
 
 echo -e "${BLUE}==> Preparing Nix flake (Mode: ${GREEN}$MODE${BLUE}, Host: ${GREEN}$HOSTNAME${BLUE})...${NC}"
@@ -83,7 +87,6 @@ fi
 if [ -d ".git" ]; then
   echo -e "${BLUE}==> Tracking untracked files for Nix flake evaluation...${NC}"
   git add --ignore-removal .
-  git submodule update --init --recursive
 fi
 
 # Execute mode logic
