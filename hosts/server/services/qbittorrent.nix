@@ -37,17 +37,13 @@
               openFirewall = true;
               webuiPort = 5000;
               serverConfig = {
-                Preferences = {
-                  Connection = {
-                    Interface = "CloudflareWARP";
-                  };
-                  LegalNotice = {
-                    Accepted = true;
-                  };
-                };
                 WebUI = {
-                  Address = "*"; # Ensure it listens on all guest interfaces
+                  Address = "*";
                   LocalHostAuth = false;
+                  # Add your credentials here (example password hash for "adminadmin")
+                  # Or use plaintext if supported by your nixpkgs version
+                  Username = "admin";
+                  Password_Hashed = "@to_be_implemented_or_use_plaintext_if_supported"; 
                 };
               };
             };
