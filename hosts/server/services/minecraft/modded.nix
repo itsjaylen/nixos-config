@@ -3,38 +3,12 @@
 {
   services.minecraft-servers.servers.neoforge = {
     enable = true;
-    
-    package = pkgs.stdenv.mkDerivation rec {
-      pname = "youer-server";
-      version = "26.2";
-      
-      src = pkgs.fetchurl {
-        url = "https://api.mohistmc.com/project/youer/26.2/builds/latest/download";
-        sha256 = "47116296239b3f114c82166fd3a45ca26c8875e277906dd8289099628af09926";
-      };
-
-      dontUnpack = true;
-
-      installPhase = ''
-        mkdir -p $out/bin $out/share/youer
-        cp $src $out/share/youer/youer.jar
-
-        # Create the exact executable wrapper expected by nix-minecraft
-        cat <<EOF > $out/bin/minecraft-server
-        #!/usr/bin/env bash
-        exec ${pkgs.jre_headless}/bin/java \$JVM_OPTS -jar $out/share/youer/youer.jar nogui "\$@"
-        EOF
-        chmod +x $out/bin/minecraft-server
-      '';
-
-      meta.mainProgram = "minecraft-server";
-    };
-
+    package = pkgs.neoforgeServers.neoforge-26_2;
     jvmOpts = "-Xms2G -Xmx2G";
 
     serverProperties = {
       server-port = 25566;
-      motd = "Modded Youer Server";
+      motd = "Modded";
     };
 
     symlinks = {
