@@ -1,8 +1,7 @@
 { config, pkgs, ... }: {
   microvm.vms.qbittorrent = {
     autostart = true;
-    mem = 256; # Megabytes of RAM for the microVM
-    vcpu = 1;  
+    vcpu = 1;
     
     networking.primaryInterface = "enp1s0";
 
@@ -12,6 +11,8 @@
       ];
 
       system.stateVersion = "26.05";
+
+      microvm.mem = 256;
 
       services.cloudflare-warp = {
         enable = true;
