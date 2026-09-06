@@ -31,4 +31,16 @@ in
     "https://cdn.modrinth.com/data/lWDHr9jE/versions/E17asqTn/tectonic-3.0.27-neoforge-26.2.jar" 
     "5a275fe0c89a84e63307d3bde9296af509b4708ae71e1a9f15daec0223968c0fb7ebba933b6f3068da1d2fefb02f07e879e355367ace494f25b7b7967873d756")
 
+  (mod "Geophilic"
+    "https://cdn.modrinth.com/data/hl5OLM95/versions/jDzSPLta/Geophilic%20v3.6.mod.jar"
+    "c9dd128f0e49dc4a2e1f91370576296eb78d08d8db99df1710e5fd2ba1708b75053cc4a4f1533b17d0a3ffe842bb7d08339c066586f360450d1b84373bf8281f")
+
+  (mod "cristellib"
+    "https://cdn.modrinth.com/data/cl223EMc/versions/rVwhMA5a/cristellib-neoforge-26.2-3.1.11.jar"
+    "06fa0508533b70fe912fd06b2b8860617ffd5d0203f54015a0c4df0f47c38fc602402e1697909da38044d667f3377c894b88fd47087c164ae022b020a64a0e08")
+
+  (mod "t_and_t"
+    "https://cdn.modrinth.com/data/DjLobEOy/versions/eN3WLQ3P/t_and_t-fabric-neoforge-1.13.11.jar"
+    "e318ec6ea4c15b456c188fdaec3447b8ae875efa21961be5fc365a50aacf4bd7b6b939950a48707a20764a78c42eea37e19052e3cc55c843e147dfb788c2e959")
+
 ]
