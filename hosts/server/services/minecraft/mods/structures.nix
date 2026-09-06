@@ -26,8 +26,8 @@ in
     "eaf67a1854fe548f9537dbb0ec60a913d0126980db24840318ced7c3dd0740979b2821100d6acd37e85a73aca6a190d410b4d78d4503dc68e36b23a6dfcc7b17")
 
   (mod "MoogsVoyagerStructures" 
-    "https://cdn.modrinth.com/data/OQAgZMH1/versions/HZpL7DX5/MoogsVoyagerStructures-universal-1.20-5.1.1.jar" 
-    "87cdc2b07c6297fab15805f78f8cf9b1de99fffd0baf5b6f0ed605f56b71bb2962586d20f7407755508680ed060d6e6fe26a8f714ead3a60d7538d3f44e13e6e")
+    "https://cdn.modrinth.com/data/OQAgZMH1/versions/F4KldqbX/MoogsVoyagerStructures-universal-1.21-5.1.1.jar" 
+    "c05abf7a226da3a59e7eb4889fa78aef7e391ccc075551a3545d4b24ee908958dca13c87408c95dfa8e659d0dc5fbabf99dd1d034ad258eb4937bb984ae767c8")
 
   (mod "MoogsNetherStructures" 
     "https://cdn.modrinth.com/data/nGUXvjTa/versions/RFeEhpv4/MoogsNetherStructures-1.21-3.0.0.jar" 
