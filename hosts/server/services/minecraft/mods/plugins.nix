@@ -32,6 +32,9 @@ in
     "https://cdn.modrinth.com/data/uDdZAVls/versions/QOb8ZzmE/AuraSkills-2.3.12.jar"
     "baceed31fca3817fbeee58e9de86bc7d2eff273ae4208aba7d7e5a95941fa5bbf0439eb3ece4a261135d669fc6575433ef8c40ac0830ff3138eba4cd64aeba27")
 
+  (plugin "FastAsyncWorldEdit"
+    "https://cdn.modrinth.com/data/z4HZZnLr/versions/5TOYHuQr/FastAsyncWorldEdit-Paper-2.15.4.jar"
+    "f623a5729aed386c5aec0cc5a51f01a6362d452b020851bd8e17bb9df66b9abaa217b07a4fbf3ee084ddea202824843390e02486f6eea5640624e6ab6bcc81b8")
   {
       name = "plugins/BlueMap/core.conf";
       value = pkgs.writeText "core.conf" ''
