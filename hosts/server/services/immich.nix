@@ -10,13 +10,13 @@
       name = "immich";
       user = "immich";
     };
-
-    # Correct configuration to use an external Redis host/port
-    redis = {
-      host = "127.0.0.1";
-      port = 6379;
-    };
   };
+
+  # Point Immich to the shared Redis instance via environment variables
+  systemd.services.immich-server.serviceConfig.Environment = [
+    "REDIS_HOSTNAME=127.0.0.1"
+    "REDIS_PORT=6379"
+  ];
 
   networking.firewall.allowedTCPPorts = [ 2283 ];
 }
