@@ -18,8 +18,8 @@ in
 
   # Moogs Structure Family
   (mod "MoogsStructureLib" 
-    "https://cdn.modrinth.com/data/1oUDhxuy/versions/p2DL6cjA/MoogsStructureLib-neoforge-26.1.2-3.2.0.jar" 
-    "afcf327d3ffc0c15ce0913c6f94e12d0bfe0aa7b0b760da80a30ca677dd633ffdccc2094b3648bb3e4ff9ced31759b3713d1901faed552934c30157e0c4f1dad")
+    "https://cdn.modrinth.com/data/1oUDhxuy/versions/vpzwwarX/MoogsStructureLib-neoforge-26.2-3.2.0.jar" 
+    "7239163b7518a43c2b617796b070c48d35473407e6664aee5d83447083f9413b557c67f14d495cf9e2caa7f09a00827cb4adaa5ee19f5a3014b492ddee00f92b")
 
   (mod "MoogsEndStructures" 
     "https://cdn.modrinth.com/data/r4PuRGfV/versions/JW80uvhz/MoogsEndStructures-1.21-2.0.3.jar" 
