@@ -14,8 +14,8 @@ in
 
 
   (mod "PuzzlesLib"
-    "https://cdn.modrinth.com/data/QAGBst4M/versions/KU5rZUAR/PuzzlesLib-v26.2.3-mc26.2.x-Fabric.jar"
-    "3d5c0fa58f75f3cd345bc48a08a783890aab8ef01d1be113088138dda1bf79030a782dd267688c07cc2ea7a7d09710d50797416fc2292c58004cc6ff27c791bd")
+    "https://cdn.modrinth.com/data/QAGBst4M/versions/eI8PIwKt/PuzzlesLib-v26.2.2-mc26.2.x-NeoForge.jar"
+    "f93924c361c09555439575133cbb7b46c1a187602f4a5f1ffa0d185b326d06602184765fd75c0edd293129b5a866287c876c508f6f571b41cdfc20849b271847")
 
   (mod "UniversalEnchants"
     "https://cdn.modrinth.com/data/DT56YDir/versions/661qCqBz/UniversalEnchants-v26.2.0-mc26.2.x-NeoForge.jar"
