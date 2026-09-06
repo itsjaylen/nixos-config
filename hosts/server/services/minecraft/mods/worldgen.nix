@@ -26,4 +26,9 @@ in
   (mod "Incendium" 
     "https://cdn.modrinth.com/data/ZVzW5oNS/versions/vPwuqZ5y/Incendium_26.2_v5.5.1.jar" 
     "202e1f23c64c37330d3ec0bfd80331355d15cc8d01f151edc4dabfa8ce719650d10f468df5bf523a93461d78c3660a2cdedbc1037fb08396c13f22b6457352f0")
+
+  (mod "Tectonic" 
+    "https://cdn.modrinth.com/data/lWDHr9jE/versions/E17asqTn/tectonic-3.0.27-neoforge-26.2.jar" 
+    "5a275fe0c89a84e63307d3bde9296af509b4708ae71e1a9f15daec0223968c0fb7ebba933b6f3068da1d2fefb02f07e879e355367ace494f25b7b7967873d756")
+
 ]
