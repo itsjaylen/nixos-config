@@ -69,4 +69,8 @@ in
     "https://cdn.modrinth.com/data/DNuNq5bb/versions/rqmj1SPX/dungeons-and-taverns-ancient-city-overhaul-3.4.jar"
     "c6a63f8fb1ddf7a3ed95729b0c68ed8238ddabd9bc1517b955e77565fb877a2c085cf1858bb8b287f4ed8d4c492d3aab65f4de2f780de34fe8379c7f9dfb14db")
 
+  (mod "more_mobs"
+    "https://cdn.modrinth.com/data/HJR6V0I2/versions/UErmjjDF/more_mobs-v1.5.10-mc1.14-26.2.9-mod.jar"
+    "ceb950f9ad05d026c76a5d1cc66a2eb4724c3486217721e3c609e619d20e228008d0c639af12c1560d787ec371938b3372fa788e6a49c499fdf5f02c487b668d")
+  
 ]
