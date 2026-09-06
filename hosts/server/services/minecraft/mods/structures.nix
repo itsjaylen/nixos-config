@@ -69,8 +69,4 @@ in
     "https://cdn.modrinth.com/data/DNuNq5bb/versions/rqmj1SPX/dungeons-and-taverns-ancient-city-overhaul-3.4.jar"
     "c6a63f8fb1ddf7a3ed95729b0c68ed8238ddabd9bc1517b955e77565fb877a2c085cf1858bb8b287f4ed8d4c492d3aab65f4de2f780de34fe8379c7f9dfb14db")
 
-
-  (mod "dungeons-and-taverns-nether-fortress-overhaul"
-    "https://cdn.modrinth.com/data/8Dbnvm77/versions/oRtwS6Q8/dungeons-and-taverns-nether-fortress-overhaul-v3.1.jar"
-    "57b2e09a8eda73275fe1a232e17188258cfb389b3c33251ca235c36c8802cd08119d58bcf3db724030c7f72278c4d117e67c56798882f59eab5f02571af0924b")
 ]
