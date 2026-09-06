@@ -56,4 +56,8 @@ in
   (mod "MoogsOceanStructures" 
     "https://cdn.modrinth.com/data/ZKBkklMv/versions/4b7dG23l/MoogsOceanStructures-universal-1.21-1.1.0.jar" 
     "08227ce0a5acf5a6da8c2eba901ac30397ed56cf19249e4d0158998f7b8dbc0b45c6ed92590c80304e48804f7f5457062cbbfd1e9ca1febd4723a0f4267ae9e1")
+
+  (mod "dungeons_and_taverns" 
+    "https://cdn.modrinth.com/data/tpehi7ww/versions/9wgjmpuF/dungeons-and-taverns-5.3.2.jar" 
+    "9afd93bedb405941a1213727c7a4015fa19cbff99ce30e2f814b442e255852096902b2a27d4dcd1960f6b4fbe8af8dec8af93d592bc2fe963973deee1b190937")
 ]
