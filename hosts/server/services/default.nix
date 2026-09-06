@@ -11,7 +11,7 @@
     ./loki.nix
     ./adguard.nix
     ./minecraft
-    #./redis.nix
-    #./immich.nix
+    ./redis.nix
+    ./immich.nix
   ];
 }
