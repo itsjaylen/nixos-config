@@ -65,5 +65,9 @@ in
     "https://cdn.modrinth.com/data/z6GJ3ycD/versions/2fYxegFC/dungeons-and-taverns-ocean-monument-overhaul-2.2.1.jar"
     "4cad18af7396d8a037bef8ad4efba53b8c07271fcbb0289189786b3dead2a72d229b50c1ea94154ab2bec2211302ecf753bdee5a1cf820d121cea55a568e0fd1")
 
+  (mod "dungeons-and-taverns-ancient-city-overhaul"
+    "https://cdn.modrinth.com/data/DNuNq5bb/versions/rqmj1SPX/dungeons-and-taverns-ancient-city-overhaul-3.4.jar"
+    "c6a63f8fb1ddf7a3ed95729b0c68ed8238ddabd9bc1517b955e77565fb877a2c085cf1858bb8b287f4ed8d4c492d3aab65f4de2f780de34fe8379c7f9dfb14db")
 
+  
 ]
