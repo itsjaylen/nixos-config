@@ -60,4 +60,10 @@ in
   (mod "dungeons_and_taverns" 
     "https://cdn.modrinth.com/data/tpehi7ww/versions/9wgjmpuF/dungeons-and-taverns-5.3.2.jar" 
     "9afd93bedb405941a1213727c7a4015fa19cbff99ce30e2f814b442e255852096902b2a27d4dcd1960f6b4fbe8af8dec8af93d592bc2fe963973deee1b190937")
+
+  (mod "dungeons_and_taverns_ocean_monument_overhaul"
+    "https://cdn.modrinth.com/data/z6GJ3ycD/versions/2fYxegFC/dungeons-and-taverns-ocean-monument-overhaul-2.2.1.jar"
+    "4cad18af7396d8a037bef8ad4efba53b8c07271fcbb0289189786b3dead2a72d229b50c1ea94154ab2bec2211302ecf753bdee5a1cf820d121cea55a568e0fd1")
+
+
 ]
