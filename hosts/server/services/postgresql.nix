@@ -3,13 +3,17 @@
     enable = true;
     package = pkgs.postgresql_16;
 
-    # Pre-create database users and their dedicated databases
     ensureDatabases = [
       "gitea"
+      "immich"
     ];
     ensureUsers = [
       {
         name = "gitea";
+        ensureDBOwnership = true;
+      }
+      {
+        name = "immich";
         ensureDBOwnership = true;
       }
     ];
