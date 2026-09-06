@@ -47,4 +47,8 @@ in
     "https://cdn.modrinth.com/data/HSfsxuTo/versions/CuBdAr31/Explorify%20v1.6.5.mod.jar"
     "9b22adeb1952ec25856e160b93aaa41934fd41e8d1aef985317cb2c9d64aae1012e134e23f52ba39fac3a98b3309b60f0b55b98a4db4de1731960b998117c83e")
 
+
+  (mod "HopoBetterMineshaft"
+    "https://cdn.modrinth.com/data/9IxCUYAP/versions/N5xm7QNb/HopoBetterMineshaft-%5B26.2%5D-1.3.7.jar"
+    "90bd66e485902a4fddf13d925fa2c6ddcf698e9d947bd31ed7c394d291accccceb7928d6b885bec8af26b5a4cc520033ebc78291fc7291f65dc7bbe79f4dc2d7")
 ]
