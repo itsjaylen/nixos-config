@@ -6,6 +6,23 @@ let
     value = pkgs.fetchurl { inherit url sha512; };
   };
 
+  # Generates the BlueMap core.conf with auto-download accepted
+    blueMapCoreConf = pkgs.runCommand "bluemap-core.conf" {
+      src = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/BlueMap-Minecraft/BlueMap/master/BlueMapCommon/src/main/resources/core.conf";
+        hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Replace with a real hash once evaluated, or use an empty string if using modern nix with --impure / fixed-output
+      };
+      nativeBuildInputs = [ pkgs.gnused ];
+    } ''
+      # If fetchurl fails on a placeholder hash, you can also just generate it natively:
+      cat << EOF > $out
+      accept-download: true
+      EOF
+    '' // {
+      # Proper path mapping for your server deployment structure
+      name = "plugins/BlueMap/core.conf";
+    };
+
 in
 [
   (plugin "WorldEdit" 
@@ -31,5 +48,10 @@ in
   (plugin "AuraSkills" 
     "https://cdn.modrinth.com/data/uDdZAVls/versions/QOb8ZzmE/AuraSkills-2.3.12.jar"
     "baceed31fca3817fbeee58e9de86bc7d2eff273ae4208aba7d7e5a95941fa5bbf0439eb3ece4a261135d669fc6575433ef8c40ac0830ff3138eba4cd64aeba27")
-  
+
+
+  {
+      name = blueMapCoreConf.name;
+      value = blueMapCoreConf;
+    }
 ]
