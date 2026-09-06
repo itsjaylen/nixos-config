@@ -44,6 +44,7 @@
                         { title = "Grafana"; url = "http://localhost:3001"; }
                         { title = "AdGuard Home"; url = "http://localhost:3005"; }
                         { title = "Qbittorrent"; url = "http://localhost:5000"; }
+                        { title = "Immich"; url = "http://localhost:2283"; }
                       ];
                     }
                   ];
