@@ -22,4 +22,9 @@ in
   (plugin "FreedomChat" 
     "https://cdn.modrinth.com/data/MubyTbnA/versions/Pqu2VLTB/FreedomChat-Paper-1.7.9.jar" 
     "94c97628e4b13762d9ba029fa1130300dccd63d31f15b5f29e96fc0586abd7392315fed8f51c772ba7e14fc4738a31d7bbd3c8c106d9929d378334ffe65c96d2")
+
+  (plugin "CrazyEnchantments" 
+    "https://cdn.modrinth.com/data/krxPuhWb/versions/6BYgadQ8/CrazyEnchantments-26.1.2-cbdc13d.jar"
+    "16cf61591c4a27611a0b390907c28031f9fcb7d8eee5c2f58d9247a3fc68eeb3c5c31aa7578e935e577ae745f2d81b5c001927d6e36f328853b06ffd894df179")
+
 ]
