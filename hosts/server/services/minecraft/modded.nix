@@ -15,7 +15,7 @@ in
     enable = true;
     
     package = youerPackage;
-    jvmOpts = "-Xms2G -Xmx2G";
+    jvmOpts = "-Xms4G -Xmx4G";
 
     serverProperties = {
       server-port = 25566;
