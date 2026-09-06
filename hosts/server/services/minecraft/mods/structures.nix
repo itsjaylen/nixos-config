@@ -16,6 +16,7 @@ in
     "https://cdn.modrinth.com/data/j3FONRYr/versions/ziO4YIv1/Structory_Towers_26.2_v1.0.17.jar" 
     "74b1f29439e2946ef9b3f9d8d7915bc112239d5009587c7817c4f45bee7e7a48906ffcddab67f0078fe82e996093657ab874a5a0498ccc045dda4bd562bc7702")
 
+  # Moogs Structure Family
   (mod "MoogsStructureLib" 
     "https://cdn.modrinth.com/data/1oUDhxuy/versions/vpzwwarX/MoogsStructureLib-neoforge-26.2-3.2.0.jar" 
     "7239163b7518a43c2b617796b070c48d35473407e6664aee5d83447083f9413b557c67f14d495cf9e2caa7f09a00827cb4adaa5ee19f5a3014b492ddee00f92b")
@@ -25,8 +26,8 @@ in
     "eaf67a1854fe548f9537dbb0ec60a913d0126980db24840318ced7c3dd0740979b2821100d6acd37e85a73aca6a190d410b4d78d4503dc68e36b23a6dfcc7b17")
 
   (mod "MoogsVoyagerStructures" 
-    "https://cdn.modrinth.com/data/OQAgZMH1/versions/HZpL7DX5/MoogsVoyagerStructures-universal-1.20-5.1.1.jar" 
-    "87cdc2b07c6297fab15805f78f8cf9b1de99fffd0baf5b6f0ed605f56b71bb2962586d20f7407755508680ed060d6e6fe26a8f714ead3a60d7538d3f44e13e6e")
+      "https://cdn.modrinth.com/data/OQAgZMH1/versions/HZpL7DX5/MoogsVoyagerStructures-universal-1.21-5.1.1.jar" 
+      "87cdc2b07c6297fab15805f78f8cf9b1de99fffd0baf5b6f0ed605f56b71bb2962586d20f7407755508680ed060d6e6fe26a8f714ead3a60d7538d3f44e13e6e")
 
   (mod "MoogsNetherStructures" 
     "https://cdn.modrinth.com/data/nGUXvjTa/versions/RFeEhpv4/MoogsNetherStructures-1.21-3.0.0.jar" 
