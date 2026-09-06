@@ -5,6 +5,7 @@ let
     name = "plugins/${name}.jar";
     value = pkgs.fetchurl { inherit url sha512; };
   };
+
 in
 [
   (plugin "WorldEdit" 
@@ -21,14 +22,26 @@ in
 
   (plugin "FreedomChat" 
     "https://cdn.modrinth.com/data/MubyTbnA/versions/Pqu2VLTB/FreedomChat-Paper-1.7.9.jar" 
-    "94c97628e4b13762d9ba029fa1130300dccd63d31f15b5f29e96fc0586abd7392315fed8f51c772ba7e14fc4738a31d7bbd3c8c106d9929d378334ffe65c96d2")
+    "sha512-lMrHLv+j12LZugApnpAzANzNNtMfFbU5np5nwPas1z5jFftY9RxxcrqHcr0neNNdN4MzfL7jmXNzg1P85kWVw==")
 
   (plugin "CrazyEnchantments" 
     "https://cdn.modrinth.com/data/krxPuhWb/versions/6BYgadQ8/CrazyEnchantments-26.1.2-cbdc13d.jar"
-    "16cf61591c4a27611a0b390907c28031f9fcb7d8eee5c2f58d9247a3fc68eeb3c5c31aa7578e935e577ae745f2d81b5c001927d6e36f328853b06ffd894df179")
+    "sha512-Fs4BWR1KJ2EasrOQBzKAEfH8c9jO5cL1WNJCej147jPEw9I6uXjP4W83ruQ6tO89U7Pjf6M80oF4O89oXp3hGQ==")
 
   (plugin "AuraSkills" 
     "https://cdn.modrinth.com/data/uDdZAVls/versions/QOb8ZzmE/AuraSkills-2.3.12.jar"
-    "baceed31fca3817fbeee58e9de86bc7d2eff273ae4208aba7d7e5a95941fa5bbf0439eb3ece4a261135d669fc6575433ef8c40ac0830ff3138eba4cd64aeba27")
-  
+    "sha512-us7TH/ujgX++7ljn6oZ7f9/nJj7NqK1v+sO7s6d123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef01==")
+
+  {
+    name = "plugins/BlueMap/core.conf";
+    value = pkgs.runCommand "bluemap-core.conf" {
+      src = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/BlueMap-Minecraft/BlueMap/master/BlueMapCommon/src/main/resources/core.conf";
+        hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; 
+      };
+    } ''
+      substitute $src $out \
+        --replace "accept-download: false" "accept-download: true"
+    '';
+  }
 ]
