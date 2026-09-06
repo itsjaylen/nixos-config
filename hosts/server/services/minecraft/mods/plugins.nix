@@ -38,6 +38,6 @@ in
     "sha512-16cf61591c4a27611a0b390907c28031f9fcb7d8eee5c2f58d9247a3fc68eeb3c5c31aa7578e935e577ae745f2d81b5c001927d6e36f328853b06ffd894df179")
 
   (plugin "AuraSkills" 
-    "https://cdn.modrinth.com/data/uDdZAVls/versions/QOb8ZzmE/AuraSkills-2.3.12.jar"
-    "sha512-baceed31fca3817fbeee58e9de86bc7d2eff273ae4208aba7d7e5a95941fa5bbf0439eb3ece4a261135d669fc6575433ef8c40ac0830ff3138eba4cd64aeba27")
+      "https://cdn.modrinth.com/data/uDdZAVls/versions/QOb8ZzmE/AuraSkills-2.3.12.jar"
+      "sha512-usjKEfyjYX++7ljp5Oasfe3vJzrCAKq6195a6WFaW78EQ5nsw8N1EbtNpt+tQ2u0uKTC0WStHjQ6t1pKaE2vJw==")
 ]
