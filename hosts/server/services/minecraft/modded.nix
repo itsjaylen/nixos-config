@@ -19,7 +19,7 @@ in
 
     serverProperties = {
       server-port = 25566;
-      motd = "Modded";
+      motd = "Modded youer";
       enforce-secure-profile = false;
       difficulty = "hard";
     };
