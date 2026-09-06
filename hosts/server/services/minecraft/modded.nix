@@ -21,6 +21,7 @@ in
       server-port = 25566;
       motd = "Modded";
       enforce-secure-profile = false;
+      difficulty = "hard";
     };
 
     # Imports the master mod router directory
