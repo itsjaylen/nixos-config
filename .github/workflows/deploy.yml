@@ -11,7 +11,5 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run install script
-        run: |
-          chmod +x ./install.sh
-          ./install.sh update
+      - name: Run install script via Bash
+        run: bash ./install.sh update
