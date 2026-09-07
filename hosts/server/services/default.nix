@@ -13,5 +13,6 @@
     ./minecraft
     ./redis.nix
     ./immich.nix
+    ./cockpit.nix
   ];
 }
