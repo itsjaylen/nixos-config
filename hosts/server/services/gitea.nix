@@ -44,6 +44,7 @@
         cacert
         nixos-rebuild
         nodejs
+        bash
       ];
     };
 
