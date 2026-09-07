@@ -84,4 +84,13 @@ in
   (mod "Structures-Vanilla"
     "https://cdn.modrinth.com/data/YWVAO3wq/versions/hHw6n2T7/ATi%20Structures%20Vanilla%20V1.4.5.jar"
     "beadaa36c9916455be8c79c398e341590f7c0750a1cdc99eeb70f4efdeb284b6a203d6b7bc3245955eac055d47ed12f05026e8398728ef2ef2a4bf2fe41cf0f8")
+
+  (mod "formationsoverworld"
+    "https://cdn.modrinth.com/data/KX1XC0Oo/versions/gV3Jsa7J/formationsoverworld-1.0.5a-mc1.21%2B.jar"
+    "c2af1a486ded075fbfe6699a511c8d4f35253c146a637ab1d307159b42b8609006144e5638538c0dfb1a299a1b51ac5afcfa52f5392b33ab13193fa71c747311")
+
+  (mod "repurposed_structures"
+    "https://cdn.modrinth.com/data/QDNS5oAT/versions/h9w0EGMo/repurposed_structures-7.7.6%2B26.2-neoforge.jar"
+    "3ae96ec263810091e6e6372b3bcdbb1036dcbe848e16971e97c7f794a1f35ceba08e9a4a629a101848489ee3514e14e3b998cc4ce00d9cf61481ffcc9ae46a08")
+  
 ]
