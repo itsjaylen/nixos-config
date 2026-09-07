@@ -92,5 +92,8 @@ in
   (mod "repurposed_structures"
     "https://cdn.modrinth.com/data/QDNS5oAT/versions/h9w0EGMo/repurposed_structures-7.7.6%2B26.2-neoforge.jar"
     "3ae96ec263810091e6e6372b3bcdbb1036dcbe848e16971e97c7f794a1f35ceba08e9a4a629a101848489ee3514e14e3b998cc4ce00d9cf61481ffcc9ae46a08")
-  
+
+  (mod "formations"
+    "https://cdn.modrinth.com/data/tPe4xnPd/versions/wWYmU9HP/formations-1.0.4-neoforge-mc26.2.jar"
+    "dfe6fe40e5124dbdfa6242338d5d10945f3a364b2b74bce773e164bf8c6c89bbf959a68f2bc83e3ad1c7aef54db475f276c13acd9c1b9d5c34b630605408f75f")
 ]
