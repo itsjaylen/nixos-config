@@ -39,7 +39,6 @@ in
   (plugin "multiverse-core"
     "https://cdn.modrinth.com/data/3wmN97b8/versions/YZ2Ji4IS/multiverse-core-5.8.1.jar"
     "322c1f4dc1abcd30e0f55aa9f378c7031846d1e59a5156480f9199050dc104c19468c9891c47be35e4dde68742ec4420ea974ec8850db6a259f97ffa1b1c51ea")
-
   {
       name = "plugins/BlueMap/core.conf";
       value = pkgs.writeText "core.conf" ''
