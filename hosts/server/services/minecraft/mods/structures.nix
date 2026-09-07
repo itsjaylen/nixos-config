@@ -72,5 +72,8 @@ in
   (mod "more_mobs"
     "https://cdn.modrinth.com/data/HJR6V0I2/versions/UErmjjDF/more_mobs-v1.5.10-mc1.14-26.2.9-mod.jar"
     "ceb950f9ad05d026c76a5d1cc66a2eb4724c3486217721e3c609e619d20e228008d0c639af12c1560d787ec371938b3372fa788e6a49c499fdf5f02c487b668d")
-  
+
+  (mod "mobs-equipment"
+    "https://cdn.modrinth.com/data/j0bUDaxK/versions/xfudQ6Yr/mobs-equipment-2.0.4.jar"
+    "299fa0cda83ece396463902b3fd846eb72594a4f0e4a3a1dfa302ffa6cf68d85d1a8630371f108390c8b51ff59eadf61a9ffb47463097b8863f8d2393609495e")
 ]
