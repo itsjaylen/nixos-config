@@ -76,4 +76,9 @@ in
   (mod "mobs-equipment"
     "https://cdn.modrinth.com/data/j0bUDaxK/versions/xfudQ6Yr/mobs-equipment-2.0.4.jar"
     "299fa0cda83ece396463902b3fd846eb72594a4f0e4a3a1dfa302ffa6cf68d85d1a8630371f108390c8b51ff59eadf61a9ffb47463097b8863f8d2393609495e")
+
+  (mod "trek"
+    "https://cdn.modrinth.com/data/h2jngREY/versions/OYbFzi8L/trek-B0.6.2.jar"
+    "17f35802c2f8dbae026153718b6d40a2b4c3ae1558e6e87500ecffe859fe2e607e00b3be76b8c8cbee7da932a042ebe5a279df9929fb7b51000ea1af49fcc1c9")
+
 ]
