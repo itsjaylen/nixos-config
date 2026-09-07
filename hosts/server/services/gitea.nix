@@ -45,6 +45,7 @@
         nixos-rebuild
         nodejs
         bash
+        inetutils
       ];
     };
 

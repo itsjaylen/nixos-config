@@ -12,4 +12,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run install script via Bash
-        run: bash ./install.sh update
+        run: bash ./install.sh switch server
