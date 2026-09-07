@@ -40,6 +40,17 @@ in
     "https://cdn.modrinth.com/data/3wmN97b8/versions/YZ2Ji4IS/multiverse-core-5.8.1.jar"
     "322c1f4dc1abcd30e0f55aa9f378c7031846d1e59a5156480f9199050dc104c19468c9891c47be35e4dde68742ec4420ea974ec8850db6a259f97ffa1b1c51ea")
 
+  (plugin "ViaVersion"
+    "https://cdn.modrinth.com/data/P1OZGk5p/versions/JXTvHIIc/ViaVersion-5.12.0-SNAPSHOT.jar"
+    "9d4482439f3a8bdc07c09281deb442ca77a4106a39d2864407d2769190f96dfb92fde903eca9b76e59ac738729fc7523b76b5e069bb7c554b4f5192e77c2b376")
+
+  (plugin "ViaBackwards"
+    "https://cdn.modrinth.com/data/NpvuJQoq/versions/D2klj0m6/ViaBackwards-5.12.0-SNAPSHOT.jar"
+    "ce58bea7872ab8d56794e0cf46045d9605090c303619793d09ec6881fbae2dc81cf92706145145058b2f383c5624a9613a7a19db5e2b08249312e47720ecf047")
+
+  (plugin "ViaRewind"
+    "https://cdn.modrinth.com/data/TbHIxhx5/versions/FkS8Q0YI/ViaRewind-4.1.4-SNAPSHOT.jar"
+    "f2d3e4aa0dff2d6283de68aa3540b178fe2cb924d9e6fe6fd9ab2b8f06f784b65a86b9fa38e971b344ba6717aa2ab7926c23b03bcd4316ba27f398080c302697")
   
   {
       name = "plugins/BlueMap/core.conf";
