@@ -96,4 +96,12 @@ in
   (mod "formations"
     "https://cdn.modrinth.com/data/tPe4xnPd/versions/wWYmU9HP/formations-1.0.4-neoforge-mc26.2.jar"
     "dfe6fe40e5124dbdfa6242338d5d10945f3a364b2b74bce773e164bf8c6c89bbf959a68f2bc83e3ad1c7aef54db475f276c13acd9c1b9d5c34b630605408f75f")
+
+  (mod "HopoBetterUnderwaterRuins"
+    "https://cdn.modrinth.com/data/BuWCQzqf/versions/yQi8lOKM/HopoBetterUnderwaterRuins-%5B26.2%5D-1.2.8.jar"
+    "1a592475314021d9e14d8b6b18c734fc03199ce23f5c50ec7c588252ca9e73ae7d36ae1b56f50f667d1195704ecab116980a294c4449e4db8ecfe069bd1fa58a")
+
+
+  
+  
 ]
