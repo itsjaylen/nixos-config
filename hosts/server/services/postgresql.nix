@@ -21,7 +21,7 @@
       }
       {
         name = "slopuploader";
-        password = "slop";
+        password = "slop"; #TODO make sops
         ensureDBOwnership = true;
       }
     ];
