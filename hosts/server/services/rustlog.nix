@@ -31,4 +31,5 @@
     createHome = true;
   };
   users.groups.rustlog = {};
+  networking.firewall.allowedTCPPorts = [ 8025 ];
 }
