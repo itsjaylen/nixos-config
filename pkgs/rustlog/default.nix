@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage {
 
   offlineCache = fetchYarnDeps {
     yarnLock = "${inputs.rustlog}/web/yarn.lock";
-    hash = "sha256-tyqpeAI6hu0YlTWvZMJekMU7lIHEOv137KP+ci+Cv7k=";
+    hash = "sha256-tyqpeAI6hu0YlTWvZMJekMU7lIHEOv137KP+ci+Cv7k="; # Replace with your actual hash when prompted
   };
 
   nativeBuildInputs = [
@@ -39,6 +39,7 @@ rustPlatform.buildRustPackage {
     fixup-yarn-lock yarn.lock
     yarn config --offline set yarn-offline-mirror $offlineCache
     yarn install --offline --frozen-lockfile --no-progress
+    export PATH="$PWD/node_modules/.bin:$PATH"
     yarn build
     cd ..
   '';
