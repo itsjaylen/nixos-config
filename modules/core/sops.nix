@@ -35,6 +35,7 @@
       "grafana_admin_password" = { };
       "grafana_secret_key" = { };
       "gitea_runner_token" = { };
+      "slopuploader/env" = { };
     };
   };
 
