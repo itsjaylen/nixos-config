@@ -2,6 +2,7 @@
 
 {
   systemd.services.rustlog = {
+    environment.etc."rustlog/config.json".source = config.sops.secrets."rustlog/config".path;
     description = "Rustlog Twitch Logging Service";
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" "clickhouse.service" ];
