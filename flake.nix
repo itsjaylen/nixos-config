@@ -40,6 +40,11 @@
       flake = false;
     };
 
+    rustlog = {
+      url = "github:Julia-Roman/rustlog";
+      flake = false;
+    };
+
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -79,14 +84,9 @@
     };
 
     slopuploader = {
-        url = "git+https://git.itsjaylen.com/itsjaylen/SlopUploader.git";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-
-      rustlog = {
-            url = "github:Julia-Roman/rustlog"; # or "github:boring-nick/rustlog"
-            flake = false;
-          };
+      url = "git+https://git.itsjaylen.com/itsjaylen/SlopUploader.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -107,8 +107,12 @@
         inherit system;
         config.allowUnfree = true;
       };
+
+      customPkgs = import ./pkgs { inherit inputs pkgs system; };
     in
     {
+      packages.${system} = customPkgs;
+
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -167,7 +171,6 @@
             sops-nix.nixosModules.sops
             microvm.nixosModules.host
 
-            # Correct nix-minecraft module import
             inputs.nix-minecraft.nixosModules.minecraft-servers
 
             {
