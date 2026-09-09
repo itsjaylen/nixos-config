@@ -82,6 +82,11 @@
         url = "git+https://git.itsjaylen.com/itsjaylen/SlopUploader.git";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+
+      rustlog = {
+            url = "github:Julia-Roman/rustlog"; # or "github:boring-nick/rustlog"
+            flake = false;
+          };
   };
 
   outputs =
