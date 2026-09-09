@@ -808,11 +808,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788963023,
-        "narHash": "sha256-Qj+MjMuau/Dy+IEYsHLS2RnLIahZ3xmBTDNbbInko8k=",
+        "lastModified": 1788964141,
+        "narHash": "sha256-HdTDzzMvkdYUD1KQxG2huCA95S9TRY+kM2UnUIzOPow=",
         "ref": "refs/heads/main",
-        "rev": "fe414090f7bc2c100edc578ed148466711bd27b3",
-        "revCount": 14,
+        "rev": "f457fbc5c8b37bfe4db90182606f3c1f8ef57b15",
+        "revCount": 15,
         "type": "git",
         "url": "https://git.itsjaylen.com/itsjaylen/SlopUploader.git"
       },
