@@ -2,9 +2,15 @@
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_16;
-
+  
     settings.listen_addresses = lib.mkForce "*";
-
+  
+    # Allow password-less trust connections from your local subnet over TCP
+    authentication = lib.mkOverride 10 ''
+      # type database  user-name  address-origin  auth-method
+      host  all        all        192.168.50.0/24 trust
+    '';
+  
     ensureDatabases = [
       "gitea"
       "immich"
@@ -21,10 +27,7 @@
       }
       {
         name = "slopuploader";
-        password = "slop"; #TODO make sops
         ensureDBOwnership = true;
       }
     ];
   };
-  networking.firewall.allowedTCPPorts = [ 3900 5432 ];
-}
