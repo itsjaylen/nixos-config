@@ -21,4 +21,6 @@
 
     environmentFile = config.sops.secrets."slopuploader/env".path;
   };
+
+  networking.firewall.allowedTCPPorts = [ 8888 ];
 }
