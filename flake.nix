@@ -77,6 +77,11 @@
       url = "github:astro/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    slopuploader = {
+        url = "git+https://git.itsjaylen.com/itsjaylen/SlopUploader.git";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
 
   outputs =

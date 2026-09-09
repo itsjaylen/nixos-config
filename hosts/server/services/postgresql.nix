@@ -4,10 +4,6 @@
     package = pkgs.postgresql_16;
 
     settings.listen_addresses = lib.mkForce "*";
-    authentication = lib.mkOverride 10 ''
-        # type database  user-name  address-origin  auth-method
-        host  all        all        192.168.50.0/24 trust
-      '';
 
     ensureDatabases = [
       "gitea"
@@ -25,7 +21,6 @@
       }
       {
         name = "slopuploader";
-        password = "slop"; #TODO make sops
         ensureDBOwnership = true;
       }
     ];
