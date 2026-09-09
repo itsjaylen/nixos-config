@@ -1,8 +1,14 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
+  sops.secrets."rustlog/config" = {
+    path = "/var/lib/rustlog/config.json";
+    owner = "rustlog";
+    group = "rustlog";
+    mode = "0600";
+  };
+
   systemd.services.rustlog = {
-    environment.etc."rustlog/config.json".source = config.sops.secrets."rustlog/config".path;
     description = "Rustlog Twitch Logging Service";
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" "clickhouse.service" ];
