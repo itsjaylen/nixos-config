@@ -37,7 +37,7 @@ in
 
   # Automatically import key credentials and create bucket on service startup
   systemd.services.garage-init = {
-      description = "Declarative Garage Bucket and Key Provisioning";
+      description = "Declarative Garage Cluster Layout, Bucket and Key Provisioning";
       after = [ "garage.service" ];
       wants = [ "garage.service" ];
       wantedBy = [ "multi-user.target" ];
@@ -55,10 +55,26 @@ in
           sleep 1
         done
   
-        # Import key from SOPS secrets
-        ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" key import main-key "$ACCESS_KEY" "$SECRET_KEY" || true
+        # 1. Automatically fetch the local node ID
+        NODE_ID=$(${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" status | awk 'NR==3 {print $1}')
   
-        # Ensure bucket exists and grant access (matching .envrc S3_BUCKET)
+        if [ -n "$NODE_ID" ]; then
+          # 2. Automatically assign node if it has no role assigned yet
+          if ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" status | grep -q "NO ROLE ASSIGNED"; then
+            echo "Assigning node $NODE_ID to zone1..."
+            ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" layout assign --zone zone1 --capacity 10G "$NODE_ID"
+            
+            # Fetch current layout version or default to 1, then apply incremented version
+            CURRENT_VERSION=$(${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" layout show | grep "Layout version:" | awk '{print $3}')
+            NEXT_VERSION=$(( { CURRENT_VERSION:-0} + 1 ))
+            
+            echo "Applying layout version $NEXT_VERSION..."
+            ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" layout apply --version "$NEXT_VERSION"
+          fi
+        fi
+  
+        # 3. Import key and create bucket
+        ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" key import main-key "$ACCESS_KEY" "$SECRET_KEY" || true
         ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" bucket create slopuploader-files || true
         ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" bucket allow slopuploader-files --key main-key --read --write || true
       '';
