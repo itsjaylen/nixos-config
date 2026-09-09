@@ -34,13 +34,13 @@ rustPlatform.buildRustPackage {
   ];
 
   preBuild = ''
-    cd web
-    export HOME=$(mktemp -d)
-    fixup-yarn-lock yarn.lock
-    yarn config --offline set yarn-offline-mirror $offlineCache
-    yarn install --offline --frozen-lockfile --no-progress
-    export PATH="$PWD/node_modules/.bin:$PATH"
-    yarn build
-    cd ..
-  '';
+      cd web
+      export HOME=$(mktemp -d)
+      fixup-yarn-lock yarn.lock
+      yarn config --offline set yarn-offline-mirror $offlineCache
+      yarn install --offline --frozen-lockfile --no-progress --ignore-scripts
+      export PATH="$PWD/node_modules/.bin:$PATH"
+      yarn build
+      cd ..
+    '';
 }
