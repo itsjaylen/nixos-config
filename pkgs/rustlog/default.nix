@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage {
 
   src = inputs.rustlog;
 
-  cargoHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  cargoHash = "sha256-JYG+t9Cs6t55kW2kYE1jEUYEs3XvpzVSxIjbszkd4Sw=";
 
   nativeBuildInputs = [
     yarn
