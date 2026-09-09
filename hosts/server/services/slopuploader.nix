@@ -5,7 +5,7 @@
 
   services.slopuploader = {
     enable = true;
-    port = 8080;
+    port = 8888;
     baseUrl = "0.0.0.0"; # Or your local domain/IP
 
     settings = {
