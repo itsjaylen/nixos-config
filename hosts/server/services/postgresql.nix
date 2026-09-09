@@ -21,6 +21,7 @@
       }
       {
         name = "slopuploader";
+        password = "slop";
         ensureDBOwnership = true;
       }
     ];
