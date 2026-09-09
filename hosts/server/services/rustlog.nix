@@ -1,13 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
-  sops.secrets."rustlog/config" = {
-    path = "/var/lib/rustlog/config.json";
-    owner = "rustlog";
-    group = "rustlog";
-    mode = "0600";
-  };
-
   systemd.services.rustlog = {
     description = "Rustlog Twitch Logging Service";
     wantedBy = [ "multi-user.target" ];
