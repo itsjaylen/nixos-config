@@ -6,6 +6,7 @@
     ensureDatabases = [
       "gitea"
       "immich"
+      "slopuploader"
     ];
     ensureUsers = [
       {
@@ -14,6 +15,10 @@
       }
       {
         name = "immich";
+        ensureDBOwnership = true;
+      }
+      {
+        name = "slopuploader";
         ensureDBOwnership = true;
       }
     ];
