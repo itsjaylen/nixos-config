@@ -5,6 +5,8 @@
   nodejs,
   pkg-config,
   openssl,
+  fetchYarnDeps,
+  fixup-yarn-lock,
 }:
 
 rustPlatform.buildRustPackage {
@@ -15,10 +17,16 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-JYG+t9Cs6t55kW2kYE1jEUYEs3XvpzVSxIjbszkd4Sw=";
 
+  offlineCache = fetchYarnDeps {
+    yarnLock = "${inputs.rustlog}/web/yarn.lock";
+    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  };
+
   nativeBuildInputs = [
     yarn
     nodejs
     pkg-config
+    fixup-yarn-lock
   ];
 
   buildInputs = [
@@ -28,7 +36,9 @@ rustPlatform.buildRustPackage {
   preBuild = ''
     cd web
     export HOME=$(mktemp -d)
-    yarn install --offline || yarn install
+    fixup-yarn-lock yarn.lock
+    yarn config --offline set yarn-offline-mirror $offlineCache
+    yarn install --offline --frozen-lockfile --no-progress
     yarn build
     cd ..
   '';
