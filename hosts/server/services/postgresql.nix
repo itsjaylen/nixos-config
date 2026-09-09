@@ -1,9 +1,9 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_16;
 
-    settings.listen_addresses = "0.0.0.0";
+    settings.listen_addresses = lib.mkForce "*";
 
     ensureDatabases = [
       "gitea"
