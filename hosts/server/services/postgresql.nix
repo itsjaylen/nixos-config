@@ -3,6 +3,8 @@
     enable = true;
     package = pkgs.postgresql_16;
 
+    settings.listen_addresses = "0.0.0.0";
+
     ensureDatabases = [
       "gitea"
       "immich"
