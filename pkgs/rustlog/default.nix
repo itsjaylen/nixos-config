@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage {
 
   offlineCache = fetchYarnDeps {
     yarnLock = "${inputs.rustlog}/web/yarn.lock";
-    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    hash = "sha256-tyqpeAI6hu0YlTWvZMJekMU7lIHEOv137KP+ci+Cv7k=";
   };
 
   nativeBuildInputs = [
