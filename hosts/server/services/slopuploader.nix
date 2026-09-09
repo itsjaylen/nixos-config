@@ -6,18 +6,19 @@
   services.slopuploader = {
     enable = true;
     port = 8888;
-    baseUrl = "0.0.0.0"; # Or your local domain/IP
+    baseUrl = "http://192.168.50.188:8888"; # Change to your actual public URL/IP
 
     settings = {
       dbType = "postgres";
-      dbConn = "host=localhost user=slopuploader dbname=slopuploader sslmode=disable client_encoding=UTF8";
+      # Use Unix socket path (default in NixOS is /var/run/postgresql) 
+      # and include dbname explicitly
+      dbConn = "host=/var/run/postgresql user=slopuploader dbname=slopuploader sslmode=disable";
       storageType = "s3";
-      s3Endpoint = "http://192.168.50.188:3900"; # Your Garage S3 instance
+      s3Endpoint = "http://192.168.50.188:3900";
       s3Bucket = "slopuploader-files";
       s3Region = "garageland";
     };
 
-    # Point to your sops-nix secret file containing ADMIN_TOKEN and S3 keys
     environmentFile = config.sops.secrets."slopuploader/env".path;
   };
 }
