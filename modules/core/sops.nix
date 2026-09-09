@@ -11,10 +11,7 @@
     defaultSopsFile = ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
 
-    # Tells sops-nix to use the host's SSH ed25519 key for decryption
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-
-    # Automatically creates /var/lib/sops-nix/key.txt on boot if it does not exist
     age.generateKey = true;
 
     secrets = {
@@ -36,6 +33,12 @@
       "grafana_secret_key" = { };
       "gitea_runner_token" = { };
       "slopuploader/env" = { };
+      "rustlog/config" = {
+        owner = "rustlog";
+        group = "rustlog";
+        path = "/var/lib/rustlog/config.json";
+        mode = "0400";
+      };
     };
   };
 

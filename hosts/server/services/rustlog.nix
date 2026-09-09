@@ -1,13 +1,11 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
-  # If you want to use ClickHouse locally via systemd or docker, 
-  # ensure your config.json matches the connection details.
-  
   systemd.services.rustlog = {
     description = "Rustlog Twitch Logging Service";
     wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ]; # Add "docker.clickhouse.service" or similar if hosting ClickHouse locally via systemd/docker
+    after = [ "network.target" "clickhouse.service" ];
+    requires = [ "clickhouse.service" ];
 
     serviceConfig = {
       Type = "simple";
@@ -18,8 +16,7 @@
       Restart = "always";
       RestartSec = "5s";
       
-      # Hardening measures
-      DynamicUser = false; # Set to true if you manage state dir via StateDirectory
+      DynamicUser = false;
       StateDirectory = "rustlog";
       ProtectSystem = "strict";
       ProtectHome = true;
