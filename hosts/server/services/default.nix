@@ -14,5 +14,7 @@
     ./redis.nix
     ./immich.nix
     ./slopuploader.nix
+    ./clickhouse.nix
+    ./rustlog.nix
   ];
 }
