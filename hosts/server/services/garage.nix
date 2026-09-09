@@ -23,7 +23,7 @@ in
 
       s3_api = {
         s3_region = "garageland";
-        api_bind_addr = "0.0.0.0:3900";
+        api_bind_addr = "127.0.0.1:3900";
         root_domain = ".s3.garage.localhost";
       };
 
@@ -47,28 +47,34 @@ in
       };
       script = ''
         RPC_SECRET=$(cat /run/secrets/garage_rpc_secret)
+        ACCESS_KEY=$(cat ${s3AccessKey})
+        SECRET_KEY=$(cat ${s3SecretKey})
   
         # Wait for garage daemon API to respond
         until ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" status >/dev/null 2>&1; do
           sleep 1
         done
   
-        # 1. Automatically assign node layout if not yet assigned
+        # 1. Automatically fetch the local node ID
         NODE_ID=$(${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" status | awk 'NR==3 {print $1}')
+  
         if [ -n "$NODE_ID" ]; then
+          # 2. Automatically assign node if it has no role assigned yet
           if ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" status | grep -q "NO ROLE ASSIGNED"; then
+            echo "Assigning node $NODE_ID to zone1..."
             ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" layout assign --zone zone1 --capacity 10G "$NODE_ID"
+            
+            # Fetch current layout version or default to 1, then apply incremented version
             CURRENT_VERSION=$(${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" layout show | grep "Layout version:" | awk '{print $3}')
             NEXT_VERSION=$(( { CURRENT_VERSION:-0} + 1 ))
+            
+            echo "Applying layout version $NEXT_VERSION..."
             ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" layout apply --version "$NEXT_VERSION"
           fi
         fi
   
-        # 2. Ensure the key exists (creates it if missing, otherwise skips)
-        ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" key info main-key >/dev/null 2>&1 || \
-          ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" key create main-key
-  
-        # 3. Ensure bucket exists and grant access
+        # 3. Import key and create bucket
+        ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" key import main-key "$ACCESS_KEY" "$SECRET_KEY" || true
         ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" bucket create slopuploader-files || true
         ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" bucket allow slopuploader-files --key main-key --read --write || true
       '';
