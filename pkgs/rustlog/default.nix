@@ -39,8 +39,7 @@ rustPlatform.buildRustPackage {
       fixup-yarn-lock yarn.lock
       yarn config --offline set yarn-offline-mirror $offlineCache
       yarn install --offline --frozen-lockfile --no-progress --ignore-scripts
-      export PATH="$PWD/node_modules/.bin:$PATH"
-      yarn build
+      node ./node_modules/vite/bin/vite.js build
       cd ..
     '';
 }
