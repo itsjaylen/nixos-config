@@ -37,32 +37,32 @@ in
 
   # Automatically import key credentials and create bucket on service startup
   systemd.services.garage-init = {
-    description = "Declarative Garage Bucket and Key Provisioning";
-    after = [ "garage.service" ];
-    wants = [ "garage.service" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
+      description = "Declarative Garage Bucket and Key Provisioning";
+      after = [ "garage.service" ];
+      wants = [ "garage.service" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+      script = ''
+        RPC_SECRET=$(cat /run/secrets/garage_rpc_secret)
+        ACCESS_KEY=$(cat ${s3AccessKey})
+        SECRET_KEY=$(cat ${s3SecretKey})
+  
+        # Wait for garage daemon API to respond
+        until ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" status >/dev/null 2>&1; do
+          sleep 1
+        done
+  
+        # Import key from SOPS secrets
+        ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" key import main-key "$ACCESS_KEY" "$SECRET_KEY" || true
+  
+        # Ensure bucket exists and grant access (matching .envrc S3_BUCKET)
+        ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" bucket create slopuploader-files || true
+        ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" bucket allow slopuploader-files --key main-key --read --write || true
+      '';
     };
-    script = ''
-      RPC_SECRET=$(cat /run/secrets/garage_rpc_secret)
-      ACCESS_KEY=$(cat ${s3AccessKey})
-      SECRET_KEY=$(cat ${s3SecretKey})
-
-      # Wait for garage daemon API to respond
-      until ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" status >/dev/null 2>&1; do
-        sleep 1
-      done
-
-      # Import/Import key from SOPS secrets
-      ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" key import main-key "$ACCESS_KEY" "$SECRET_KEY" || true
-
-      # Ensure bucket exists and grant access
-      ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" bucket create my-bucket || true
-      ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" bucket allow my-bucket --key main-key --read --write || true
-    '';
-  };
 
   systemd.services.garage.serviceConfig = {
     EnvironmentFile = config.sops.templates."garage-env".path;
