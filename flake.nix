@@ -41,7 +41,7 @@
     };
 
     rustlog = {
-      url = "git+https://github.com/Julia-Roman/rustlog?submodules=1";
+      url = "github:Julia-Roman/rustlog/firehose?submodules=1";
       flake = false;
     };
 
