@@ -33,12 +33,6 @@
       "grafana_secret_key" = { };
       "gitea_runner_token" = { };
       "slopuploader/env" = { };
-      "rustlog/config" = {
-        owner = "rustlog";
-        group = "rustlog";
-        path = "/var/lib/rustlog/config.json";
-        mode = "0400";
-      };
     };
   };
 

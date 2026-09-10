@@ -33,6 +33,7 @@
     zip
     deadnix
     golangci-lint
+    socat
 
     ## TUI
     epy # ebook reader
