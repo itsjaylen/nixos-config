@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -33,6 +33,7 @@
       "grafana_secret_key" = { };
       "gitea_runner_token" = { };
       "slopuploader/env" = { };
+    } // lib.optionalAttrs (builtins.hasAttr "rustlog" config.users.users) {
       "rustlog/config" = {
         owner = "rustlog";
         group = "rustlog";
