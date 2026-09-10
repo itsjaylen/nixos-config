@@ -4,12 +4,12 @@
   services.clickhouse = {
     enable = true;
     
-    # Listen on all IPv4 and IPv6 addresses
+    # Using just "::" enables IPv6 dual-stack, binding both IPv4 and IPv6 
+    # cleanly without duplicating socket attempts on ports like 9009.
     serverConfig = {
-      listen_host = [ "0.0.0.0" "::" ];
+      listen_host = "::";
     };
 
-    # Optional: configure databases or users directly via Nix
     usersConfig = {
       users.user = {
         profile = "default";
@@ -19,10 +19,8 @@
     };
   };
 
-  # Open ClickHouse ports in the firewall (8123 for HTTP, 9000 for native TCP)
   networking.firewall.allowedTCPPorts = [ 8123 9000 ];
 
-  # Ensure rustlog's systemd service waits for ClickHouse to be up and running
   systemd.services.rustlog.after = [ "clickhouse.service" ];
   systemd.services.rustlog.requires = [ "clickhouse.service" ];
 }
