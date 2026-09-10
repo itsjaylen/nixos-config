@@ -804,16 +804,17 @@
     "rustlog": {
       "flake": false,
       "locked": {
-        "lastModified": 1788627431,
-        "narHash": "sha256-5A8PRSAxv13S+Jt7cR+HoQI1CDJa4jlQ+5ED5ESi9G8=",
-        "ref": "refs/heads/master",
-        "rev": "016921d5294ae860fc2a4d045c597ae4af83e59a",
-        "revCount": 238,
+        "lastModified": 1788643337,
+        "narHash": "sha256-4MK0bARBeU+kmNMZHDigEDv0d8UOn8JiqPcfjUKnpL8=",
+        "ref": "firehose",
+        "rev": "13214c11526a2d4e12cdf508a72eeb11c9a6c87a",
+        "revCount": 244,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/Julia-Roman/rustlog"
       },
       "original": {
+        "ref": "firehose",
         "submodules": true,
         "type": "git",
         "url": "https://github.com/Julia-Roman/rustlog"
