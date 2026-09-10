@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage {
 
   src = inputs.rustlog;
 
-  cargoHash = "sha256-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=";
+  cargoHash = "sha256-YaW6P3FIasnLioK/abpxGeglw8ViDR9MNzQ6AITgsTI=";
 
   offlineCache = fetchYarnDeps {
     yarnLock = "${inputs.rustlog}/web/yarn.lock";
