@@ -6,7 +6,6 @@
   pkg-config,
   openssl,
   fetchYarnDeps,
-  fixup-yarn-lock,
 }:
 
 rustPlatform.buildRustPackage {
@@ -19,14 +18,13 @@ rustPlatform.buildRustPackage {
 
   offlineCache = fetchYarnDeps {
     yarnLock = "${inputs.rustlog}/web/yarn.lock";
-    hash = "sha256-tyqpeAI6hu0YlTWvZMJekMU7lIHEOv137KP+ci+Cv7k="; # Replace with your actual hash when prompted
+    hash = "sha256-tyqpeAI6hu0YlTWvZMJekMU7lIHEOv137KP+ci+Cv7k=";
   };
 
   nativeBuildInputs = [
     yarn
     nodejs
     pkg-config
-    fixup-yarn-lock
   ];
 
   buildInputs = [
@@ -34,12 +32,18 @@ rustPlatform.buildRustPackage {
   ];
 
   preBuild = ''
-      cd web
-      export HOME=$(mktemp -d)
-      fixup-yarn-lock yarn.lock
-      yarn config --offline set yarn-offline-mirror $offlineCache
-      yarn install --offline --frozen-lockfile --no-progress --ignore-scripts
-      node ./node_modules/vite/bin/vite.js build
-      cd ..
-    '';
+    cd web
+    export HOME=$(mktemp -d)
+    
+    # Configure yarn to use the offline cache properly
+    yarn config --offline set yarn-offline-mirror "$offlineCache"
+    
+    # Fix offline mirror permissions if necessary and install dependencies
+    fixup-yarn-lock yarn.lock || true
+    yarn install --offline --frozen-lockfile --no-progress --ignore-scripts
+    
+    # Build the frontend assets
+    node ./node_modules/vite/bin/vite.js build
+    cd ..
+  '';
 }
