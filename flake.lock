@@ -527,11 +527,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1788927539,
-        "narHash": "sha256-BFjTLFERfY+dc/SOgLu4q4iYoE0oiL70Hcb1KTIk71M=",
+        "lastModified": 1789013744,
+        "narHash": "sha256-WWKXlj+WN6PPiOogRYwwj/O1JTlSb5zaqbeztk4qXMM=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "84bf2cf29b5121d3955b608fab4f3ba3ec9be498",
+        "rev": "590a44d7c7f819c8a99523a90c4d485057dce254",
         "type": "github"
       },
       "original": {
@@ -804,18 +804,19 @@
     "rustlog": {
       "flake": false,
       "locked": {
-        "lastModified": 1788643337,
-        "narHash": "sha256-bubZ6yXfYOX8PhAV7E/54KDmhJYbUT/uaLmwaaOqKtY=",
-        "owner": "Julia-Roman",
-        "repo": "rustlog",
-        "rev": "13214c11526a2d4e12cdf508a72eeb11c9a6c87a",
-        "type": "github"
+        "lastModified": 1788627431,
+        "narHash": "sha256-5A8PRSAxv13S+Jt7cR+HoQI1CDJa4jlQ+5ED5ESi9G8=",
+        "ref": "refs/heads/master",
+        "rev": "016921d5294ae860fc2a4d045c597ae4af83e59a",
+        "revCount": 238,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/Julia-Roman/rustlog"
       },
       "original": {
-        "owner": "Julia-Roman",
-        "ref": "firehose",
-        "repo": "rustlog",
-        "type": "github"
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/Julia-Roman/rustlog"
       }
     },
     "slopuploader": {
