@@ -6,6 +6,7 @@
   pkg-config,
   openssl,
   fetchYarnDeps,
+  fixup-yarn-lock,
 }:
 
 rustPlatform.buildRustPackage {
@@ -14,17 +15,18 @@ rustPlatform.buildRustPackage {
 
   src = inputs.rustlog;
 
-  cargoHash = "sha256-YaW6P3FIasnLioK/abpxGeglw8ViDR9MNzQ6AITgsTI=";
+  cargoHash = "sha256-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=";
 
   offlineCache = fetchYarnDeps {
     yarnLock = "${inputs.rustlog}/web/yarn.lock";
-    hash = "sha256-tyqpeAI6hu0YlTWvZMJekMU7lIHEOv137KP+ci+Cv7k=";
+    hash = "sha256-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX="; # Replace with your actual hash when prompted
   };
 
   nativeBuildInputs = [
     yarn
     nodejs
     pkg-config
+    fixup-yarn-lock
   ];
 
   buildInputs = [
@@ -32,17 +34,12 @@ rustPlatform.buildRustPackage {
   ];
 
   preBuild = ''
-    cd web
-    export HOME=$(mktemp -d)
-
-    # Tell yarn to look for the offline mirror
-    yarn config --offline set yarn-offline-mirror "$offlineCache"
-
-    # Run yarn install pointing directly to the locked dependencies
-    yarn install --offline --frozen-lockfile --no-progress --ignore-scripts
-
-    # Build using node directly against the local node_modules binary
-    node node_modules/.bin/vite build
-    cd ..
-  '';
+      cd web
+      export HOME=$(mktemp -d)
+      fixup-yarn-lock yarn.lock
+      yarn config --offline set yarn-offline-mirror $offlineCache
+      yarn install --offline --frozen-lockfile --no-progress --ignore-scripts
+      node ./node_modules/vite/bin/vite.js build
+      cd ..
+    '';
 }
