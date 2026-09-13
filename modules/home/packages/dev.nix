@@ -25,5 +25,10 @@
 
     ## Testing
     mimalloc
+
+    ## Rust
+    cargo
+    rustc
+    pkg-config
   ];
 }
