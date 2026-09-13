@@ -1,4 +1,5 @@
 {
+  lib,
   stdenv,
   inputs,
   meson,
@@ -8,11 +9,10 @@
   rustPlatform,
   cargo,
   rustc,
-  wrapGAppsHook4, # or makeWrapper if not using GNOME/GTK stack directly, but standard Python/PySide6 often uses wrapQtAppsHook
   qt6,
-  git,
-  zstandard,
+  zstd,
   lz4,
+  makeWrapper,
 }:
 
 let
@@ -35,10 +35,12 @@ stdenv.mkDerivation {
 
   src = inputs.amethyst-mod-manager;
 
-  cargoDeps = rustPlatform.fetchCargoTarball {
-    src = inputs.amethyst-mod-manager;
-    hash = "REPLACE_WITH_CARGO_HASH";
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    src = inputs.amethyst-mod-manager + "/native/amethyst_filegraph";
+    hash = "sha256-PGyUuwwU44/0lHfHEipgi5TxGyXbdDPar/mDqHLFsgM=";
   };
+
+  cargoRoot = "native/amethyst_filegraph";
 
   nativeBuildInputs = [
     meson
@@ -48,26 +50,43 @@ stdenv.mkDerivation {
     rustc
     rustPlatform.cargoSetupHook
     qt6.wrapQtAppsHook
+    makeWrapper
   ];
 
   buildInputs = [
     pythonEnv
-    zstandard
+    zstd
     lz4
     qt6.qtbase
   ];
 
+  enableParallelBuilding = true;
+
+  patchPhase = ''
+    patchShebangs native/amethyst_filegraph/build.sh
+    patchShebangs src/version.py
+  '';
+
   preConfigure = ''
-    # Build the native filegraph rust extension as specified in the wiki instructions
-    pushd native/amethyst_filegraph
-    cargo build --release
-    # Ensure the compiled shared object goes where Meson expects it
-    popd
+    export CARGO_BUILD_JOBS=''${NIX_BUILD_CORES:-$NIX_BUILD_CORES}
+    ./native/amethyst_filegraph/build.sh
+  '';
+
+  postFixup = ''
+    for f in $out/bin/*; do
+      if [ -f "$f" ] && [ ! -L "$f" ]; then
+        sed -i "s|python3|${pythonEnv}/bin/python3|g" "$f"
+        wrapProgram "$f" \
+          --prefix PYTHONPATH : "${pythonEnv}/${python3.sitePackages}:$out/${python3.sitePackages}" \
+          --prefix PATH : "${pythonEnv}/bin"
+      fi
+    done
   '';
 
   meta = {
     description = "Universal mod manager written in Python and Qt";
     homepage = "https://github.com/ChrisDKN/Amethyst-Mod-Manager";
     license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.linux;
   };
 }

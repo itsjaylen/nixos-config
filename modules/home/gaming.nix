@@ -29,5 +29,6 @@
     ## Support Tools
     mangohud
     protonup-qt
+    amethyst-mod-manager
   ];
 }
