@@ -1,17 +1,22 @@
 {
   "nodes": {
     "amethyst-mod-manager": {
-      "flake": false,
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1789247334,
-        "narHash": "sha256-RyyBtrWFbpFzn/RGFXB05NneS5jHT+i5fZn+yaLsWQA=",
-        "owner": "ChrisDKN",
+        "lastModified": 1789319119,
+        "narHash": "sha256-qHYZkqqaEOuT46DUnWNZugyBh6Sc4qTZVqZonuAen+c=",
+        "owner": "itsjaylen",
         "repo": "Amethyst-Mod-Manager",
-        "rev": "405231d3501375130d5d19fe42a0fb8201eb9631",
+        "rev": "2598f0cc954d6136bec9a358c01d0c3159694302",
         "type": "github"
       },
       "original": {
-        "owner": "ChrisDKN",
+        "owner": "itsjaylen",
+        "ref": "add-nix-flake",
         "repo": "Amethyst-Mod-Manager",
         "type": "github"
       }

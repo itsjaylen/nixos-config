@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   programs.lutris = {
@@ -17,11 +17,10 @@
   home.packages = with pkgs; [
     ## Minecraft
     (prismlauncher.override {
-      # Custom Java runtimes passed directly to Prism Launcher
       jdks = [
-        temurin-bin-21 # Adoptium OpenJDK 21
-        temurin-bin-17 # Adoptium OpenJDK 17
-        temurin-bin-8  # Adoptium OpenJDK 8
+        temurin-bin-21
+        temurin-bin-17
+        temurin-bin-8 
       ];
     })
     lunar-client
@@ -29,6 +28,6 @@
     ## Support Tools
     mangohud
     protonup-qt
-    amethyst-mod-manager
+    inputs.amethyst-mod-manager.packages.${pkgs.system}.default
   ];
 }

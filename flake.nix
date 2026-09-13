@@ -46,9 +46,9 @@
     };
 
     amethyst-mod-manager = {
-      url = "github:ChrisDKN/Amethyst-Mod-Manager";
-      flake = false;
-    };
+        url = "github:itsjaylen/Amethyst-Mod-Manager/add-nix-flake";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
 
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
