@@ -31,7 +31,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "amethyst-mod-manager";
-  version = "unstable-${lib.substring 0 10 (builtins.toString inputs.amethyst-mod-manager.lastModifiedDate)}";
+  version = "unstable-${lib.substring 0 7 (finalAttrs.src.rev or "unknown")}";
 
   src = inputs.amethyst-mod-manager;
 
