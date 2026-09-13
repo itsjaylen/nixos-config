@@ -29,14 +29,14 @@ let
     bsdiff4
   ]);
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "amethyst-mod-manager";
-  version = "unstable-2026-09-13";
+  version = "unstable-${lib.substring 0 10 (builtins.toString inputs.amethyst-mod-manager.lastModifiedDate)}";
 
   src = inputs.amethyst-mod-manager;
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    src = inputs.amethyst-mod-manager + "/native/amethyst_filegraph";
+    src = "${finalAttrs.src}/native/amethyst_filegraph";
     hash = "sha256-PGyUuwwU44/0lHfHEipgi5TxGyXbdDPar/mDqHLFsgM=";
   };
 
@@ -68,12 +68,12 @@ stdenv.mkDerivation {
   '';
 
   preConfigure = ''
-    export CARGO_BUILD_JOBS=''${NIX_BUILD_CORES:-$NIX_BUILD_CORES}
+    export CARGO_BUILD_JOBS="''${NIX_BUILD_CORES:-1}"
     ./native/amethyst_filegraph/build.sh
   '';
 
   postFixup = ''
-    for f in $out/bin/*; do
+    for f in "$out"/bin/*; do
       if [ -f "$f" ] && [ ! -L "$f" ]; then
         sed -i "s|python3|${pythonEnv}/bin/python3|g" "$f"
         wrapProgram "$f" \
@@ -88,5 +88,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/ChrisDKN/Amethyst-Mod-Manager";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
+    mainProgram = "amethyst-mod-manager";
   };
-}
+})
