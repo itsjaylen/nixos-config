@@ -193,6 +193,28 @@
             inherit self inputs username;
           };
         };
+
+        k3s-agent = nixpkgs.lib.nixosSystem {
+          inherit system;
+
+          modules = [
+            chaotic.nixosModules.default
+            sops-nix.nixosModules.sops
+
+            {
+              nixpkgs.overlays = [
+                inputs.nix-cachyos-kernel.overlays.pinned
+              ];
+            }
+
+            ./hosts/k3s-agent
+          ];
+
+          specialArgs = {
+            host = "k3s-agent";
+            inherit self inputs username;
+          };
+        };
       };
 
       formatter.${system} = pkgs.treefmt.withConfig {

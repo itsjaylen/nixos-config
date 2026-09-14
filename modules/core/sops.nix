@@ -33,6 +33,11 @@
       "grafana_secret_key" = { };
       "gitea_runner_token" = { };
       "slopuploader/env" = { };
+      "k3s/node-token" = {
+        owner = "root";
+        group = "root";
+        mode = "0400";
+      };
     } // lib.optionalAttrs (builtins.hasAttr "rustlog" config.users.users) {
       "rustlog/config" = {
         owner = "rustlog";
