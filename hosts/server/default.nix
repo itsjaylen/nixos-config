@@ -51,14 +51,22 @@
   boot.tmp.useTmpfs = lib.mkForce false;
 
   networking.firewall = {
-    allowedTCPPorts = [ 30080 ];
+    # Allow Flannel VXLAN traffic
+    allowedUDPPorts = [ 8472 ];
+  
+    # Trust the K3s CNI interfaces
     trustedInterfaces = [ "cni0" "flannel.1" ];
-    # Or more aggressively, allow the pod CIDR:
+  
+    # Allow forwarding for pod and service CIDRs
     extraForwardRules = ''
-      iifname "cni0" accept
       iifname "flannel.1" accept
+      oifname "flannel.1" accept
+      iifname "cni0" accept
+      oifname "cni0" accept
       ip saddr 10.42.0.0/16 accept
       ip daddr 10.42.0.0/16 accept
+      ip saddr 10.43.0.0/16 accept
+      ip daddr 10.43.0.0/16 accept
     '';
   };
 }
