@@ -9,6 +9,7 @@
     ../../modules/core/security.nix
     ../../modules/core/nh.nix
     ../../modules/core/sops.nix
+    ./networking.nix
   ];
 
   boot.loader.grub = {
