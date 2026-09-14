@@ -46,7 +46,7 @@
     };
 
     amethyst-mod-manager = {
-        url = "github:itsjaylen/Amethyst-Mod-Manager/add-nix-flake";
+        url = "github:ChrisDKN/Amethyst-Mod-Manager";
         inputs.nixpkgs.follows = "nixpkgs";
       };
 

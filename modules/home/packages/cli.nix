@@ -34,6 +34,7 @@
     deadnix
     golangci-lint
     socat
+    websocat
 
     ## TUI
     epy # ebook reader
