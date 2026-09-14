@@ -64,6 +64,6 @@
   # Handy for debugging the node locally
   environment.systemPackages = with pkgs; [
     kubectl
-    crictl
+    cri-tools
   ];
 }
