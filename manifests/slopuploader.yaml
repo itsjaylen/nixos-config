@@ -13,7 +13,6 @@ spec:
       labels:
         app: slopuploader
     spec:
-      # Prefer the laptop, fall back to server if it's unavailable
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -33,9 +32,14 @@ spec:
             - name: PORT
               value: "8080"
             - name: BASE_URL
-              value: "http://slopuploader.itsjaylen.com"  # adjust later
+              value: "http://slopuploader.itsjaylen.com"
             - name: DB_TYPE
               value: "postgres"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: slopuploader-secrets
+                  key: db-password
             - name: DB_CONN
               value: "host=192.168.50.188 port=5432 user=slopuploader dbname=slopuploader sslmode=disable password=$(POSTGRES_PASSWORD)"
             - name: STORAGE_TYPE
