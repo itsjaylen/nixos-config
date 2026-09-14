@@ -84,20 +84,34 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500m"
-              apiVersion: networking.k8s.io/v1
-              kind: Ingress
-              metadata:
-                name: slopuploader-ingress
-                namespace: default
-              spec:
-                rules:
-                  - host: slopuploader.itsjaylen.com
-                    http:
-                      paths:
-                        - path: /
-                          pathType: Prefix
-                          backend:
-                            service:
-                              name: slopuploader-svc
-                              port:
-                                number: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: slopuploader-svc
+  namespace: default
+spec:
+  selector:
+    app: slopuploader
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: slopuploader-ingress
+  namespace: default
+spec:
+  rules:
+    - host: slopuploader.itsjaylen.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: slopuploader-svc
+                port:
+                  number: 80
