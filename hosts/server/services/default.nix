@@ -16,6 +16,6 @@
     ./slopuploader.nix
     ./clickhouse.nix
     ./rustlog.nix
-    ./k8s.nix
+    ./k3s.nix
   ];
 }
