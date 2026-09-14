@@ -3,7 +3,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/core/bootloader.nix
     ../../modules/core/network.nix
     ../../modules/core/services.nix
     ../../modules/core/system.nix
@@ -11,6 +10,14 @@
     ../../modules/core/nh.nix
     ../../modules/core/sops.nix
   ];
+
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/sda";
+    useOSProber = false;
+  };
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+  boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
 
   users.users = {
     "${username}" = {
@@ -44,24 +51,17 @@
   services.k3s = {
     enable = true;
     role = "agent";
-    serverAddr = "https://localhost:6443";
+    serverAddr = "https://<SERVER_IP>:6443";
     tokenFile = config.sops.secrets."k3s/node-token".path;
 
     extraFlags = [
-      # Label the node so you can pin small Go/Rust services to it
       "--node-label=role=small-services"
-
-      # Optional: give it a stable name instead of the hostname
-      "--node-name=k3s-agent"
-
-      # Reduce kubelet's log noise and reserve a bit of RAM for the OS
       "--kubelet-arg=system-reserved=memory=512Mi"
       "--kubelet-arg=kube-reserved=memory=256Mi"
       "--kubelet-arg=eviction-hard=memory.available<256Mi"
     ];
   };
 
-  # Handy for debugging the node locally
   environment.systemPackages = with pkgs; [
     kubectl
     cri-tools
