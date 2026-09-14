@@ -84,25 +84,20 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500m"
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: slopuploader-ingress
-  namespace: default
-  annotations:
-    # Update or add annotations depending on your ingress controller (e.g., traefik, nginx)
-    traefik.ingress.kubernetes.io/router.entrypoints: web
-spec:
-  rules:
-    - host: slopuploader.itsjaylen.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: slopuploader-svc
-                port:
-                  number: 80
+              apiVersion: networking.k8s.io/v1
+              kind: Ingress
+              metadata:
+                name: slopuploader-ingress
+                namespace: default
+              spec:
+                rules:
+                  - host: slopuploader.itsjaylen.com
+                    http:
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                          backend:
+                            service:
+                              name: slopuploader-svc
+                              port:
+                                number: 80
