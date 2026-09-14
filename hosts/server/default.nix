@@ -50,5 +50,5 @@
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
   boot.tmp.useTmpfs = lib.mkForce false;
 
-  networking.firewall.allowedTCPPorts = [ 54321 ];
+  networking.firewall.allowedTCPPorts = [ 30080 ];
 }
