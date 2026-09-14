@@ -69,4 +69,5 @@
       ip daddr 10.43.0.0/16 accept
     '';
   };
+  networking.firewall.checkReversePath = "loose";
 }

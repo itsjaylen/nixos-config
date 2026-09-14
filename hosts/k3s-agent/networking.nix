@@ -8,6 +8,8 @@
       iifname "flannel.1" accept
       ip saddr 10.42.0.0/16 accept
       ip daddr 10.42.0.0/16 accept
+      --flannel-iface=enp7s0"
     '';
   };
+  networking.firewall.checkReversePath = "loose";
 }
