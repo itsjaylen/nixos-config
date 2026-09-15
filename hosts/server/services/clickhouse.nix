@@ -6,14 +6,25 @@
 
     serverConfig = {
       listen_host = "::";
+
+      # Tell ClickHouse to also load user fragments from a runtime dir
+      user_directories = {
+        users_xml = {
+          path = "/run/clickhouse-users.d";
+        };
+      };
     };
   };
 
-  # Write the rustlog user fragment into ClickHouse's users.d/ directory
-  # before the server starts, reading the hash from the sops secret file.
+  # The clickhouse user owns this runtime dir. Written at boot.
+  systemd.tmpfiles.rules = [
+    "d /run/clickhouse-users.d 0750 clickhouse clickhouse -"
+  ];
+
+  # Write the rustlog fragment before ClickHouse starts.
+  # Runs as root (systemd.tmpfiles + ExecStartPre with User=root override).
   systemd.services.clickhouse.preStart = ''
-    mkdir -p /etc/clickhouse-server/users.d
-    cat > /etc/clickhouse-server/users.d/rustlog.xml <<EOF
+    cat > /run/clickhouse-users.d/rustlog.xml <<EOF
     <clickhouse>
       <users>
         <rustlog>
@@ -28,9 +39,14 @@
       </users>
     </clickhouse>
     EOF
-    chown clickhouse:clickhouse /etc/clickhouse-server/users.d/rustlog.xml
-    chmod 0400 /etc/clickhouse-server/users.d/rustlog.xml
+    chown clickhouse:clickhouse /run/clickhouse-users.d/rustlog.xml
+    chmod 0400 /run/clickhouse-users.d/rustlog.xml
   '';
+
+  # Make sure preStart runs as root, not as the clickhouse user
+  systemd.services.clickhouse.serviceConfig = {
+    PermissionsStartOnly = true;
+  };
 
   networking.firewall.allowedTCPPorts = [ 8123 9000 ];
 
