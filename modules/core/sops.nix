@@ -32,6 +32,7 @@
       "grafana_admin_password" = { };
       "grafana_secret_key" = { };
       "gitea_runner_token" = { };
+      "k3s/node-token" = { };
     } // lib.optionalAttrs (builtins.hasAttr "rustlog" config.users.users) {
       "rustlog/config" = {
         owner = "rustlog";
@@ -40,7 +41,6 @@
         mode = "0400";
       };
     };
-  };
 
   system.activationScripts.ensureSshDir = ''
     install -d -m 700 -o jaylen -g users /home/jaylen/.ssh
