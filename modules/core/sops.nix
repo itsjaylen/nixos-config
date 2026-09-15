@@ -33,10 +33,9 @@
       "grafana_secret_key" = { };
       "gitea_runner_token" = { };
       "k3s/node-token" = { };
-      "postgres_exporter_env" = { ... };
-      "postgres_exporter_password" = {
-        owner = "prometheus-postgres-exporter";
-        group = "prometheus-postgres-exporter";
+      "postgres_exporter_env" = {
+        owner = "postgres-exporter";
+        group = "postgres-exporter";
         mode = "0400";
       };
     } // lib.optionalAttrs (builtins.hasAttr "rustlog" config.users.users) {
@@ -47,7 +46,6 @@
         mode = "0400";
       };
     };
-  };
 
   system.activationScripts.ensureSshDir = ''
     install -d -m 700 -o jaylen -g users /home/jaylen/.ssh
