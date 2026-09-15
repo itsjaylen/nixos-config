@@ -32,7 +32,6 @@
       "grafana_admin_password" = { };
       "grafana_secret_key" = { };
       "gitea_runner_token" = { };
-      "s3_secret_key" = { };
     } // lib.optionalAttrs (builtins.hasAttr "rustlog" config.users.users) {
       "rustlog/config" = {
         owner = "rustlog";
