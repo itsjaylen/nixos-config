@@ -6,6 +6,11 @@
 
     serverConfig = {
       listen_host = "::";
+
+      prometheus = {
+        endpoint = "/metrics";
+        port = 9363;
+      };
     };
   };
 
@@ -36,12 +41,7 @@
     ];
   };
 
-  prometheus = {
-      endpoint = "/metrics";
-      port = 9363;
-    };
-
-  networking.firewall.allowedTCPPorts = [ 8123 9000 ];
+  networking.firewall.allowedTCPPorts = [ 8123 9000 9363 ];
 
   systemd.services.rustlog.after = [ "clickhouse.service" ];
   systemd.services.rustlog.requires = [ "clickhouse.service" ];
