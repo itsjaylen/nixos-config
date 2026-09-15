@@ -2,16 +2,16 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+USER_HOME="/home/jaylen"
+
+extract() {
+  sudo -u jaylen HOME="$USER_HOME" sops -d --extract "[\"slopuploader\"][\"$1\"]" secrets/secrets.yaml
+}
+
 if [[ $EUID -ne 0 ]]; then
   echo "Run with sudo: sudo $0" >&2
   exit 1
 fi
-
-export SOPS_AGE_SSH_PRIVATE_KEY_FILE="/etc/ssh/ssh_host_ed25519_key"
-
-extract() {
-  sops -d --extract "[\"slopuploader\"][\"$1\"]" secrets/secrets.yaml
-}
 
 echo "==> Recreating slopuploader-secrets"
 kubectl delete secret slopuploader-secrets --ignore-not-found
@@ -21,8 +21,5 @@ kubectl create secret generic slopuploader-secrets \
   --from-literal=s3-secret-key="$(extract s3_secret_key)" \
   --from-literal=db-password="$(extract db_password)"
 
-echo "==> Restarting deployment"
 kubectl rollout restart deployment/slopuploader
 kubectl rollout status deployment/slopuploader --timeout=60s
-
-echo "==> Done"
