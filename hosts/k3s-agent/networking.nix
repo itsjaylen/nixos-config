@@ -1,8 +1,9 @@
 {
+{
   networking.firewall = {
     allowedTCPPorts = [ 30080 ];
+    allowedUDPPorts = [ 8472 ];  # Flannel VXLAN
     trustedInterfaces = [ "cni0" "flannel.1" ];
-    # Or more aggressively, allow the pod CIDR:
     extraForwardRules = ''
       iifname "cni0" accept
       iifname "flannel.1" accept
@@ -11,4 +12,5 @@
     '';
   };
   networking.firewall.checkReversePath = "loose";
+}
 }
