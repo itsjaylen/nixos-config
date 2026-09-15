@@ -2,20 +2,25 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+if [[ $EUID -ne 0 ]]; then
+  echo "Run with sudo: sudo ./scripts/deploy-slopuploader.sh" >&2
+  exit 1
+fi
+
 extract() {
   sops -d --extract "[\"slopuploader\"][\"$1\"]" secrets/secrets.yaml
 }
 
 echo "==> Recreating slopuploader-secrets"
-sudo kubectl delete secret slopuploader-secrets --ignore-not-found
-sudo kubectl create secret generic slopuploader-secrets \
+kubectl delete secret slopuploader-secrets --ignore-not-found
+kubectl create secret generic slopuploader-secrets \
   --from-literal=admin-token="$(extract admin_token)" \
   --from-literal=s3-access-key="$(extract s3_access_key)" \
   --from-literal=s3-secret-key="$(extract s3_secret_key)" \
   --from-literal=db-password="$(extract db_password)"
 
 echo "==> Restarting deployment"
-sudo kubectl rollout restart deployment/slopuploader
-sudo kubectl rollout status deployment/slopuploader --timeout=60s
+kubectl rollout restart deployment/slopuploader
+kubectl rollout status deployment/slopuploader --timeout=60s
 
 echo "==> Done"
