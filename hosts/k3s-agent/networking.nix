@@ -1,5 +1,4 @@
 {
-{
   networking.firewall = {
     allowedTCPPorts = [ 30080 ];
     allowedUDPPorts = [ 8472 ];  # Flannel VXLAN
@@ -12,5 +11,4 @@
     '';
   };
   networking.firewall.checkReversePath = "loose";
-}
 }
