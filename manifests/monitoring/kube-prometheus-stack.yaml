@@ -18,25 +18,23 @@ spec:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
-  values:
-    # Prometheus Configuration
-    prometheus:
-      prometheusSpec:
-        retention: 15d
-        resources:
-          requests:
-            cpu: 200m
-            memory: 200Mi
-        # Expose Prometheus via NodePort here
+    values:
+      prometheus:
+        # Service config goes HERE, as a sibling of prometheusSpec
         service:
           type: NodePort
           nodePort: 30090
-    # Grafana Configuration
-    grafana:
-      enabled: false
-      sidecar:
-        dashboards:
-          enabled: true
-          label: grafana_dashboard
-          labelValue: "1"
-          searchNamespace: ALL
+        prometheusSpec:
+          retention: 15d
+          resources:
+            requests:
+              cpu: 200m
+              memory: 200Mi
+      grafana:
+        enabled: false
+        sidecar:
+          dashboards:
+            enabled: true
+            label: grafana_dashboard
+            labelValue: "1"
+            searchNamespace: ALL
