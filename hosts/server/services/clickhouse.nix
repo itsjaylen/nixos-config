@@ -39,11 +39,6 @@
 
   networking.firewall.allowedTCPPorts = [ 8123 9000 ];
 
-  systemd.services.clickhouse = {
-    after = [ "sops-install-secrets.service" ];
-    requires = [ "sops-install-secrets.service" ];
-  };
-
   systemd.services.rustlog.after = [ "clickhouse.service" ];
   systemd.services.rustlog.requires = [ "clickhouse.service" ];
 }
