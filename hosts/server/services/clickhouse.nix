@@ -13,9 +13,21 @@
     # The default 'default' user will still exist; we just won't use it.
 
     # Tell ClickHouse to load our sops-rendered users file.
-    extraConfigFiles = [
-      config.sops.templates."clickhouse-users.xml".path
-    ];
+    extraUsersConfig = ''
+      <clickhouse>
+        <users>
+          <rustlog>
+            <password_sha256_hex>${config.sops.placeholder.clickhouse_user_password_sha256}</password_sha256_hex>
+            <networks>
+              <ip>127.0.0.1</ip>
+              <ip>::1</ip>
+            </networks>
+            <profile>default</profile>
+            <quota>default</quota>
+          </rustlog>
+        </users>
+      </clickhouse>
+    '';
   };
 
   # Render the users.xml fragment with the hashed password from sops.
