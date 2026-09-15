@@ -27,10 +27,13 @@ spec:
           requests:
             cpu: 200m
             memory: 200Mi
+        # Expose Prometheus via NodePort here
+        service:
+          type: NodePort
+          nodePort: 30090
     # Grafana Configuration
     grafana:
       enabled: false
-      # Enable sidecar to automatically load dashboard ConfigMaps
       sidecar:
         dashboards:
           enabled: true

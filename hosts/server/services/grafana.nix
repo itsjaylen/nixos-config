@@ -30,5 +30,18 @@
     };
   };
 
+  provision = {
+      enable = true;
+      datasources.settings.datasources = [
+        {
+          name = "K3s Prometheus";
+          type = "prometheus";
+          url = "http://192.168.50.188:30090";  # or 192.168.50.239 if server is down
+          access = "proxy";
+          isDefault = true;
+        }
+      ];
+    };
+
   networking.firewall.allowedTCPPorts = [ 3001 ];
 }
