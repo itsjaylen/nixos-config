@@ -29,7 +29,7 @@ spec:
             memory: 200Mi
     # Grafana Configuration
     grafana:
-      enabled: true
+      enabled: false
       # Enable sidecar to automatically load dashboard ConfigMaps
       sidecar:
         dashboards:
