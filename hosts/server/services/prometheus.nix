@@ -38,6 +38,12 @@
           { targets = [ "127.0.0.1:9187" ]; }
         ];
       }
+      {
+        job_name = "clickhouse";
+        static_configs = [
+          { targets = [ "127.0.0.1:9363" ]; }
+        ];
+      }
     ];
   };
 

@@ -36,6 +36,11 @@
     ];
   };
 
+  prometheus = {
+      endpoint = "/metrics";
+      port = 9363;
+    };
+
   networking.firewall.allowedTCPPorts = [ 8123 9000 ];
 
   systemd.services.rustlog.after = [ "clickhouse.service" ];
