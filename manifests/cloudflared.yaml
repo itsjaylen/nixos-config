@@ -13,6 +13,15 @@ spec:
       labels:
         app: cloudflared
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: role
+                    operator: In
+                    values: ["small-services"]
       containers:
         - name: cloudflared
           image: cloudflare/cloudflared:latest

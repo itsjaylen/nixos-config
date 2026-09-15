@@ -54,12 +54,13 @@
     role = "agent";
     serverAddr = "https://192.168.50.188:6443";
     tokenFile = config.sops.secrets."k3s/node-token".path;
-
+  
     extraFlags = [
       "--node-label=role=small-services"
       "--kubelet-arg=system-reserved=memory=512Mi"
       "--kubelet-arg=kube-reserved=memory=256Mi"
       "--kubelet-arg=eviction-hard=memory.available<256Mi"
+      "--flannel-iface=enp7s0"
     ];
   };
 
