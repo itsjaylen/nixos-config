@@ -13,7 +13,7 @@
     ./minecraft
     ./redis.nix
     ./immich.nix
-    ./slopuploader.nix
+    # ./slopuploader.nix
     ./clickhouse.nix
     ./rustlog.nix
     ./k3s.nix
