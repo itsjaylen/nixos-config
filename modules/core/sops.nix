@@ -41,6 +41,7 @@
         mode = "0400";
       };
     };
+  };
 
   system.activationScripts.ensureSshDir = ''
     install -d -m 700 -o jaylen -g users /home/jaylen/.ssh
