@@ -3,9 +3,11 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 if [[ $EUID -ne 0 ]]; then
-  echo "Run with sudo: sudo ./scripts/deploy-slopuploader.sh" >&2
+  echo "Run with sudo: sudo $0" >&2
   exit 1
 fi
+
+export SOPS_AGE_SSH_PRIVATE_KEY_FILE="/etc/ssh/ssh_host_ed25519_key"
 
 extract() {
   sops -d --extract "[\"slopuploader\"][\"$1\"]" secrets/secrets.yaml
