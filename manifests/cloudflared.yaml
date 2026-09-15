@@ -42,9 +42,3 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500m"
-          livenessProbe:
-            httpGet:
-              path: /ready
-              port: 2000
-            initialDelaySeconds: 10
-            periodSeconds: 30
