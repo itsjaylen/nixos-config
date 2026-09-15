@@ -7,5 +7,6 @@
     tmux
     jq
     htop
+    fluxcd
   ];
 }
