@@ -3,15 +3,15 @@
   services.prometheus.exporters.node = {
     enable = true;
     port = 9100;
-    listenAddress = "127.0.0.1"; # Forces IPv4 binding to match your Prometheus scrape target
+    listenAddress = "127.0.0.1";
   };
 
   # PostgreSQL metric exporter
   services.prometheus.exporters.postgres = {
     enable = true;
     port = 9187;
-    dataSourceName = "postgresql:///postgres?host=/run/postgresql&sslmode=disable";
-    listenAddress = "127.0.0.1"; # Recommended consistency fix for postgres exporter too
+    listenAddress = "127.0.0.1";
+    environmentFile = config.sops.secrets."postgres_exporter_env".path;
   };
 
   # Main Prometheus daemon

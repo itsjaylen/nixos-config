@@ -33,6 +33,11 @@
       "grafana_secret_key" = { };
       "gitea_runner_token" = { };
       "k3s/node-token" = { };
+      "postgres_exporter_password" = {
+        owner = "prometheus-postgres-exporter";
+        group = "prometheus-postgres-exporter";
+        mode = "0400";
+      };
     } // lib.optionalAttrs (builtins.hasAttr "rustlog" config.users.users) {
       "rustlog/config" = {
         owner = "rustlog";
