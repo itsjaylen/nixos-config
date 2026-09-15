@@ -28,9 +28,9 @@
         org_role = "Viewer";
       };
     };
-  };
 
-  provision = {
+    # Moved under services.grafana
+    provision = {
       enable = true;
       datasources.settings.datasources = [
         {
@@ -42,6 +42,7 @@
         }
       ];
     };
+  };
 
   networking.firewall.allowedTCPPorts = [ 3001 ];
 }
