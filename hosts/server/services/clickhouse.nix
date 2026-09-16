@@ -3,23 +3,32 @@
 {
   services.clickhouse = {
     enable = true;
-
     serverConfig = {
       listen_host = "::";
-
-      prometheus = {
-        endpoint = "/metrics";
-        port = 9363;
-      };
     };
   };
 
-  # Write the rustlog fragment into ClickHouse's users.d/ directory
-  # using a root-privileged ExecStartPre.
   systemd.services.clickhouse.serviceConfig = {
     ExecStartPre = [
-      "+${pkgs.writeShellScript "clickhouse-write-users" ''
-        mkdir -p /etc/clickhouse-server/users.d
+      "+${pkgs.writeShellScript "clickhouse-write-config" ''
+        mkdir -p /etc/clickhouse-server/config.d /etc/clickhouse-server/users.d
+
+        # Drop-in Prometheus endpoint config — overrides the commented-out
+        # <prometheus> block in the main config.xml.
+        cat > /etc/clickhouse-server/config.d/prometheus.xml <<EOF
+        <clickhouse>
+          <prometheus>
+            <endpoint>/metrics</endpoint>
+            <port>9363</port>
+            <metrics>true</metrics>
+            <events>true</events>
+            <asynchronous_metrics>true</asynchronous_metrics>
+            <status_info>true</status_info>
+          </prometheus>
+        </clickhouse>
+        EOF
+
+        # rustlog user fragment
         cat > /etc/clickhouse-server/users.d/rustlog.xml <<EOF
         <clickhouse>
           <users>
@@ -35,8 +44,13 @@
           </users>
         </clickhouse>
         EOF
-        chown clickhouse:clickhouse /etc/clickhouse-server/users.d/rustlog.xml
-        chmod 0400 /etc/clickhouse-server/users.d/rustlog.xml
+
+        chown clickhouse:clickhouse \
+          /etc/clickhouse-server/config.d/prometheus.xml \
+          /etc/clickhouse-server/users.d/rustlog.xml
+        chmod 0400 \
+          /etc/clickhouse-server/config.d/prometheus.xml \
+          /etc/clickhouse-server/users.d/rustlog.xml
       ''}"
     ];
   };
