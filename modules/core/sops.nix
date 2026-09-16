@@ -33,18 +33,21 @@
       "grafana_secret_key" = { };
       "gitea_runner_token" = { };
       "k3s/node-token" = { };
-      "postgres_exporter_env" = {
-        owner = "postgres-exporter";
-        group = "postgres-exporter";
-        mode = "0400";
-      };
       # This one is used only inside sops.templates, so no owner/mode needed.
       "clickhouse_user_password_sha256" = { };
-    } // lib.optionalAttrs (builtins.hasAttr "rustlog" config.users.users) {
+    }
+    // lib.optionalAttrs (builtins.hasAttr "rustlog" config.users.users) {
       "rustlog/config" = {
         owner = "rustlog";
         group = "rustlog";
         path = "/var/lib/rustlog/config.json";
+        mode = "0400";
+      };
+    }
+    // lib.optionalAttrs (builtins.hasAttr "postgres-exporter" config.users.users) {
+      "postgres_exporter_env" = {
+        owner = "postgres-exporter";
+        group = "postgres-exporter";
         mode = "0400";
       };
     };
