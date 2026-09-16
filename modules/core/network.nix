@@ -16,10 +16,14 @@
       allowedUDPPorts = [
         59010
         59011
+        config.services.tailscale.port
       ];
+      # Trust the Tailscale interface so traffic over the tailnet isn't blocked
+      trustedInterfaces = [ "tailscale0" ];
     };
   };
 
-  environment.systemPackages = with pkgs; [ networkmanagerapplet
-    tailscale ];
+  services.tailscale.enable = true;
+
+  environment.systemPackages = with pkgs; [ networkmanagerapplet ];
 }
