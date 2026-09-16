@@ -17,5 +17,6 @@
     ./clickhouse.nix
     ./rustlog.nix
     ./k3s.nix
+    ./tailscale.nix
   ];
 }
