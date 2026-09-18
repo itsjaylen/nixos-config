@@ -1,4 +1,4 @@
-{ pkgs, host, ... }:
+{ pkgs, host, config, ... }:
 {
   networking = {
     hostName = "${host}";
@@ -18,7 +18,6 @@
         59011
         config.services.tailscale.port
       ];
-      # Trust the Tailscale interface so traffic over the tailnet isn't blocked
       trustedInterfaces = [ "tailscale0" ];
     };
   };
