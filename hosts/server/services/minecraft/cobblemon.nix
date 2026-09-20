@@ -3,7 +3,7 @@
 let
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/cobbleverse/raw/branch/main/pack.toml";
-    packHash = "sha256-DyMOutVYnDt8NGf04IjstYO59RGrusTnSjbdPMQUYrs=";
+    packHash = "sha256-BxEjkm8qaB1Z1/HeILqYw1cHJ7kTR1YsY4fvONNmD10=";
   };
 in
 {
