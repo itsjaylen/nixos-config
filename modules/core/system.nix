@@ -12,7 +12,6 @@
         "https://cache.nixos.org"
         "https://nix-community.cachix.org"
         "https://nix-gaming.cachix.org"
-        "https://chaotic-nyx.cachix.org"
         "https://attic.xuyh0120.win/lantian"
       ];
       trusted-public-keys = [
