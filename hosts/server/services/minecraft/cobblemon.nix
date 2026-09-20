@@ -23,12 +23,11 @@ in
       difficulty = "normal";
     };
 
-    # Copy mods, configs, and datapacks into the writable server directory
-    # (instead of symlinking, which is read-only and breaks LuckPerms)
+    # Copy mods into the writable server directory.
+    # Config and datapacks are managed manually on the server for now,
+    # since packwiz doesn't currently include them in the built derivation.
     files = {
       "mods" = "${modpack}/mods";
-      "config" = "${modpack}/config";
-      "datapacks" = "${modpack}/datapacks";
     };
   };
 
