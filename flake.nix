@@ -11,8 +11,6 @@
 
     winchain.url = "github:bytez1337/winchain";
 
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
     };
@@ -97,7 +95,6 @@
   outputs =
     {
       nixpkgs,
-      chaotic,
       sops-nix,
       winchain,
       microvm,
@@ -123,7 +120,6 @@
           inherit system;
 
           modules = [
-            chaotic.nixosModules.default
             sops-nix.nixosModules.sops
             winchain.nixosModules.default
 
@@ -150,7 +146,6 @@
           inherit system;
 
           modules = [
-            chaotic.nixosModules.default
             sops-nix.nixosModules.sops
 
             {
@@ -172,7 +167,6 @@
           inherit system;
 
           modules = [
-            chaotic.nixosModules.default
             sops-nix.nixosModules.sops
             microvm.nixosModules.host
 
@@ -198,7 +192,6 @@
           inherit system;
 
           modules = [
-            chaotic.nixosModules.default
             sops-nix.nixosModules.sops
 
             {
