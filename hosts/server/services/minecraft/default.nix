@@ -2,7 +2,8 @@
 
 {
   imports = [
-    ./vanilla.nix
+    #./vanilla.nix
+    ./cobblemon.nix
     #./modded.nix
   ];
 
