@@ -3,8 +3,8 @@
 let
   serverFiles = pkgs.fetchgit {
     url = "http://192.168.50.188:3000/itsjaylen/cobbleverse-server.git";
-    rev = "7732fbf9b4af1bfd0e7e303ae888b22a5b2735ad";
-    sha256 = "06x78148cgpjiaxfp3zn13xmkp94yx7iwmdxaqci6wag99rxdqd9";
+    rev = "7eb66483a9a20c12e83b8a9d03d0ea511ed3eb7b";
+    sha256 = "0bkcbxc4hb1yir33mmbasjkbi18nb6rb7vm01qiwc6qw6i5h06v6";
   };
 in
 {
