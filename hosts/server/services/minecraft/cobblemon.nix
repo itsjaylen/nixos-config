@@ -26,12 +26,11 @@ in
       difficulty = "normal";
     };
 
-    # Mods, configs, and datapacks come from the packwiz modpack
-    symlinks.mods = "${modpack}/mods";
     files = {
-      "config" = "${modpack}/config";
-      "datapacks" = "${modpack}/datapacks";
-    };
+        "mods" = "${modpack}/mods";      # This copies mods into the server folder
+        "config" = "${modpack}/config";
+        "datapacks" = "${modpack}/datapacks";
+      };
   };
 
   # Open the port for this server
