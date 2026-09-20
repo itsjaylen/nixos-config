@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 
 let
-  # Your Gitea-hosted packwiz pack
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/cobbleverse/raw/branch/main/pack.toml";
     packHash = "sha256-ew4JxQeozcUekUMyoiHGzIm/eCQMYaSsBEPsZXEWRgs=";
@@ -11,8 +10,6 @@ in
   services.minecraft-servers.servers.cobblemon = {
     enable = true;
 
-    # Fabric server — Nix fetches the launcher and vanilla jar
-    # Note: version uses underscores, not dots
     package = pkgs.fabricServers.fabric-1_21_1.override {
       loaderVersion = "0.19.5";
     };
@@ -26,16 +23,15 @@ in
       difficulty = "normal";
     };
 
+    # Copy mods, configs, and datapacks into the writable server directory
+    # (instead of symlinking, which is read-only and breaks LuckPerms)
     files = {
-        "mods" = "${modpack}/mods";      # This copies mods into the server folder
-        "config" = "${modpack}/config";
-        "datapacks" = "${modpack}/datapacks";
-      };
+      "mods" = "${modpack}/mods";
+      "config" = "${modpack}/config";
+      "datapacks" = "${modpack}/datapacks";
+    };
   };
 
-  # Open the port for this server
   networking.firewall.allowedTCPPorts = [ 25565 ];
-
-  # Simple Voice Chat needs its own UDP port
   networking.firewall.allowedUDPPorts = [ 24454 ];
 }
