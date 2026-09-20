@@ -1,9 +1,10 @@
 { pkgs, lib, ... }:
 
 let
-  modpack = pkgs.fetchPackwizModpack {
-    url = "http://192.168.50.188:3000/itsjaylen/cobbleverse/raw/branch/main/pack.toml";
-    packHash = "sha256-X8hDp6vj2SDHvLMy+eYxwRQA30T9IwVI49B7NKq3WYc=";
+  serverFiles = pkgs.fetchgit {
+    url = "http://192.168.50.188:3000/itsjaylen/cobbleverse-server.git";
+    rev = "ba28aaa8896112f16c936f4dfc80d344dcea480b";
+    sha256 = "0fjjgk3vk0jwbm4m1jr6g28hnq0wz2qmca4i069hgik7xb3bbhsx";
   };
 in
 {
@@ -23,11 +24,10 @@ in
       difficulty = "normal";
     };
 
-    # Copy mods into the writable server directory.
-    # Config and datapacks are managed manually on the server for now,
-    # since packwiz doesn't currently include them in the built derivation.
     files = {
-      "mods" = "${modpack}/mods";
+      "mods" = "${serverFiles}/mods";
+      "config" = "${serverFiles}/config";
+      "datapacks" = "${serverFiles}/datapacks";
     };
   };
 
