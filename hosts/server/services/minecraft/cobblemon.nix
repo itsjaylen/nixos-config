@@ -15,7 +15,7 @@ in
       loaderVersion = "0.19.5";
     };
 
-    jvmOpts = "-Xms6G -Xmx6G";
+    jvmOpts = "-Xms6G -Xmx12G";
 
     serverProperties = {
       server-port = 25565;
