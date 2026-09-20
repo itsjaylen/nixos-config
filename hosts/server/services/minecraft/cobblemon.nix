@@ -4,7 +4,7 @@ let
   # Your Gitea-hosted packwiz pack
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/cobbleverse/raw/branch/main/pack.toml";
-    packHash = "sha256-1/6SDwFvQloCxUwLErE0sy7Sb0yfbvq4ZMN/QlbOlIY=";
+    packHash = "sha256-ogBm7fW4NahiWB8zufiAb+G9MeT7yfiP6xIYRvBLIaM=";
   };
 in
 {
