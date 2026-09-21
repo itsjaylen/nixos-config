@@ -3,6 +3,8 @@
     enable = true;
     appName = "Gitea";
 
+    lfs.enable = true;
+
     database = {
       type = "postgres";
       user = "gitea";
