@@ -3,8 +3,8 @@
 {
   imports = [
     #./vanilla.nix
-    ./cobblemon.nix
-    #./modded.nix
+    # ./cobblemon.nix
+    ./modded.nix
   ];
 
   services.minecraft-servers = {
