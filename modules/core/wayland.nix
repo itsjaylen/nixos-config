@@ -20,6 +20,8 @@
     # Set default file picker / portal handler preference
     XDG_CURRENT_DESKTOP = "niri";
     XDG_SESSION_TYPE = "wayland";
+
+     __GL_THREADED_OPTIMIZATIONS = "0";
   };
 
   # Essential packages for desktop environment execution
