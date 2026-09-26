@@ -7,6 +7,18 @@
   # Ensure XWayland compatibility layer runs cleanly under Wayland
   programs.xwayland.enable = true;
 
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      xorg.libXi
+      # You might need these as well based on your crash log
+      xorg.libX11
+      xorg.libXext
+      xorg.libXrender
+      xorg.libXtst
+    ];
+  };
+
   # Hardware acceleration and Wayland environment configuration
   environment.sessionVariables = {
     # Force Electron / Chromium apps to run natively on Wayland
