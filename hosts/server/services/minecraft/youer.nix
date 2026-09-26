@@ -8,7 +8,7 @@ let
   });
 in
 {
-  services.minecraft-servers.servers.neoforge = {
+  services.minecraft-servers.servers.youer = {
     enable = true;
     
     package = youerPackage;

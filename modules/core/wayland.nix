@@ -20,6 +20,7 @@
     # Set default file picker / portal handler preference
     XDG_CURRENT_DESKTOP = "niri";
     XDG_SESSION_TYPE = "wayland";
+    LD_LIBRARY_PATH = "${pkgs.libglvnd}/lib";
 
      __GL_THREADED_OPTIMIZATIONS = "0";
   };
