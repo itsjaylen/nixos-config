@@ -24,8 +24,8 @@ in
     "https://cdn.modrinth.com/data/yM94ont6/versions/3Jsaxpqj/notenoughcrashes-neoforge-4.4.9%2B26.2.jar" 
     "43cc213e66a83d8526bc0675093f19ad17ccfdddd97164cd247c4363a7a664f38d3b0684a40976df8bec61f51c68684ffe16581399c8599c00837a8f8db0eb7b")
 
-  (mod "DistantHorizons"
-    "https://cdn.modrinth.com/data/uCdwusMi/versions/9NoftEde/DistantHorizons-3.3.2-26.2-fabric-neoforge.jar"
-    "67206b0919c7632752c916fbc0e58a7ea066e8a2e1a21e5a718c286e8f5b323e255730d9b89d94f1d1e147bee1a8f5dd7092c5bf378f018a31806d3cb292241e")
+  #(mod "DistantHorizons"
+    #"https://cdn.modrinth.com/data/uCdwusMi/versions/9NoftEde/DistantHorizons-3.3.2-26.2-fabric-neoforge.jar"
+    #"67206b0919c7632752c916fbc0e58a7ea066e8a2e1a21e5a718c286e8f5b323e255730d9b89d94f1d1e147bee1a8f5dd7092c5bf378f018a31806d3cb292241e")
 
 ]

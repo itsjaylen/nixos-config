@@ -25,6 +25,6 @@ in
     };
 
     # Imports the master mod router directory
-    symlinks = import ./mods { inherit pkgs; };
+    symlinks = import ./modded-mods { inherit pkgs; };
   };
 }
