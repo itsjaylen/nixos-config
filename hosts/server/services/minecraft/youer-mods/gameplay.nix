@@ -20,7 +20,5 @@ in
     "https://cdn.modrinth.com/data/XaDC71GB/versions/y9AtQNh2/lithostitched-2.0.4-neoforge-26.3.jar"
     "5e258016f04a755509cc179baf814245993fba6eb99dde3adb45f052b6e4f1a675183cc35cd3abc257bbac13f70bde10333bb0bc073867729940d87eeab77c86")
 
-  (mod "ViaVersion" 
-    "https://cdn.modrinth.com/data/P1OZGk5p/versions/TEgYlalY/ViaVersion-5.12.1-SNAPSHOT.jar"
-    "9f23879f392a53098e1cc1a70a942bd8558ae39ab725185cf79a5dda396e748af0896416ea0357473e9c8e6b8efb330a8f4afd7ca6bd3f80861419cd67ed69e1")
+  
 ]
