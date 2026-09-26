@@ -19,6 +19,7 @@ in
       motd = "Modded youer...";
       enforce-secure-profile = false;
       difficulty = "hard";
+      render-distance = 25;
     };
 
     # Imports the master mod router directory
