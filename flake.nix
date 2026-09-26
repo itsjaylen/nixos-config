@@ -90,6 +90,11 @@
       url = "git+https://git.itsjaylen.com/itsjaylen/SlopUploader.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    elden-ring-convergence = {
+      url = "github:ruzbyte/elden-ring-convergence-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -122,6 +127,7 @@
           modules = [
             sops-nix.nixosModules.sops
             winchain.nixosModules.default
+            inputs.elden-ring-convergence.nixosModules.default
 
             {
               nixpkgs.overlays = [

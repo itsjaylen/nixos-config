@@ -19,6 +19,12 @@
       extraCompatPackages = [ pkgs.proton-ge-bin ];
     };
 
+    elden-ring-convergence = {
+      enable = true;
+      user = username;
+      installDirectory = "/home/${username}/Games/ConvergenceER";
+    };
+
     gamescope = {
       enable = true;
       capSysNice = true;

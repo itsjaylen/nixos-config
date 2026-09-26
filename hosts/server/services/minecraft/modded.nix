@@ -6,7 +6,7 @@ let
     version = "26.2";
     src = pkgs.fetchurl {
       url = "https://api.mohistmc.com/project/youer/26.2/builds/latest/download";
-      sha256 = "bdc971603ac5efc3939c70272c7fd8b3c06482865fd153e251f1fe62eb6eefb1";
+      sha256 = "e3b834809eb8740611c6cbebe163e533d1bb045145f4ceff94cc19d6a2682ac0";
     };
   });
 in
