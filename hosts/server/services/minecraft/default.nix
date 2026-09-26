@@ -5,6 +5,7 @@
     #./vanilla.nix
     # ./cobblemon.nix
     # ./modded.nix
+    ./youer.nix
   ];
 
   services.minecraft-servers = {
