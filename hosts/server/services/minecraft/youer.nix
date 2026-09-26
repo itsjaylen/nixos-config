@@ -4,7 +4,7 @@ let
   youerPackage = pkgs.vanillaServers.vanilla.overrideAttrs (oldAttrs: {
     pname = "youer-server";
     version = "26.3";
-    src = ./jars/youer-26.3-956de2c9-server.jar;
+    src = ../../../../jars/youer-26.3-956de2c9-server.jar;
   });
 in
 {
