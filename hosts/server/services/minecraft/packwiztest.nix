@@ -2,15 +2,14 @@
 
 let
   modpack = pkgs.fetchPackwizModpack {
-    # Changed to use the raw URL format
-    url = "https://192.168.50.188:3000/itsjaylen/packwiztest/raw/branch/main/pack.toml";
+    # http, NOT https
+    url = "http://192.168.50.188:3000/itsjaylen/packwiztest/raw/branch/main/pack.toml";
     packHash = "sha256-yzKOoHs/P54OFnSobUAvTTJIUQDUk/IW43TYnCv1odA=";
   };
 in {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
-  # Fixed: removed the extra "-packwiztest" suffix
   services.minecraft-servers = {
     enable = true;
     eula = true;
@@ -21,7 +20,7 @@ in {
       package = pkgs.fabricServers.${lib.replaceStrings ["."] ["_"] "fabric-${modpack.manifest.versions.minecraft}"}.override {
         loaderVersion = modpack.manifest.versions.fabric;
       };
-      
+
       symlinks = {
         "mods" = "${modpack}/mods";
       };
