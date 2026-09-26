@@ -3,7 +3,7 @@
 let
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/packwiztest/raw/branch/main/pack.toml";
-    packHash = "sha256-HH0YCOjjvr35jebIUBMWUMod1dn4vqQQNU62oWXxVvQ=";
+    packHash = "sha256-jIDkZmMpVhK+oiVgT7q4fo40UwOTqh7CI1/bT4e5B4s=";
   };
 in {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
