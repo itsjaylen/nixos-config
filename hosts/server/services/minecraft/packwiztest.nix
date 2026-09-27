@@ -5,11 +5,6 @@ let
     url = "http://192.168.50.188:3000/itsjaylen/packwiztest/raw/branch/main/pack.toml";
     packHash = "sha256-dkVloQ0SiX490NeKQKBFVmr6VT6cmCC7/SssL20Gf2Q=";
   };
-
-  sparkConfig = pkgs.fetchurl {
-    url = "http://192.168.50.188:3000/itsjaylen/packwiztest/raw/branch/main/server-overrides/config/spark/config.json";
-    hash = "sha256-cjA5coVWHZoFpVWxsdigpaPsIzHfNhTx8nD0z2NMAhk=";
-  };
 in {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
@@ -27,13 +22,19 @@ in {
         loaderVersion = modpack.manifest.versions.fabric;
       };
 
+      # Keep mods symlinked (read-only is fine)
       symlinks = {
         "mods" = "${modpack}/mods";
       };
 
-      files = {
-        "config/spark/config.json" = sparkConfig;
-      };
+      # Copy the ENTIRE config directory at startup.
+      # This makes it writable and handles any number of config files.
+      extraStartPre = ''
+        mkdir -p config
+        if [ -d "${modpack}/config" ]; then
+          cp -r --no-preserve=mode,ownership "${modpack}/config/"* config/ 2>/dev/null || true
+        fi
+      '';
 
       serverProperties = {
         server-port = 25567;
