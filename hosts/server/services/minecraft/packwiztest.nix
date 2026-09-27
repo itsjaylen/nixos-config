@@ -3,7 +3,7 @@
 let
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/packwiztest/raw/branch/main/pack.toml";
-    packHash = "sha256-yzKOoHs/P54OFnSobUAvTTJIUQDUk/IW43TYnCv1odA=";
+    packHash = "sha256-dkVloQ0SiX490NeKQKBFVmr6VT6cmCC7/SssL20Gf2Q=";
   };
   
   # Use collectFilesAt to recursively gather all config files
