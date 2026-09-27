@@ -28,6 +28,7 @@ in
     # Symlink mods from packwiz
     symlinks = {
       "mods" = "${modpack}/mods";
+      "plugins" = "${modpack}/plugins";
     };
     
     # Add plugins as files (copied, so they're writable if needed)
