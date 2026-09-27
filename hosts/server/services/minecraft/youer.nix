@@ -1,16 +1,34 @@
 { pkgs, inputs, lib, ... }:
 
 let
+  # Your custom Youer server jar
   youerPackage = pkgs.vanillaServers.vanilla.overrideAttrs (oldAttrs: {
     pname = "youer-server";
     version = "26.3";
     src = ../../../../jars/youer-26.3-956de2c9-server.jar;
   });
 
+  # Mods + plugins from packwiz
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/youer-pack/raw/branch/main/pack.toml";
     packHash = "sha256-/sMgVRe9MFSpSZmPSzzqV6kV3x60AFk/ujd4jnxZeHs=";
   };
+
+  # Dynamically discover the plugin jars in the packwiz store path.
+  # This avoids hardcoding filenames, so packwiz version bumps won't break Nix.
+  pluginFiles =
+    let
+      entries = builtins.readDir "${modpack}/plugins";
+      jars = builtins.filter
+        (name: (entries.${name} == "regular") && (lib.hasSuffix ".jar" name))
+        (builtins.attrNames entries);
+    in
+    builtins.listToAttrs (map
+      (name: {
+        name = "plugins/${name}";
+        value = "${modpack}/plugins/${name}";
+      })
+      jars);
 in
 {
   services.minecraft-servers.servers.youer = {
@@ -26,16 +44,21 @@ in
       render-distance = 25;
     };
 
-    # Mods stay symlinked (read-only is fine)
+    # Mods: symlinked (read-only is fine, NeoForge doesn't write into mods/)
     symlinks = {
       "mods" = "${modpack}/mods";
     };
 
-    # Plugins: use `files` so the module copies the jar into plugins/ on each start.
-    # Unlike a symlink, this gives a writable location, so plugins can create
-    # their own config/data folders (e.g. plugins/faststats/, plugins/bStats/).
-    files = {
-      "plugins/EssentialsC-4.3.1.2-all.jar" = "${modpack}/plugins/EssentialsC-4.3.1.2-all.jar";
-    };
+    # Plugins: copied via `files` so the destination is writable and
+    # plugins can create their own data dirs (e.g. plugins/faststats/, plugins/bStats/).
+    files = pluginFiles;
+
+    # Configs from packwiz: best-effort copy
+    extraStartPre = ''
+      mkdir -p config
+      if [ -d "${modpack}/config" ]; then
+        cp -r --no-preserve=mode,ownership "${modpack}/config/"* config/ 2>/dev/null || true
+      fi
+    '';
   };
 }
