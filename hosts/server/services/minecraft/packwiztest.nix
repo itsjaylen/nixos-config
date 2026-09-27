@@ -31,7 +31,7 @@ in {
         "mods" = "${modpack}/mods";
       };
       
-      files = collectFilesAt modpack "config" // {
+      files = collectFilesAt modpack "server-overrides/config" // {
         # You can add additional server-specific configs here if needed
       };
 
