@@ -8,7 +8,7 @@ let
 
   sparkConfig = pkgs.fetchurl {
     url = "http://192.168.50.188:3000/itsjaylen/packwiztest/raw/branch/main/server-overrides/config/spark/config.json";
-    hash = "sha256-..."; # see below
+    hash = "sha256-cjA5coVWHZoFpVWxsdigpaPsIzHfNhTx8nD0z2NMAhk=";
   };
 in {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
