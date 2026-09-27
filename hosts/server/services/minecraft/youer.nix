@@ -8,7 +8,7 @@ let
     src = ../../../../jars/youer-26.3-956de2c9-server.jar;
   });
 
-  # Mods from packwiz (this works reliably)
+  # Mods from packwiz
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/youer-pack/raw/branch/main/pack.toml";
     packHash = "sha256-/sMgVRe9MFSpSZmPSzzqV6kV3x60AFk/ujd4jnxZeHs=";
@@ -23,7 +23,13 @@ in
     package = youerPackage;
     jvmOpts = "-Xms4G -Xmx4G";
 
-    serverProperties = { /* unchanged */ };
+    serverProperties = {
+      server-port = 25566;
+      motd = "Modded youer...";
+      enforce-secure-profile = false;
+      difficulty = "hard";
+      render-distance = 25;
+    };
 
     # Mods: symlinked from packwiz (read-only is fine)
     symlinks = {
@@ -33,9 +39,7 @@ in
     # Plugins: copied as files (writable, explicit)
     files = plugins;
 
-    # Configs: best-effort copy from packwiz derivation
-    # This works IF fetchPackwizModpack includes config/, which is inconsistent.
-    # For critical configs, use explicit fetchurl + files entries instead.
+    # Configs from packwiz: best-effort copy
     extraStartPre = ''
       mkdir -p config
       if [ -d "${modpack}/config" ]; then
