@@ -8,27 +8,40 @@ let
     src = ../../../../jars/youer-26.3-956de2c9-server.jar;
   });
 
-  # Mods + plugins from packwiz
+  # Mods + plugins from packwiz.
+  # ⚠️ Update packHash whenever the packwiz repo changes:
+  #   nix-prefetch-url --unpack "http://192.168.50.188:3000/itsjaylen/youer-pack/raw/branch/main/pack.toml"
+  #   nix hash convert --to sri --hash-algo sha256 <output>
+  # (or use `nix run nixpkgs#nix-prefetch -- <url>` to get SRI directly)
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/youer-pack/raw/branch/main/pack.toml";
-    packHash = "sha256-/sMgVRe9MFSpSZmPSzzqV6kV3x60AFk/ujd4jnxZeHs=";
+    packHash = lib.fakeHash;
   };
 
-  # Dynamically discover the plugin jars in the packwiz store path.
-  # This avoids hardcoding filenames, so packwiz version bumps won't break Nix.
+  # Dynamically discover plugin jars in the packwiz store path.
+  # - Defensive: if plugins/ doesn't exist, returns {} instead of failing eval.
+  # - No hardcoded filenames: packwiz version bumps are picked up automatically.
+  # - Copied (not symlinked) via `files`, so plugins get a writable location
+  #   for their own data dirs (e.g. plugins/faststats/, plugins/bStats/).
   pluginFiles =
     let
-      entries = builtins.readDir "${modpack}/plugins";
-      jars = builtins.filter
-        (name: (entries.${name} == "regular") && (lib.hasSuffix ".jar" name))
-        (builtins.attrNames entries);
+      pluginsDir = "${modpack}/plugins";
     in
-    builtins.listToAttrs (map
-      (name: {
-        name = "plugins/${name}";
-        value = "${modpack}/plugins/${name}";
-      })
-      jars);
+    if builtins.pathExists pluginsDir then
+      let
+        entries = builtins.readDir pluginsDir;
+        jars = builtins.filter
+          (name: (entries.${name} == "regular") && (lib.hasSuffix ".jar" name))
+          (builtins.attrNames entries);
+      in
+      builtins.listToAttrs (map
+        (name: {
+          name = "plugins/${name}";
+          value = "${pluginsDir}/${name}";
+        })
+        jars)
+    else
+      { };
 in
 {
   services.minecraft-servers.servers.youer = {
@@ -44,16 +57,17 @@ in
       render-distance = 25;
     };
 
-    # Mods: symlinked (read-only is fine, NeoForge doesn't write into mods/)
+    # Mods: symlinked. Read-only is fine — NeoForge doesn't write into mods/.
     symlinks = {
       "mods" = "${modpack}/mods";
     };
 
-    # Plugins: copied via `files` so the destination is writable and
-    # plugins can create their own data dirs (e.g. plugins/faststats/, plugins/bStats/).
+    # Plugins: copied via `files` so the destination is a real writable
+    # directory. Essential because plugins like EssentialsC create their
+    # own data/config folders at runtime, which a Nix store symlink forbids.
     files = pluginFiles;
 
-    # Configs from packwiz: best-effort copy
+    # Configs from packwiz: best-effort copy.
     extraStartPre = ''
       mkdir -p config
       if [ -d "${modpack}/config" ]; then
