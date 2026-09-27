@@ -69,9 +69,21 @@ in
 
     # Configs from packwiz: best-effort copy.
     extraStartPre = ''
+      # Mod configs (for NeoForge mods) — copied into the server's config/ dir
       mkdir -p config
-      if [ -d "${modpack}/config" ]; then
-        cp -r --no-preserve=mode,ownership "${modpack}/config/"* config/ 2>/dev/null || true
+      if [ -d "${modpack}/config" ] && [ -n "$(ls -A "${modpack}/config" 2>/dev/null)" ]; then
+        # Only copy non-EssentialsC entries to config/ (EssentialsC goes to plugins/)
+        for entry in "${modpack}/config/"*; do
+          name=$(basename "$entry")
+          [ "$name" = "EssentialsC" ] && continue
+          cp -r --no-preserve=mode,ownership "$entry" config/ 2>/dev/null || true
+        done
+      fi
+    
+      # Plugin configs — copied into plugins/
+      mkdir -p plugins
+      if [ -d "${modpack}/config/EssentialsC" ]; then
+        cp -r --no-preserve=mode,ownership "${modpack}/config/EssentialsC" plugins/ 2>/dev/null || true
       fi
     '';
   };
