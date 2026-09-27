@@ -3,8 +3,11 @@
 let
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/packwiztest/raw/branch/main/pack.toml";
-    packHash = "sha256-dkVloQ0SiX490NeKQKBFVmr6VT6cmCC7/SssL20Gf2Q=";
+    packHash = "sha256-yzKOoHs/P54OFnSobUAvTTJIUQDUk/IW43TYnCv1odA=";
   };
+  
+  # Use collectFilesAt to recursively gather all config files
+  inherit (inputs.nix-minecraft.lib) collectFilesAt;
 in {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
@@ -16,16 +19,20 @@ in {
 
     servers.testpack = {
       enable = true;
-      # Override with Java 25 since Minecraft 26.3 requires it
       package = (pkgs.fabricServers.${lib.replaceStrings ["."] ["_"] "fabric-${modpack.manifest.versions.minecraft}"}.override {
         jre_headless = pkgs.openjdk25_headless;
       }).override {
         loaderVersion = modpack.manifest.versions.fabric;
       };
-
+      
+      # Use files for configs (copies them, making them writable)
+      # Keep symlinks for mods (they don't need to be writable)
       symlinks = {
         "mods" = "${modpack}/mods";
-        "config" = "${modpack}/config";
+      };
+      
+      files = collectFilesAt modpack "config" // {
+        # You can add additional server-specific configs here if needed
       };
 
       serverProperties = {
