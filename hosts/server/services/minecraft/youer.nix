@@ -11,7 +11,7 @@ let
   # Mods + plugins from packwiz
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/youer-pack/raw/branch/main/pack.toml";
-    packHash = "sha256-/sMgVRe9MFSpSZmPSzzqV6kV3x60AFk/ujd4jnxZeHs=";
+    packHash = lib.fakeHash;
   };
 in
 {
