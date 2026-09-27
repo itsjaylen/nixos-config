@@ -30,8 +30,8 @@ in {
       # Copy configs at startup so Spark can write to them
       extraStartPre = ''
         mkdir -p config
-        if [ -d "${modpack}/server-overrides/config" ]; then
-          cp -r --no-preserve=mode,ownership "${modpack}/server-overrides/config/"* config/ 2>/dev/null || true
+        if [ -d "${modpack}/config" ]; then
+          cp -r --no-preserve=mode,ownership "${modpack}/config/"* config/ 2>/dev/null || true
         fi
       '';
 
