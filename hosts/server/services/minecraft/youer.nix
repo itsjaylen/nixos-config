@@ -11,7 +11,7 @@ let
   # Fetch the NeoForge mods from packwiz
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/youer-pack/raw/branch/main/pack.toml";
-    packHash = "sha256-..."; # You'll get this the same way as before
+    packHash = lib.fakeHash; # You'll get this the same way as before
   };
 
   # Your existing plugin imports (unchanged)
