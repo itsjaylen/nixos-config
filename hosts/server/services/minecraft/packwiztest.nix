@@ -5,9 +5,6 @@ let
     url = "http://192.168.50.188:3000/itsjaylen/packwiztest/raw/branch/main/pack.toml";
     packHash = "sha256-dkVloQ0SiX490NeKQKBFVmr6VT6cmCC7/SssL20Gf2Q=";
   };
-  
-  # Use collectFilesAt to recursively gather all config files
-  inherit (inputs.nix-minecraft.lib) collectFilesAt;
 in {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
@@ -24,16 +21,19 @@ in {
       }).override {
         loaderVersion = modpack.manifest.versions.fabric;
       };
-      
-      # Use files for configs (copies them, making them writable)
-      # Keep symlinks for mods (they don't need to be writable)
+
+      # Keep mods symlinked (read-only is fine)
       symlinks = {
         "mods" = "${modpack}/mods";
       };
-      
-      files = collectFilesAt modpack "server-overrides/config" // {
-        # You can add additional server-specific configs here if needed
-      };
+
+      # Copy configs at startup so Spark can write to them
+      extraStartPre = ''
+        mkdir -p config
+        if [ -d "${modpack}/server-overrides/config" ]; then
+          cp -r --no-preserve=mode,ownership "${modpack}/server-overrides/config/"* config/ 2>/dev/null || true
+        fi
+      '';
 
       serverProperties = {
         server-port = 25567;
