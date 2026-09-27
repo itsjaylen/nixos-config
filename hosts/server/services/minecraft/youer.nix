@@ -26,21 +26,16 @@ in
       render-distance = 25;
     };
 
-    # Mods: symlinked (read-only is fine, NeoForge doesn't write into mods/)
+    # Mods stay symlinked (read-only is fine)
     symlinks = {
       "mods" = "${modpack}/mods";
     };
 
-    extraStartPre = ''
-      # Plugins: copied (writable so they can create their own config dirs like plugins/faststats/)
-      mkdir -p plugins
-      cp -n --no-preserve=mode,ownership "${modpack}/plugins/"*.jar plugins/ 2>/dev/null || true
-
-      # Configs from packwiz: best-effort copy
-      mkdir -p config
-      if [ -d "${modpack}/config" ]; then
-        cp -r --no-preserve=mode,ownership "${modpack}/config/"* config/ 2>/dev/null || true
-      fi
-    '';
+    # Plugins: use `files` so the module copies the jar into plugins/ on each start.
+    # Unlike a symlink, this gives a writable location, so plugins can create
+    # their own config/data folders (e.g. plugins/faststats/, plugins/bStats/).
+    files = {
+      "plugins/EssentialsC-4.3.1.2-all.jar" = "${modpack}/plugins/EssentialsC-4.3.1.2-all.jar";
+    };
   };
 }
