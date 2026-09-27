@@ -35,6 +35,7 @@
     golangci-lint
     socat
     websocat
+    packwiz
 
     ## TUI
     epy # ebook reader

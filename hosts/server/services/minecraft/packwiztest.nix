@@ -25,6 +25,7 @@ in {
 
       symlinks = {
         "mods" = "${modpack}/mods";
+        "config" = "${modpack}/config";
       };
 
       serverProperties = {
