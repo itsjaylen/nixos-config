@@ -26,10 +26,11 @@ in
       # Non-secret environment variables can stay here
       environment = {
         ADMIN_EMAIL = "you@example.com";
-        FRONTEND_ORIGIN = "http://192.168.50.188:8085";
-        APP_URL = "http://192.168.50.188:8085";
+        FRONTEND_ORIGIN = "http://192.168.50.188:8085";  # fix this too
+        APP_URL = "http://192.168.50.188:8085";          # fix this too
         COOKIE_SECURE = "false";
         TRUSTED_PROXY_DEPTH = "0";
+        UPLOADS_DIR = "/app/data/uploads";               # <-- ADD THIS
         S3_BUCKET = "planly-uploads";
         S3_REGION = "garageland";
         S3_ENDPOINT = "http://127.0.0.1:3900";
