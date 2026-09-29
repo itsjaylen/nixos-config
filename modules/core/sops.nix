@@ -35,6 +35,9 @@
       "k3s/node-token" = { };
       # This one is used only inside sops.templates, so no owner/mode needed.
       "clickhouse_user_password_sha256" = { };
+      "planly_db_password" = { };
+      "planly_jwt_secret" = { };
+      "planly_encryption_key" = { };
     }
     // lib.optionalAttrs (builtins.hasAttr "rustlog" config.users.users) {
       "rustlog/config" = {
