@@ -37,7 +37,7 @@
         # ── Server ──────────────────────────────────────────────────────────
         # Origin the browser uses to reach the frontend. Must match what users
         # type in the address bar, or CSRF/WebSocket checks will fail.
-        FRONTEND_ORIGIN = "http://192.168.50.1:8080";
+        FRONTEND_ORIGIN = "http://192.168.50.1:8734";
         UPLOADS_DIR = "/data/uploads";
         NODE_ENV = "production";
 
@@ -56,9 +56,8 @@
       };
 
       # Backend is intentionally NOT exposed to the host.
-      # The frontend's Nginx proxies /api requests to it over the container network.
-      # If you want to hit the API directly for debugging, uncomment:
-      # ports = [ "127.0.0.1:3000:3000" ];
+      # Uncomment the line below only for temporary debugging.
+      # ports = [ "127.0.0.1:8735:3000" ];
 
       volumes = [
         "/var/lib/planly/uploads:/data/uploads"
@@ -76,32 +75,29 @@
       autoStart = true;
 
       environment = {
-        # Nginx inside the frontend container needs to know where the backend
-        # lives on the container network. "planly-backend" is the container
-        # name; Podman's internal DNS resolves it.
-        # Check the frontend's nginx.conf for the exact variable name — it may
-        # be hardcoded to "backend:3000" from the Compose setup. If so, you'll
-        # need to either rename this container or override the nginx config.
+        # Nginx inside the frontend container proxies /api requests to the
+        # backend. Check the frontend's nginx.conf for the exact variable name
+        # — it may be hardcoded to "backend:3000" from the Compose setup. If
+        # so, either rename this container or override the nginx config.
         BACKEND_URL = "http://planly-backend:3000";
       };
 
-      # Bind to localhost only. Put a real reverse proxy (Caddy/Nginx) in
-      # front for TLS and public access.
-      ports = [ "127.0.0.1:8080:80" ];
+      # Frontend is the only publicly reachable part of Planly.
+      # Bind to the host and let a real reverse proxy (Caddy/Nginx) sit in
+      # front for TLS. Internal port stays 80; only the host port changed.
+      ports = [ "0.0.0.0:8734:80" ];
 
       dependsOn = [ "planly-backend" ];
     };
   };
 
   # ── Persistent directories ──────────────────────────────────────────────────
-  # Creates /var/lib/planly/uploads on activation with sane permissions.
   systemd.tmpfiles.rules = [
     "d /var/lib/planly 0750 root root -"
     "d /var/lib/planly/uploads 0750 root root -"
   ];
 
   # ── Startup ordering ────────────────────────────────────────────────────────
-  # Backend must wait for PostgreSQL; frontend must wait for backend.
   systemd.services."podman-planly-backend" = {
     after = [ "postgresql.service" "network-online.target" ];
     requires = [ "postgresql.service" ];
@@ -114,7 +110,6 @@
   };
 
   # ── Firewall ────────────────────────────────────────────────────────────────
-  # Only the frontend's port needs to be reachable. Backend stays internal.
-  # Uncomment if you want LAN access to the frontend directly:
-  # networking.firewall.allowedTCPPorts = [ 8080 ];
+  # Open the frontend port to the LAN so other machines can reach Planly.
+  networking.firewall.allowedTCPPorts = [ 8734 ];
 }
