@@ -9,6 +9,7 @@
       "gitea"
       "immich"
       "slopuploader"
+      "planly"
     ];
     ensureUsers = [
       {
@@ -23,23 +24,47 @@
         name = "slopuploader";
         ensureDBOwnership = true;
       }
+      {
+        name = "planly";
+        ensureDBOwnership = true;
+      }
     ];
   };
+
   services.postgresql.authentication = lib.mkOverride 10 ''
     # Existing local access
     local   all   all                       peer
-  
+
     # IPv4 localhost
     host    all   all   127.0.0.1/32        scram-sha-256
-  
+
     # IPv6 localhost
     host    all   all   ::1/128             scram-sha-256
-  
+
     # LAN — laptop, desktop, etc.
     host    all   all   192.168.50.0/24     scram-sha-256
-  
+
     # Kubernetes pod CIDR — for pods running on any cluster node
     host    all   all   10.42.0.0/16        scram-sha-256
+
+    # Podman containers reaching the host via host.containers.internal
+    # The container network typically uses this range.
+    host    all   all   10.88.0.0/16        scram-sha-256
   '';
+
+  # Set a password for the planly DB user so the container can authenticate.
+  # Replace 'CHANGE_ME' with a strong password, or better: use sops-nix.
+  services.postgresql.ensureUsers = lib.mkAfter [
+    {
+      name = "planly";
+      ensureDBOwnership = true;
+    }
+  ];
+
+  # Set the password imperatively (one-time) or via sops-nix. For a quick start:
+  systemd.services.postgresql.postStart = lib.mkAfter ''
+    $PSQL -tAc "ALTER USER planly WITH PASSWORD 'CHANGE_ME';" || true
+  '';
+
   networking.firewall.allowedTCPPorts = [ 3900 5432 ];
 }
