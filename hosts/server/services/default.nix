@@ -18,6 +18,5 @@
     ./rustlog.nix
     ./k3s.nix
     ./tailscale.nix
-    ./planly.nix
   ];
 }
