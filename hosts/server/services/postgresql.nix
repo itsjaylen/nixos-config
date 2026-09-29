@@ -11,6 +11,7 @@
       "slopuploader"
       "planly"
     ];
+
     ensureUsers = [
       {
         name = "gitea";
@@ -48,20 +49,10 @@
     host    all   all   10.42.0.0/16        scram-sha-256
 
     # Podman containers reaching the host via host.containers.internal
-    # The container network typically uses this range.
     host    all   all   10.88.0.0/16        scram-sha-256
   '';
 
-  # Set a password for the planly DB user so the container can authenticate.
-  # Replace 'CHANGE_ME' with a strong password, or better: use sops-nix.
-  services.postgresql.ensureUsers = lib.mkAfter [
-    {
-      name = "planly";
-      ensureDBOwnership = true;
-    }
-  ];
-
-  # Set the password imperatively (one-time) or via sops-nix. For a quick start:
+  # Set the password imperatively (one-time) or via sops-nix.
   systemd.services.postgresql.postStart = lib.mkAfter ''
     $PSQL -tAc "ALTER USER planly WITH PASSWORD 'CHANGE_ME';" || true
   '';
