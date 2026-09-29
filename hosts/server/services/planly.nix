@@ -26,8 +26,8 @@ in
       # Non-secret environment variables can stay here
       environment = {
         ADMIN_EMAIL = "you@example.com";
-        FRONTEND_ORIGIN = "0.0.0.0:8085";
-        APP_URL = "0.0.0.0:8085";
+        FRONTEND_ORIGIN = "http://192.168.50.188:8085";
+        APP_URL = "http://192.168.50.188:8085";
         COOKIE_SECURE = "false";
         TRUSTED_PROXY_DEPTH = "0";
         S3_BUCKET = "planly-uploads";
