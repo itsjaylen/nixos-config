@@ -9,6 +9,7 @@
       "gitea"
       "immich"
       "slopuploader"
+      "planly"
     ];
     ensureUsers = [
       {
@@ -21,6 +22,10 @@
       }
       {
         name = "slopuploader";
+        ensureDBOwnership = true;
+      }
+      {
+        name = "planly";
         ensureDBOwnership = true;
       }
     ];
