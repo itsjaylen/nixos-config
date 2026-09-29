@@ -9,6 +9,7 @@
       "gitea"
       "immich"
       "slopuploader"
+      "planly"
     ];
     ensureUsers = [
       {
@@ -23,6 +24,10 @@
         name = "slopuploader";
         ensureDBOwnership = true;
       }
+      {
+        name = "planly";
+        ensureDBOwnership = true;
+      }
     ];
   };
   services.postgresql.authentication = lib.mkOverride 10 ''
@@ -31,6 +36,7 @@
   
     # IPv4 localhost
     host    all   all   127.0.0.1/32        scram-sha-256
+    host    all   all   10.0.2.2/32   scram-sha-256
   
     # IPv6 localhost
     host    all   all   ::1/128             scram-sha-256
@@ -40,6 +46,7 @@
   
     # Kubernetes pod CIDR — for pods running on any cluster node
     host    all   all   10.42.0.0/16        scram-sha-256
+    
   '';
   networking.firewall.allowedTCPPorts = [ 3900 5432 ];
 }

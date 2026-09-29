@@ -61,6 +61,10 @@ in
         # Ensure bucket exists and grant access (matching .envrc S3_BUCKET)
         ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" bucket create slopuploader-files || true
         ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" bucket allow slopuploader-files --key main-key --read --write || true
+
+        # Inside systemd.services.garage-init.script, after the slopuploader lines:
+        ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" bucket create planly-uploads || true
+        ${pkgs.garage}/bin/garage --rpc-secret "$RPC_SECRET" bucket allow planly-uploads --key main-key --read --write || true
       '';
     };
 
