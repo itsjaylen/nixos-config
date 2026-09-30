@@ -9,7 +9,7 @@
       "gitea"
       "immich"
       "slopuploader"
-      "planly"
+      "kaneo"
     ];
     ensureUsers = [
       {
@@ -25,7 +25,7 @@
         ensureDBOwnership = true;
       }
       {
-        name = "planly";
+        name = "kaneo";
         ensureDBOwnership = true;
       }
     ];
@@ -46,5 +46,20 @@
     # Kubernetes pod CIDR — for pods running on any cluster node
     host    all   all   10.42.0.0/16        scram-sha-256
   '';
+  systemd.services.postgresql-kaneo-password = {
+      wantedBy = [ "multi-user.target" ];
+      after = [ "postgresql.service" "postgresql-setup.service" ];
+      requires = [ "postgresql.service" ];
+      path = [ config.services.postgresql.package pkgs.util-linux ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+      script = ''
+        PW="$(cat ${config.age.secrets.kaneo-db-password.path})"
+        echo "ALTER ROLE kaneo PASSWORD :'pw';" \
+          | runuser -u postgres -- psql -v ON_ERROR_STOP=1 -v pw="$PW" -d postgres
+      '';
+    };
   networking.firewall.allowedTCPPorts = [ 3900 5432 ];
 }

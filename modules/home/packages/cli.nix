@@ -31,6 +31,7 @@
     mdcat
     p7zip
     zip
+    unrar
     deadnix
     golangci-lint
     socat
