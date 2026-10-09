@@ -17,7 +17,7 @@ exec 200>&-
 
 # Configuration
 LOG_DIR="$HOME/.config/niri/data"
-API_URL="https://segs.lol/api/upload"
+API_URL="https://kappa.lol/api/upload"
 
 # Cleanup trap to remove leftover lock & temp files on exit
 cleanup() {
@@ -93,9 +93,9 @@ if [ "$FAST_MODE" = false ]; then
   upload_target="$annotated_file"
 fi
 
-# 3. Upload to segs.lol
+# 3. Upload to kappa.lol
 if ! response=$(curl -sS -F "file=@$upload_target" "$API_URL"); then
-  send_toast "Upload Failed" "Could not connect to segs.lol" "error" "network-error"
+  send_toast "Upload Failed" "Could not connect to kappa.lol" "error" "network-error"
   exit 1
 fi
 
