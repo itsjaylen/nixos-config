@@ -20,5 +20,6 @@
     ./tailscale.nix
     ./kaneo.nix
     ./ingestgo.nix
+    ./mediamtx.nix
   ];
 }
