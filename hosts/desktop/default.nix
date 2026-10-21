@@ -5,7 +5,8 @@
     ./../../modules/core
   ];
 
-  nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
+  # Chaotic-Nyx's overlay is now provided automatically by
+  # `chaotic.nixosModules.default` in flake.nix, so no manual overlay is needed.
 
   custom.hardware.nvidia.enable = true;
   powerManagement.cpuFreqGovernor = "performance";

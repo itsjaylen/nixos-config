@@ -11,9 +11,7 @@
 
     winchain.url = "github:bytez1337/winchain";
 
-    nix-cachyos-kernel = {
-      url = "github:xddxdd/nix-cachyos-kernel/release";
-    };
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -44,9 +42,9 @@
     };
 
     amethyst-mod-manager = {
-        url = "github:ChrisDKN/Amethyst-Mod-Manager";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
+      url = "github:ChrisDKN/Amethyst-Mod-Manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
@@ -91,6 +89,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ingestgo = {
+      url = "git+http://192.168.50.188:3000/itsjaylen/ingestgo.git?ref=v2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     elden-ring-convergence = {
       url = "github:ruzbyte/elden-ring-convergence-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -128,12 +131,9 @@
             sops-nix.nixosModules.sops
             winchain.nixosModules.default
             inputs.elden-ring-convergence.nixosModules.default
+            inputs.chaotic.nixosModules.default
 
             {
-              nixpkgs.overlays = [
-                inputs.nix-cachyos-kernel.overlays.pinned
-              ];
-
               boot.loader.systemd-boot.winchain.enable = true;
               boot.loader.systemd-boot.winchain.partuuid =
                 "36d12ef2-c336-4656-98f2-25b3f98a7469";
@@ -153,12 +153,7 @@
 
           modules = [
             sops-nix.nixosModules.sops
-
-            {
-              nixpkgs.overlays = [
-                inputs.nix-cachyos-kernel.overlays.pinned
-              ];
-            }
+            inputs.chaotic.nixosModules.default
 
             ./hosts/laptop
           ];
@@ -177,10 +172,10 @@
             microvm.nixosModules.host
 
             inputs.nix-minecraft.nixosModules.minecraft-servers
+            inputs.chaotic.nixosModules.default
 
             {
               nixpkgs.overlays = [
-                inputs.nix-cachyos-kernel.overlays.pinned
                 inputs.nix-minecraft.overlay
               ];
             }
@@ -199,12 +194,7 @@
 
           modules = [
             sops-nix.nixosModules.sops
-
-            {
-              nixpkgs.overlays = [
-                inputs.nix-cachyos-kernel.overlays.pinned
-              ];
-            }
+            inputs.chaotic.nixosModules.default
 
             ./hosts/k3s-agent
           ];

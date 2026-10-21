@@ -88,6 +88,5 @@
   spawn-sh-at-startup "noctalia"
   spawn-at-startup "/run/current-system/sw/libexec/polkit-kde-authentication-agent-1"
   spawn-at-startup "gpu-screen-recorder" "-w" "DP-2" "-f" "60" "-r" "30" "-c" "mp4" "-a" "default_output" "-o" "~/Videos/Replays"
-  spawn-at-startup "niri-session-manager"
   spawn-at-startup "piri" "daemon"
 ''

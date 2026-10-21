@@ -19,5 +19,6 @@
     ./k3s.nix
     ./tailscale.nix
     ./kaneo.nix
+    ./ingestgo.nix
   ];
 }

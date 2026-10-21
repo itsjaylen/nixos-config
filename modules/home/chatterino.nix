@@ -3,11 +3,13 @@
 let
   chatterino-latest = pkgs.chatterino2.overrideAttrs (oldAttrs: {
     pname = "technorino";
+    version = "7.5.5-nightly";
+
     src = pkgs.fetchFromGitHub {
-      owner = "itsjaylen";
+      owner = "hvdras";
       repo = "hvdras-technorino-fork";
-      rev = "2e46bdd";
-      hash = "sha256-5hAguANdB5YYq/iuL1EOmjxb25nxLM4nWl0BuNgfCpA=";
+      rev = "ff98e4970e825b003fa1a8096836d469ebca6c43";
+      hash = "sha256-zB0jkoZt6HHENe19ItcQ8EGDeIbqfPl/aO6n4XBZjys=";
       fetchSubmodules = true;
     };
 
