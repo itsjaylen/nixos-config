@@ -35,6 +35,14 @@
       "k3s/node-token" = { };
       # This one is used only inside sops.templates, so no owner/mode needed.
       "clickhouse_user_password_sha256" = { };
+      "ingestgo/mediamtx_password" = {
+        owner = "root";
+        mode = "0400";
+      };
+      "ingestgo/obs_password" = {
+        owner = "root";
+        mode = "0400";
+      };
     }
     // lib.optionalAttrs (builtins.hasAttr "rustlog" config.users.users) {
       "rustlog/config" = {

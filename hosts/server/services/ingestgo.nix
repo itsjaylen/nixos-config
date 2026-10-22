@@ -1,9 +1,12 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, config, ... }:
 
 let
   ingestgoPkg = inputs.ingestgo.packages.${pkgs.system}.default;
 in {
-  environment.etc."ingestgo/config.toml".text = ''
+  sops.secrets."ingestgo/mediamtx_password" = { };
+  sops.secrets."ingestgo/obs_password" = { };
+
+  sops.templates."ingestgo-config.toml".content = ''
     [server]
     port = ":7070"
 
@@ -13,11 +16,11 @@ in {
     [mediamtx]
     api_url = "http://127.0.0.1:9997"
     username = "admin"
-    password = "changeme"
+    password = "${config.sops.placeholder."ingestgo/mediamtx_password"}"
 
     [obs]
     host = "127.0.0.1:4455"
-    password = "changeme"
+    password = "${config.sops.placeholder."ingestgo/obs_password"}"
   '';
 
   systemd.services.ingestgo = {
@@ -27,12 +30,13 @@ in {
     wants = [ "network-online.target" ];
 
     serviceConfig = {
-      ExecStart = "${ingestgoPkg}/bin/ingestgo --config /etc/ingestgo/config.toml";
+      ExecStart = "${ingestgoPkg}/bin/ingestgo --config ${config.sops.templates."ingestgo-config.toml".path}";
       DynamicUser = true;
       StateDirectory = "ingestgo";
       Restart = "always";
       RestartSec = "5";
       TimeoutStopSec = "20s";
+      LoadCredential = "ingestgo-config.toml:${config.sops.templates."ingestgo-config.toml".path}";
     };
   };
 
