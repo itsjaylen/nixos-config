@@ -30,12 +30,15 @@ in {
     wants = [ "network-online.target" ];
 
     serviceConfig = {
-      ExecStart = "${ingestgoPkg}/bin/ingestgo --config ${config.sops.templates."ingestgo-config.toml".path}";
+      # Use the credential path, NOT the raw sops template path
+      ExecStart = "${ingestgoPkg}/bin/ingestgo --config \${CREDENTIALS_DIRECTORY}/ingestgo-config.toml";
       DynamicUser = true;
       StateDirectory = "ingestgo";
       Restart = "always";
       RestartSec = "5";
       TimeoutStopSec = "20s";
+
+      # This is the line that actually makes it readable
       LoadCredential = "ingestgo-config.toml:${config.sops.templates."ingestgo-config.toml".path}";
     };
   };
