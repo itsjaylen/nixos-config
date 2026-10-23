@@ -47,7 +47,7 @@ in
     after = [ "obs-vnc.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      ExecStart = "${pkgs.novnc}/bin/novnc_proxy --vnc localhost:5900 --listen 6080";
+      ExecStart = "${pkgs.novnc}/utils/novnc_proxy --vnc localhost:5900 --listen 6080";
       Restart = "always";
     };
   };
