@@ -2,6 +2,7 @@
 
 let
   # Override websockify to skip its failing tests (jwcrypto key length bug)
+  # dontUsePytestCheck is often the real "master switch" for Python packages
   websockifyNoCheck = pkgs.python3Packages.websockify.overridePythonAttrs (oldAttrs: {
     doCheck = false;
     doInstallCheck = false;
@@ -34,6 +35,7 @@ in
     after = [ "obs-vnc.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
+      # Make sure this points to websockifyNoCheck, not the default package
       ExecStart = "${websockifyNoCheck}/bin/websockify --web ${pkgs.novnc}/share/webapps/novnc 6080 localhost:5900";
       Restart = "always";
     };
