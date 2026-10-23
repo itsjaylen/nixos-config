@@ -24,6 +24,7 @@
         "wheel"
         "networkmanager"
         "minecraft"
+        "docker"
       ];
 
       shell = pkgs.fish;
