@@ -5,7 +5,7 @@ let
   # This is the official upstream fix, also used by Gentoo
   websockifyPatch = pkgs.fetchpatch {
     url = "https://github.com/novnc/websockify/commit/f1e281d2c446380a0a8af7575a92b23ad65c6d4d.patch";
-    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # replace with real hash on first build
+    sha256 = "sha256-l+j+baTDSEXhOajUKxaT21ET1iEnpiBHwysYnTt3ghk="; # replace with real hash on first build
   };
 in
 {
