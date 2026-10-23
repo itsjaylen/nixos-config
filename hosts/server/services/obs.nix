@@ -1,13 +1,15 @@
 { pkgs, ... }:
 
 let
-  # Your existing websockify patch...
+  # Patch websockify to replace the invalid test key (jwcrypto 1.5.7 regression)
+  # This is the official upstream fix, also used by Gentoo
   websockifyPatch = pkgs.fetchpatch {
     url = "https://github.com/novnc/websockify/commit/f1e281d2c446380a0a8af7575a92b23ad65c6d4d.patch";
-    sha256 = "sha256-l+j+baTDSEXhOajUKxaT21ET1iEnpiBHwysYnTt3ghk="; # replace with real hash
+    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # replace with real hash on first build
   };
 in
 {
+  # Apply the patch globally across all Python package sets
   nixpkgs.overlays = [
     (final: prev: {
       pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
@@ -49,14 +51,13 @@ in
     };
   };
 
-  # 3. Start noVNC proxy (using the correct Nix package path)
+  # 3. Start noVNC proxy (calling websockify directly with the patched package)
   systemd.services.obs-novnc = {
     description = "noVNC proxy for OBS";
     after = [ "obs-vnc.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      # The Nix package puts the proxy at $out/bin/novnc
-      ExecStart = "${pkgs.novnc}/bin/novnc --vnc localhost:5900 --listen 6080";
+      ExecStart = "${pkgs.python3Packages.websockify}/bin/websockify --web ${pkgs.novnc}/share/webapps/novnc 6080 localhost:5900";
       Restart = "always";
     };
   };
