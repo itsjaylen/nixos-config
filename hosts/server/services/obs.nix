@@ -1,21 +1,11 @@
 { pkgs, ... }:
 
-let
-  # Override websockify to skip its failing tests (jwcrypto key length bug)
-  # dontUsePytestCheck is often the real "master switch" for Python packages
-  websockifyNoCheck = pkgs.python3Packages.websockify.overridePythonAttrs (oldAttrs: {
-    doCheck = false;
-    doInstallCheck = false;
-    dontUsePytestCheck = true;
-  });
-in
 {
   environment.systemPackages = with pkgs; [
     obs-studio
     xvfb
     x11vnc
     novnc
-    websockifyNoCheck
   ];
 
   # 1. VNC service: Expose the virtual display :20 to localhost
@@ -29,18 +19,16 @@ in
     };
   };
 
-  # 2. noVNC service: Convert VNC to WebSocket
+  # 2. noVNC service: Use novnc_proxy instead of calling websockify directly
   systemd.services.obs-novnc = {
-    description = "noVNC websocket proxy for OBS";
+    description = "noVNC proxy for OBS";
     after = [ "obs-vnc.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      # Make sure this points to websockifyNoCheck, not the default package
-      ExecStart = "${websockifyNoCheck}/bin/websockify --web ${pkgs.novnc}/share/webapps/novnc 6080 localhost:5900";
+      ExecStart = "${pkgs.novnc}/bin/novnc_proxy --vnc localhost:5900 --listen 6080";
       Restart = "always";
     };
   };
 
-  # Open firewall ports
   networking.firewall.allowedTCPPorts = [ 6080 ];
 }
