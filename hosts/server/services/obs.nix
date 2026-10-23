@@ -29,6 +29,10 @@ in
     novnc
   ];
 
+  environment.sessionVariables = {
+    LD_LIBRARY_PATH = "/run/opengl-driver/lib:${pkgs.virtualglLib}/lib";
+  };
+
   # 1. Create the virtual display :20
   systemd.services.xvfb-obs = {
     description = "Xvfb virtual display for OBS";
