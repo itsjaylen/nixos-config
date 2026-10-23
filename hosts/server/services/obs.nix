@@ -1,13 +1,12 @@
 { pkgs, ... }:
 
 {
-  # Install necessary packages
   environment.systemPackages = with pkgs; [
-    obs-studio
-    xvfb
-    x11vnc
-    novnc
-    websockify # noVNC depends on it
+      obs-studio
+      xvfb
+      x11vnc
+      novnc
+      python3Packages.websockify # Correct path in current nixpkgs
   ];
 
   # 1. VNC service: Expose the virtual display :20 to localhost
@@ -27,7 +26,7 @@
     after = [ "obs-vnc.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      ExecStart = "${pkgs.websockify}/bin/websockify --web ${pkgs.novnc}/share/webapps/novnc 6080 localhost:5900";
+      ExecStart = "${pkgs.python3Packages.websockify}/bin/websockify --web ${pkgs.novnc}/share/webapps/novnc 6080 localhost:5900";
       Restart = "always";
     };
   };
