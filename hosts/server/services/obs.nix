@@ -1,23 +1,24 @@
 { pkgs, ... }:
 
 let
-  # Patch websockify to replace the invalid test key (jwcrypto 1.5.7 key length validation)
-  websockifyPatched = pkgs.python3Packages.websockify.overridePythonAttrs (oldAttrs: {
-    patches = (oldAttrs.patches or []) ++ [
-      (pkgs.fetchpatch {
-        url = "https://github.com/novnc/websockify/commit/f1e281d2c446380a0a8af7575a92b23ad65c6d4d.patch";
-        sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # fake hash, fix on build
-      })
-    ];
-  });
+  # Patch websockify to replace the invalid test key (jwcrypto 1.5.7 regression)
+  # This is the official upstream fix, also used by Gentoo [citation:7]
+  websockifyPatch = pkgs.fetchpatch {
+    url = "https://github.com/novnc/websockify/commit/f1e281d2c446380a0a8af7575a92b23ad65c6d4d.patch";
+    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # fake, fix on build
+  };
 in
 {
-  # Override the package globally so novnc and everything else uses the patched version
+  # Apply the patch globally across all Python package sets
   nixpkgs.overlays = [
     (final: prev: {
-      python3Packages = prev.python3Packages // {
-        websockify = websockifyPatched;
-      };
+      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+        (python-final: python-prev: {
+          websockify = python-prev.websockify.overridePythonAttrs (oldAttrs: {
+            patches = (oldAttrs.patches or []) ++ [ websockifyPatch ];
+          });
+        })
+      ];
     })
   ];
 
@@ -26,7 +27,7 @@ in
     xvfb
     x11vnc
     novnc
-    # websockify is pulled in transitively via novnc, no need to list it
+    # websockify comes transitively via novnc, no need to list it
   ];
 
   # 1. VNC service: Expose the virtual display :20 to localhost
@@ -40,7 +41,7 @@ in
     };
   };
 
-  # 2. noVNC service: novnc_proxy internally uses the patched websockify
+  # 2. noVNC service: novnc_proxy uses the patched websockify internally
   systemd.services.obs-novnc = {
     description = "noVNC proxy for OBS";
     after = [ "obs-vnc.service" ];
