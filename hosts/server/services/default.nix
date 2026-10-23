@@ -21,5 +21,6 @@
     ./kaneo.nix
     ./ingestgo.nix
     ./mediamtx.nix
+    ./obs.nix
   ];
 }
