@@ -2,14 +2,12 @@
 
 let
   # Patch websockify to replace the invalid test key (jwcrypto 1.5.7 regression)
-  # This is the official upstream fix, also used by Gentoo
   websockifyPatch = pkgs.fetchpatch {
     url = "https://github.com/novnc/websockify/commit/f1e281d2c446380a0a8af7575a92b23ad65c6d4d.patch";
-    sha256 = "sha256-l+j+baTDSEXhOajUKxaT21ET1iEnpiBHwysYnTt3ghk="; # replace with real hash on first build
+    sha256 = "sha256-l+j+baTDSEXhOajUKxaT21ET1iEnpiBHwysYnTt3ghk=";
   };
 in
 {
-  # Apply the patch globally across all Python package sets
   nixpkgs.overlays = [
     (final: prev: {
       pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
@@ -27,13 +25,13 @@ in
     xvfb
     x11vnc
     novnc
+    virtualgl          # ← THIS was missing; provides vglrun
   ];
 
   environment.sessionVariables = {
     LD_LIBRARY_PATH = "/run/opengl-driver/lib:${pkgs.virtualglLib}/lib";
   };
 
-  # 1. Create the virtual display :20
   systemd.services.xvfb-obs = {
     description = "Xvfb virtual display for OBS";
     after = [ "network.target" ];
@@ -44,7 +42,6 @@ in
     };
   };
 
-  # 2. Start x11vnc on display :20
   systemd.services.obs-vnc = {
     description = "x11vnc for OBS virtual display";
     after = [ "xvfb-obs.service" ];
@@ -55,7 +52,6 @@ in
     };
   };
 
-  # 3. Start noVNC proxy (calling websockify directly with the patched package)
   systemd.services.obs-novnc = {
     description = "noVNC proxy for OBS";
     after = [ "obs-vnc.service" ];
