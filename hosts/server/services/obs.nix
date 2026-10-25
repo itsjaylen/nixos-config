@@ -28,6 +28,7 @@
       
       environment = {
         RESOLUTION = "1920x1080";
+         QT_QPA_PLATFORM = "xcb";
       };
       
       # Patch /start.sh to add --disable-shutdown-check before running OBS.
