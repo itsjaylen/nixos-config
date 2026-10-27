@@ -28,8 +28,8 @@
         QT_QPA_PLATFORMTHEME = "";
         QT_STYLE_OVERRIDE = "Fusion";
       
-        # Diagnostic: bypass hardware OpenGL rendering
-        LIBGL_ALWAYS_SOFTWARE = "1";
+        QT_AUTO_SCREEN_SCALE_FACTOR = "0";
+        QT_SCALE_FACTOR = "1";
       };
 
 
