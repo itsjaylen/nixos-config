@@ -20,18 +20,18 @@
       ];
       
       
+      
       environment = {
         RESOLUTION = "1920x1080";
       
-        # Force OBS to use the X11 Qt backend
         QT_QPA_PLATFORM = "xcb";
-      
-        # Use a consistent widget style
+        QT_QPA_PLATFORMTHEME = "";
         QT_STYLE_OVERRIDE = "Fusion";
       
-        # Avoid conflicting external Qt themes
-        QT_QPA_PLATFORMTHEME = "";
+        # Diagnostic: bypass hardware OpenGL rendering
+        LIBGL_ALWAYS_SOFTWARE = "1";
       };
+
 
       cmd = [
         "bash" "-c"
