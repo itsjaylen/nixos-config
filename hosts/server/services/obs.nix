@@ -25,6 +25,7 @@
 
       environment = {
         RESOLUTION = "1920x1080";
+        QT_XCB_NO_XI2 = "1";
 
         # Qt popup/menu rendering fixes under VNC
         QT_X11_NO_MITSHM = "1";
