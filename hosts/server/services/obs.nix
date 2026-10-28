@@ -23,10 +23,14 @@
       
       environment = {
         RESOLUTION = "1920x1080";
+      
         QT_QPA_PLATFORM = "xcb";
         QT_QPA_PLATFORMTHEME = "";
         QT_AUTO_SCREEN_SCALE_FACTOR = "0";
         QT_SCALE_FACTOR = "1";
+      
+        # Test Qt popup rendering without XCB GL integration
+        QT_XCB_GL_INTEGRATION = "none";
       };
 
 
