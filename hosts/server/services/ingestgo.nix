@@ -26,19 +26,21 @@ in {
   systemd.services.ingestgo = {
     description = "ingestgo API engine";
     wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target" "mediamtx.service" ];
+    after = [ "network-online.target" "mediamtx.service" "podman-obs.service" ];
     wants = [ "network-online.target" ];
+    partOf = [ "podman-obs.service" ];
+
+    restartTriggers = [
+      config.sops.templates."ingestgo-config.toml".path
+    ];
 
     serviceConfig = {
-      # Use the credential path, NOT the raw sops template path
       ExecStart = "${ingestgoPkg}/bin/ingestgo --config \${CREDENTIALS_DIRECTORY}/ingestgo-config.toml";
       DynamicUser = true;
       StateDirectory = "ingestgo";
       Restart = "always";
       RestartSec = "5";
       TimeoutStopSec = "20s";
-
-      # This is the line that actually makes it readable
       LoadCredential = "ingestgo-config.toml:${config.sops.templates."ingestgo-config.toml".path}";
     };
   };
