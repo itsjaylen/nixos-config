@@ -296,11 +296,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793138063,
-        "narHash": "sha256-2UMYWrP+7vMVGivLM8TMzSUHMeyqL/Mc0nra7Sx8HYw=",
+        "lastModified": 1793138547,
+        "narHash": "sha256-i3wUU7ZNoBH7Aqsv458J8Q5TxL1L3E6ZlZ/rWK9V3ec=",
         "ref": "v2",
-        "rev": "5001b8c26a197aa2e4be89b52b202c9b04b9864b",
-        "revCount": 398,
+        "rev": "58cede43a765b6c7f93a16f14c36299479100c42",
+        "revCount": 399,
         "type": "git",
         "url": "http://192.168.50.188:3000/itsjaylen/ingestgo.git"
       },
