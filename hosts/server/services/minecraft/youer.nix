@@ -5,7 +5,7 @@ let
   youerPackage = pkgs.vanillaServers.vanilla.overrideAttrs (oldAttrs: {
     pname = "youer-server";
     version = "26.3";
-    src = ../../../../jars/youer-26.3-1f4b6453-server.jar;
+    src = "/home/jaylen/jars/youer-26.3-1f4b6453-server.jar";
   });
 
   # Mods + plugins from packwiz.
