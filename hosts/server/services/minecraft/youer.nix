@@ -15,7 +15,7 @@ let
   # (or use `nix run nixpkgs#nix-prefetch -- <url>` to get SRI directly)
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/youer-pack/raw/branch/main/pack.toml";
-    packHash = lib.fakeHash;
+    packHash = "sha256-7lapD0l4Q7Dte5AKoj+x9BGtG9h4sCS4QqkMH7xq1Rs=";
   };
 
   # Dynamically discover plugin jars in the packwiz store path.
