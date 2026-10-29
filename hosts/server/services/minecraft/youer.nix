@@ -50,7 +50,7 @@ in
     jvmOpts = "-Xms4G -Xmx4G";
 
     serverProperties = {
-      server-port = 25565;
+      server-port = 25566;
       motd = "Modded youer...";
       enforce-secure-profile = false;
       difficulty = "hard";
