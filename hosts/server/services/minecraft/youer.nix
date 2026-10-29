@@ -16,7 +16,7 @@ let
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/youer-pack/raw/branch/main/pack.toml";
     packHash = "sha256-sLJrovOd6IWbYWdlssqT5oTMA6GPj5KZep30UcqWmzs=";
-  };`
+  };
 
   # Dynamically discover plugin jars in the packwiz store path.
   # - Defensive: if plugins/ doesn't exist, returns {} instead of failing eval.
