@@ -5,7 +5,7 @@ let
   youerPackage = pkgs.vanillaServers.vanilla.overrideAttrs (oldAttrs: {
     pname = "youer-server";
     version = "26.3";
-    src = ../../../../jars/youer-26.3-956de2c9-server.jar;
+    src = ../../../../jars/youer-26.3-1f4b6453-server.jar;
   });
 
   # Mods + plugins from packwiz.
@@ -16,7 +16,7 @@ let
   modpack = pkgs.fetchPackwizModpack {
     url = "http://192.168.50.188:3000/itsjaylen/youer-pack/raw/branch/main/pack.toml";
     packHash = "sha256-sLJrovOd6IWbYWdlssqT5oTMA6GPj5KZep30UcqWmzs=";
-  };
+  };`
 
   # Dynamically discover plugin jars in the packwiz store path.
   # - Defensive: if plugins/ doesn't exist, returns {} instead of failing eval.
@@ -50,7 +50,7 @@ in
     jvmOpts = "-Xms4G -Xmx4G";
 
     serverProperties = {
-      server-port = 25566;
+      server-port = 25565;
       motd = "Modded youer...";
       enforce-secure-profile = false;
       difficulty = "hard";

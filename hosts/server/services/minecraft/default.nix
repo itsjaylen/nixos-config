@@ -6,7 +6,7 @@
     # ./cobblemon.nix
     # ./modded.nix
     ./youer.nix
-    ./packwiztest.nix
+    # ./packwiztest.nix
   ];
 
   services.minecraft-servers = {
