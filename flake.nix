@@ -204,6 +204,22 @@
             inherit self inputs username;
           };
         };
+
+        compute = nixpkgs.lib.nixosSystem {
+          inherit system;
+
+          modules = [
+            sops-nix.nixosModules.sops
+            inputs.chaotic.nixosModules.default
+
+            ./hosts/compute
+          ];
+
+          specialArgs = {
+            host = "compute";
+            inherit self inputs username;
+          };
+        };
       };
 
       formatter.${system} = pkgs.treefmt.withConfig {

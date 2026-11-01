@@ -1,5 +1,3 @@
-
-
 { pkgs, ... }:
 
 {
@@ -7,6 +5,7 @@
     tmux
     jq
     htop
+    btop
     fluxcd
   ];
 }
