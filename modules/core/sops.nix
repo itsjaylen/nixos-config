@@ -33,7 +33,10 @@
       "grafana_secret_key" = { };
       "gitea_runner_token" = { };
       "k3s/node-token" = { };
-      # This one is used only inside sops.templates, so no owner/mode needed.
+      "slopuploader/admin_token" = { owner = "root"; mode = "0400"; };
+      "slopuploader/s3_access_key" = { owner = "root"; mode = "0400"; };
+      "slopuploader/s3_secret_key" = { owner = "root"; mode = "0400"; };
+      "slopuploader/db_password" = { owner = "root"; mode = "0400"; };
       "clickhouse_user_password_sha256" = { };
       "ingestgo/mediamtx_password" = {
         owner = "root";
@@ -43,10 +46,6 @@
         owner = "root";
         mode = "0400";
       };
-      "slopuploader/env" = {
-          owner = "root";
-          mode = "0400";
-        };
     }
     // lib.optionalAttrs (builtins.hasAttr "rustlog" config.users.users) {
       "rustlog/config" = {
