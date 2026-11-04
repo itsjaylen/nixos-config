@@ -1,7 +1,14 @@
 { config, pkgs, inputs, ... }: {
-  imports = [
-    inputs.slopuploader.nixosModules.default
-  ];
+  imports = [ inputs.slopuploader.nixosModules.default ];
+
+  sops.templates."slopuploader.env" = {
+    content = ''
+      ADMIN_TOKEN=${config.sops.placeholder."slopuploader/admin_token"}
+      S3_ACCESS_KEY=${config.sops.placeholder."slopuploader/s3_access_key"}
+      S3_SECRET_KEY=${config.sops.placeholder."slopuploader/s3_secret_key"}
+      DB_PASSWORD=${config.sops.placeholder."slopuploader/db_password"}
+    '';
+  };
 
   services.slopuploader = {
     enable = true;
@@ -17,7 +24,7 @@
       s3Region = "garageland";
     };
 
-    environmentFile = config.sops.secrets."slopuploader/env".path;
+    environmentFile = config.sops.templates."slopuploader.env".path;
   };
 
   networking.firewall.allowedTCPPorts = [ 8888 ];
