@@ -24,6 +24,7 @@
       ];
     })
     lunar-client
+    flatpak #TODO MOVE LATER WITH SOBER
 
     ## Support Tools
     mangohud
