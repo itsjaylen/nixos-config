@@ -43,6 +43,10 @@
         owner = "root";
         mode = "0400";
       };
+      "slopuploader/env" = {
+          owner = "root";
+          mode = "0400";
+        };
     }
     // lib.optionalAttrs (builtins.hasAttr "rustlog" config.users.users) {
       "rustlog/config" = {
