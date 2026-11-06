@@ -23,6 +23,14 @@
       dhcp = {
         enabled = false;
       };
+      filtering = {
+        rewrites = [
+          {
+            domain = "git.home";
+            answer = "192.168.50.188";
+          }
+        ];
+      };
       filters = [
         {
           enabled = true;
