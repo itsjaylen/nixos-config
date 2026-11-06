@@ -3,6 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./k3s.nix
+    ./monitoring.nix
     ../../modules/core/bootloader.nix
     ../../modules/core/network.nix
     ../../modules/core/services.nix
@@ -14,8 +16,7 @@
     ../tools.nix
   ];
 
-  # Turn on the NVIDIA module (your existing module is already correct
-  # for the 1660 Super — Turing, open = true is right).
+  # 1660 Super — Turing, open = true is right.
   custom.hardware.nvidia.enable = true;
 
   users.users = {
@@ -42,9 +43,7 @@
 
   programs.fish.enable = true;
 
-  nix.settings.allowed-users = [
-    "@wheel"
-  ];
+  nix.settings.allowed-users = [ "@wheel" ];
 
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
 
@@ -56,12 +55,4 @@
     cudaPackages.cudatoolkit
     nvidia-container-toolkit
   ];
-
-  # Optional but handy: node exporter so your existing grafana/prometheus
-  # on the optiplex can scrape this box.
-  services.prometheus.exporters.node = {
-    enable = true;
-    port = 9100;
-    enabledCollectors = [ "systemd" "processes" ];
-  };
 }
