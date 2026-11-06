@@ -23,15 +23,11 @@ in
   ];
 
   config = {
-    # ---- NVIDIA: actually disable it ----
-    # `custom.hardware.nvidia.enable = false` is a custom option and does NOT
-    # stop the driver from being built. The real switch is videoDrivers.
-    # Force-remove "nvidia" so the proprietary driver is never downloaded/built.
-    services.xserver.videoDrivers = lib.mkForce (
-      lib.filter (d: d != "nvidia") config.services.xserver.videoDrivers
-    );
-    # No longer needed (only relevant when the nvidia driver is enabled):
-    # hardware.nvidia.open = false;
+    # 关键修复：用字面量列表强制覆盖 videoDrivers，彻底移除 "nvidia"
+    services.xserver.videoDrivers = lib.mkForce [
+      "modesetting"
+      "fbdev"
+    ];
 
     custom.power.maxPerformance = true;
     custom.hardware.nvidia.enable = false;
@@ -70,16 +66,12 @@ in
       settings = {
         CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
         CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
-
         CPU_BOOST_ON_AC = 1;
         CPU_BOOST_ON_BAT = 1;
-
         CPU_HWP_DYN_BOOST_ON_AC = 1;
         CPU_HWP_DYN_BOOST_ON_BAT = 1;
-
         PLATFORM_PROFILE_ON_AC = "performance";
         PLATFORM_PROFILE_ON_BAT = "performance";
-
         INTEL_GPU_MIN_FREQ_ON_AC = 500;
         INTEL_GPU_MIN_FREQ_ON_BAT = 500;
       };
@@ -87,21 +79,17 @@ in
 
     powerManagement.cpuFreqGovernor = if cfg.maxPerformance then "performance" else "powersave";
 
-    # VM overrides inside config block
     virtualisation.vmVariant = {
       virtualisation = {
         memorySize = lib.mkForce 4096;
         cores = 4;
-
-        # Enable QEMU display window and virtio GPU
         graphics = true;
         qemu.options = [
           "-vga virtio"
-          "-display sdl,gl=on" # or "-display default"
+          "-display sdl,gl=on"
         ];
       };
 
-      # Auto-login to bypass password/keyring prompts in test VM
       services.displayManager.autoLogin = {
         enable = true;
         user = "jaylen";
