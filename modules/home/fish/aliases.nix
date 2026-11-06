@@ -15,6 +15,7 @@
       # SSH Shortcuts
       server-compute = "kitten ssh jaylen@192.168.50.232";
       homelabtop = "kitten ssh jaylen@192.168.50.6";
+      homelabtope = "kitten ssh jaylen@192.168.50.32";
       homeservermain = "kitten ssh jaylen@192.168.50.188";
 
       # Core overrides
