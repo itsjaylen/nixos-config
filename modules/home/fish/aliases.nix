@@ -13,10 +13,9 @@
     # Standard command aliases
     shellAliases = {
       # SSH Shortcuts
-      homeserver = "kitten ssh jaylen@192.168.50.232";
-      homelabtop = "kitten ssh jaylen@192.168.50.32";
-      homeserverb = "kitten ssh root@192.168.50.188";
-      deployserver = "kitten ssh jaylen@192.168.50.192";
+      server-compute = "kitten ssh jaylen@192.168.50.232";
+      homelabtop = "kitten ssh jaylen@192.168.50.6";
+      homeservermain = "kitten ssh jaylen@192.168.50.188";
 
       # Core overrides
       icat = "kitten icat";

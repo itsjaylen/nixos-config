@@ -16,6 +16,12 @@
           cat $seq_file
       end
 
+      if set -q SSH_AUTH_SOCK
+          if not ssh-add -l >/dev/null 2>&1
+              ssh-add ~/.ssh/id_rsa
+          end
+      end
+
       set -gx PATH $PATH (go env GOPATH)/bin
       fish_add_path ~/.local/bin/
     '';

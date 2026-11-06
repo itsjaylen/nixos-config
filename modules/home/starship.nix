@@ -7,6 +7,7 @@
 
     settings = {
       format = lib.concatStrings [
+        "$hostname"
         "$directory"
         "$git_branch"
         "$git_status"
@@ -18,6 +19,11 @@
         "\n"
         "$character"
       ];
+
+      hostname = {
+        ssh_only = true;
+        format = "[оВґ](fg:color8 bg:color4)[пРҐ ](bg:color8 fg:color5)[оВі](fg:color8 bg:color4)[(bg:color8 fg:color5) $hostname](fg:color3 bg:color4)[оВі](fg:color4) ";
+      };
 
       palette = "colors";
 

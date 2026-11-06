@@ -6,7 +6,7 @@
 
     settings = {
       "*" = {
-        AddKeysToAgent = "1h";
+        AddKeysToAgent = "yes";
 
         # Multiplexing (reuses single TCP connection for instant SSH calls)
         ControlMaster = "auto";
