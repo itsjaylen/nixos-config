@@ -5,9 +5,9 @@
     port = 3005;
     settings = {
       dns = {
-        bind_hosts = [ 
-          "127.0.0.1" 
-          "192.168.50.188" 
+        bind_hosts = [
+          "127.0.0.1"
+          "192.168.50.188"
         ];
         port = 53;
         upstream_dns = [
@@ -22,6 +22,14 @@
       };
       dhcp = {
         enabled = false;
+      };
+      filtering = {
+        rewrites = [
+          {
+            domain = "git.home";
+            answer = "192.168.50.188";
+          }
+        ];
       };
       filters = [
         {
