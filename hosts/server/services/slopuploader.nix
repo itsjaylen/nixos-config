@@ -12,8 +12,8 @@
 
   services.slopuploader = {
     enable = true;
-    port = 8888;
-    baseUrl = "http://192.168.50.188:8888";
+    port = 8889;
+    baseUrl = "http://192.168.50.188:8889";
 
     settings = {
       dbType = "postgres";
@@ -27,5 +27,5 @@
     environmentFile = config.sops.templates."slopuploader.env".path;
   };
 
-  networking.firewall.allowedTCPPorts = [ 8888 ];
+  networking.firewall.allowedTCPPorts = [ 8889 ];
 }

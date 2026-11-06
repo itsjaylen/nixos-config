@@ -16,9 +16,9 @@
     ./slopuploader.nix
     ./clickhouse.nix
     ./rustlog.nix
-    ./k3s.nix
+    # ./k3s.nix
     ./tailscale.nix
-    ./kaneo.nix
+    # ./kaneo.nix
     ./ingestgo.nix
     ./mediamtx.nix
     ./obs.nix
