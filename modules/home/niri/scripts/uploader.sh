@@ -17,7 +17,7 @@ exec 200>&-
 
 # Configuration
 LOG_DIR="$HOME/.config/niri/data"
-API_URL="https://potat.irsh/api/upload"
+API_URL="https://potat.irish/api/upload"
 
 # Cleanup trap to remove leftover lock & temp files on exit
 cleanup() {
