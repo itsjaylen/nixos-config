@@ -23,7 +23,16 @@ in
   ];
 
   config = {
-    hardware.nvidia.open = false;
+    # ---- NVIDIA: actually disable it ----
+    # `custom.hardware.nvidia.enable = false` is a custom option and does NOT
+    # stop the driver from being built. The real switch is videoDrivers.
+    # Force-remove "nvidia" so the proprietary driver is never downloaded/built.
+    services.xserver.videoDrivers = lib.mkForce (
+      lib.filter (d: d != "nvidia") config.services.xserver.videoDrivers
+    );
+    # No longer needed (only relevant when the nvidia driver is enabled):
+    # hardware.nvidia.open = false;
+
     custom.power.maxPerformance = true;
     custom.hardware.nvidia.enable = false;
 
