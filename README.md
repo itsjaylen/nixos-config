@@ -1,36 +1,46 @@
-\# NixOS Config
+![NixOS](https://img.shields.io/badge/NixOS-unstable-5277C3?logo=nixos&logoColor=white)
+![Flakes](https://img.shields.io/badge/flakes-enabled-success)
+![Format](https://img.shields.io/badge/formatted%20with-treefmt-blueviolet)
 
-A flake-based NixOS configuration managing a fleet of machines (desktop, laptop, compute node, k3s agent, server) plus a home-manager setup, custom packages, k3s manifests, and secrets.
+\# 🏔️ NixOS Config
 
-\## Table of Contents
+> A single flake to rule them all — NixOS hosts, home-manager, custom packages, k3s manifests, and encrypted secrets. 🧙
 
-\- [Overview](#overview)
-\- [Repository Layout](#repository-layout)
-\- [Hosts](#hosts)
-\- [Modules](#modules)
-\- [Services (Server)](#services-server)
-\- [Minecraft Services](#minecraft-services)
-\- [Home Manager](#home-manager)
-\- [Packages](#packages)
-\- [Manifests (k3s / Flux)](#manifests-k3s--flux)
-\- [Secrets](#secrets)
-\- [Scripts](#scripts)
-\- [Getting Started](#getting-started)
-\- [Conventions](#conventions)
+\---
 
-\## Overview
+\## 📖 Table of Contents
 
-This repository is a single Nix flake that:
+\- [✨ Overview](#-overview)
+\- [🗂️ Repository Layout](#️-repository-layout)
+\- [🖥️ Hosts](#️-hosts)
+\- [🧩 Modules](#-modules)
+\- [⚙️ Services (Server)](#️-services-server)
+\- [⛏️ Minecraft Services](#️-minecraft-services)
+\- [🏠 Home Manager](#-home-manager)
+\- [📦 Packages](#-packages)
+\- [☸️ Manifests (k3s / Flux)](#️-manifests-k3s--flux)
+\- [🔐 Secrets](#-secrets)
+\- [📜 Scripts](#-scripts)
+\- [🚀 Getting Started](#-getting-started)
+\- [📐 Conventions](#-conventions)
 
-\- Defines multiple NixOS hosts under `hosts/`.
-\- Shares reusable system modules under `modules/core/`.
-\- Shares reusable user modules under `modules/home/`.
-\- Declares custom packages under `pkgs/`.
-\- Ships Kubernetes manifests for a k3s cluster under `manifests/`.
-\- Manages secrets with sops-nix under `secrets/`.
-\- Uses `treefmt` for formatting.
+\---
 
-\## Repository Layout
+\## ✨ Overview
+
+This repo is a \*\*single Nix flake\*\* that manages:
+
+\- 🖥️ \*\*Multiple NixOS hosts\*\* → `hosts/`
+\- 🧩 \*\*Reusable system modules\*\* → `modules/core/`
+\- 🏠 \*\*Reusable user modules\*\* → `modules/home/`
+\- 📦 \*\*Custom packages\*\* → `pkgs/`
+\- ☸️ \*\*Kubernetes manifests\*\* for k3s → `manifests/`
+\- 🔐 \*\*Encrypted secrets\*\* via sops-nix → `secrets/`
+\- 🧹 \*\*Formatting\*\* via `treefmt`
+
+\---
+
+\## 🗂️ Repository Layout
 
 ```text
 .
@@ -213,213 +223,253 @@ This repository is a single Nix flake that:
 │   └── treefmt.toml
 ```
 
-\## Hosts
+\---
+
+\## 🖥️ Hosts
 
 | Host | Path | Purpose |
 |------|------|---------|
-| `compute` | `hosts/compute/` | Compute node |
-| `desktop` | `hosts/desktop/` | Desktop workstation with NVIDIA (open kernel modules) |
-| `k3s-agent` | `hosts/k3s-agent/` | Kubernetes agent node |
-| `laptop` | `hosts/laptop/` | Laptop |
-| `server` | `hosts/server/` | Primary server hosting services below |
+| 🧮 `compute` | `hosts/compute/` | Compute node |
+| 🖥️ `desktop` | `hosts/desktop/` | Desktop workstation w/ NVIDIA (open kernel modules) |
+| ☸️ `k3s-agent` | `hosts/k3s-agent/` | Kubernetes agent node |
+| 💻 `laptop` | `hosts/laptop/` | Laptop |
+| 🗄️ `server` | `hosts/server/` | Primary server hosting services below |
 
-Each host has a `default.nix` (entry point), a `hardware-configuration.nix`, and optionally extra host-specific files (`nvidia-ogkm.nix`, `networking.nix`, `services/`, `tools.nix`).
+Each host contains:
 
-\## Modules
+\- 🚪 `default.nix` — entry point
+\- 🔧 `hardware-configuration.nix` — generated hardware config
+\- ➕ Optional extras (`nvidia-ogkm.nix`, `networking.nix`, `services/`, `tools.nix`)
 
-\### Core (`modules/core`)
+\---
 
-System-level reusable modules imported by hosts:
+\## 🧩 Modules
 
-| Module | Description |
-|--------|-------------|
-| `bluetooth.nix` | Bluetooth stack |
-| `bootloader.nix` | Bootloader configuration |
-| `default.nix` | Aggregates/imports core modules |
-| `flatpak.nix` | Flatpak support |
-| `fonts.nix` | System fonts |
-| `hardware.nix` | Generic hardware tweaks |
-| `network.nix` | Networking basics |
-| `nh.nix` | `nh` (Nix helper) integration |
-| `niri-session-manager.nix` | Niri session manager registration |
-| `nixpkgs.nix` | nixpkgs config, overlays, allowUnfree |
-| `nvidia.nix` | NVIDIA driver config |
-| `piper.nix` | Piper (mouse config) |
-| `pipewire.nix` | PipeWire audio |
-| `program.nix` | Common system programs |
-| `security.nix` | Security hardening |
-| `services.nix` | Core system services |
-| `sops.nix` | sops-nix secret decryption |
-| `steam.nix` | Steam system config |
-| `system.nix` | System basics (hostname, locale, etc.) |
-| `torrent.nix` | Torrenting support |
-| `user.nix` | User accounts |
-| `virtualization.nix` | Virtualization (libvirt, etc.) |
-| `wayland.nix` | Wayland enablement |
-| `xserver.nix` | X11 enablement |
+\### 🛠️ Core — `modules/core`
 
-\### Home (`modules/home`)
-
-Home-manager user modules:
+> System-level reusable modules imported by hosts.
 
 | Module | Description |
 |--------|-------------|
-| `bat.nix` | `bat` pager config |
-| `browser.nix` | Browser setup |
-| `btop.nix` | `btop` config |
-| `chatterino.nix` | Chatterino (Twitch chat) |
-| `default.nix` | Aggregates home modules |
-| `direnv.nix` | direnv integration |
-| `discord.nix` | Discord client |
-| `easyeffects/` | EasyEffects audio presets/config |
-| `fastfetch/` | fastfetch config + images |
-| `fish/` | Fish shell (aliases, functions, plugins) |
-| `fzf.nix` | fzf integration |
-| `gaming.nix` | Gaming user config |
-| `git.nix` | Git config |
-| `gtk.nix` | GTK theme/settings |
-| `kde.nix` | KDE apps/config |
-| `kitty.nix` | Kitty terminal |
-| `lazygit.nix` | lazygit config |
-| `niri/` | Niri compositor (binds, rules, scripts, `piri.toml`) |
-| `noctalia/` | Noctalia shell config |
-| `nvim.nix` | Neovim |
-| `packages/` | Split package sets (`cli`, `dev`, `gui`, `nix`) |
-| `spicetify.nix` | Spicetify (Spotify theming) |
-| `ssh.nix` | SSH client config |
-| `starship.nix` | Starship prompt |
-| `superfile/` | superfile TUI file manager config |
-| `swaylock.nix` | swaylock config |
-| `swaync/` | SwayNC notification daemon (config + CSS) |
-| `xdg-mines.nix` | XDG mime defaults |
-| `zoxide.nix` | zoxide integration |
+| 🦷 `bluetooth.nix` | Bluetooth stack |
+| 🥾 `bootloader.nix` | Bootloader configuration |
+| 🧰 `default.nix` | Aggregates/imports core modules |
+| 📦 `flatpak.nix` | Flatpak support |
+| 🔤 `fonts.nix` | System fonts |
+| 🖥️ `hardware.nix` | Generic hardware tweaks |
+| 🌐 `network.nix` | Networking basics |
+| 🆕 `nh.nix` | `nh` (Nix helper) integration |
+| 🪟 `niri-session-manager.nix` | Niri session manager registration |
+| 📚 `nixpkgs.nix` | nixpkgs config, overlays, allowUnfree |
+| 🎮 `nvidia.nix` | NVIDIA driver config |
+| 🖱️ `piper.nix` | Piper (mouse config) |
+| 🔊 `pipewire.nix` | PipeWire audio |
+| 💻 `program.nix` | Common system programs |
+| 🛡️ `security.nix` | Security hardening |
+| ⚙️ `services.nix` | Core system services |
+| 🔐 `sops.nix` | sops-nix secret decryption |
+| 🎮 `steam.nix` | Steam system config |
+| 🧱 `system.nix` | System basics (hostname, locale, etc.) |
+| 🌊 `torrent.nix` | Torrenting support |
+| 👤 `user.nix` | User accounts |
+| 🧊 `virtualization.nix` | Virtualization (libvirt, etc.) |
+| 🪟 `wayland.nix` | Wayland enablement |
+| 🖼️ `xserver.nix` | X11 enablement |
 
-\## Services (Server)
+\### 🏠 Home — `modules/home`
 
-Located under `hosts/server/services/`. `default.nix` imports all service modules.
+> Home-manager user modules.
+
+| Module | Description |
+|--------|-------------|
+| 🐱 `bat.nix` | `bat` pager config |
+| 🌐 `browser.nix` | Browser setup |
+| 📊 `btop.nix` | `btop` config |
+| 💬 `chatterino.nix` | Chatterino (Twitch chat) |
+| 🧰 `default.nix` | Aggregates home modules |
+| 📂 `direnv.nix` | direnv integration |
+| 🗨️ `discord.nix` | Discord client |
+| 🎚️ `easyeffects/` | EasyEffects audio presets/config |
+| 🖼️ `fastfetch/` | fastfetch config + images |
+| 🐟 `fish/` | Fish shell (aliases, functions, plugins) |
+| 🔍 `fzf.nix` | fzf integration |
+| 🎮 `gaming.nix` | Gaming user config |
+| 🌿 `git.nix` | Git config |
+| 🎨 `gtk.nix` | GTK theme/settings |
+| 🪟 `kde.nix` | KDE apps/config |
+| 🐱 `kitty.nix` | Kitty terminal |
+| 🦥 `lazygit.nix` | lazygit config |
+| 🪟 `niri/` | Niri compositor (binds, rules, scripts, `piri.toml`) |
+| 🌌 `noctalia/` | Noctalia shell config |
+| 📝 `nvim.nix` | Neovim |
+| 📦 `packages/` | Split package sets (`cli`, `dev`, `gui`, `nix`) |
+| 🎵 `spicetify.nix` | Spicetify (Spotify theming) |
+| 🔑 `ssh.nix` | SSH client config |
+| 🚀 `starship.nix` | Starship prompt |
+| 📁 `superfile/` | superfile TUI file manager config |
+| 🔒 `swaylock.nix` | swaylock config |
+| 🔔 `swaync/` | SwayNC notification daemon (config + CSS) |
+| 📎 `xdg-mines.nix` | XDG mime defaults |
+| ⚡ `zoxide.nix` | zoxide integration |
+
+\---
+
+\## ⚙️ Services (Server)
+
+> Located under `hosts/server/services/`. `default.nix` imports all service modules.
 
 | Service | File | Notes |
 |---------|------|-------|
-| AdGuard Home | `adguard.nix` | DNS/ad-blocking |
-| ClickHouse | `clickhouse.nix` | Columnar DB |
-| Cloudflared | `cloudflared.nix` | Cloudflare Tunnel |
-| Garage | `garage.nix` | S3-compatible object storage |
-| Gitea | `gitea.nix` | Git forge |
-| Glance | `glance.nix` | Dashboard |
-| Grafana | `grafana.nix` | Dashboards |
-| Immich | `immich.nix` | Photo/video backup |
-| IngestGo | `ingestgo.nix` | Ingest service |
-| k3s | `k3s.nix` | Kubernetes control plane |
-| Kaneo | `kaneo.nix` | Project management |
-| Loki | `loki.nix` | Log aggregation |
-| MediaMTX | `mediamtx.nix` | Media streaming server |
-| OBS | `obs.nix` | OBS (headless/streaming) |
-| PostgreSQL | `postgresql.nix` | Postgres DB |
-| Prometheus | `prometheus.nix` | Metrics |
-| Redis | `redis.nix` | Cache |
-| Restic | `restic.nix` | Backups |
-| Rustlog | `rustlog.nix` | Twitch IRC log bot (see `pkgs/rustlog`) |
-| SlopUploader | `slopuploader.nix` | File uploader (see `scripts/deploy-slopuploader.sh`) |
-| Tailscale | `tailscale.nix` | Mesh VPN |
+| 🛡️ AdGuard Home | `adguard.nix` | DNS / ad-blocking |
+| 🏛️ ClickHouse | `clickhouse.nix` | Columnar DB |
+| ☁️ Cloudflared | `cloudflared.nix` | Cloudflare Tunnel |
+| 🗄️ Garage | `garage.nix` | S3-compatible object storage |
+| 🐙 Gitea | `gitea.nix` | Git forge |
+| 🖥️ Glance | `glance.nix` | Dashboard |
+| 📊 Grafana | `grafana.nix` | Dashboards |
+| 📸 Immich | `immich.nix` | Photo/video backup |
+| 📥 IngestGo | `ingestgo.nix` | Ingest service |
+| ☸️ k3s | `k3s.nix` | Kubernetes control plane |
+| 📋 Kaneo | `kaneo.nix` | Project management |
+| 📜 Loki | `loki.nix` | Log aggregation |
+| 🎥 MediaMTX | `mediamtx.nix` | Media streaming server |
+| 🎬 OBS | `obs.nix` | OBS (headless/streaming) |
+| 🐘 PostgreSQL | `postgresql.nix` | Postgres DB |
+| 📈 Prometheus | `prometheus.nix` | Metrics |
+| ⚡ Redis | `redis.nix` | Cache |
+| 💾 Restic | `restic.nix` | Backups |
+| 💬 Rustlog | `rustlog.nix` | Twitch IRC log bot (see `pkgs/rustlog`) |
+| 📤 SlopUploader | `slopuploader.nix` | File uploader (see `scripts/deploy-slopuploader.sh`) |
+| 🕸️ Tailscale | `tailscale.nix` | Mesh VPN |
 
-\## Minecraft Services
+\---
 
-Under `hosts/server/services/minecraft/`:
+\## ⛏️ Minecraft Services
+
+> Under `hosts/server/services/minecraft/`.
 
 | File | Description |
 |------|-------------|
-| `default.nix` | Aggregates Minecraft services |
-| `vanilla.nix` | Vanilla server |
-| `modded.nix` | Modded server (Forge/Fabric) |
-| `cobblemon.nix` | Cobblemon server |
-| `youer.nix` | Youer server |
-| `packwiztest.nix` | Packwiz-based test server |
-| `modded-mods/` | Mod lists split by category |
-| `youer-plugins/` | Youer plugin sets |
+| 🧰 `default.nix` | Aggregates Minecraft services |
+| 🌱 `vanilla.nix` | Vanilla server |
+| 🧱 `modded.nix` | Modded server (Forge/Fabric) |
+| 🔴 `cobblemon.nix` | Cobblemon server |
+| 🌟 `youer.nix` | Youer server |
+| 📦 `packwiztest.nix` | Packwiz-based test server |
+| 🧩 `modded-mods/` | Mod lists split by category |
+| 🔌 `youer-plugins/` | Youer plugin sets |
 
-\### `modded-mods/`
+\### 🧩 `modded-mods/`
 
 | File | Category |
 |------|----------|
-| `default.nix` | Aggregates all mod lists |
-| `gameplay.nix` | Gameplay mods |
-| `plugins.nix` | Plugin mods |
-| `structures.nix` | Structure mods |
-| `utility.nix` | Utility mods |
-| `worldgen.nix` | World generation mods |
+| 🧰 `default.nix` | Aggregates all mod lists |
+| 🎮 `gameplay.nix` | Gameplay mods |
+| 🔌 `plugins.nix` | Plugin mods |
+| 🏰 `structures.nix` | Structure mods |
+| 🔧 `utility.nix` | Utility mods |
+| 🌍 `worldgen.nix` | World generation mods |
 
-\### `youer-plugins/`
+\### 🔌 `youer-plugins/`
 
 | File | Description |
 |------|-------------|
-| `default.nix` | Aggregates plugins |
-| `plugins.nix` | Plugin definitions |
+| 🧰 `default.nix` | Aggregates plugins |
+| 🔌 `plugins.nix` | Plugin definitions |
 
-\## Packages
+\---
 
-Custom packages in `pkgs/`:
+\## 🏠 Home Manager
+
+\> All user-level configuration lives in `modules/home/`. Imported via `modules/home/default.nix`.
+>
+> Highlights:
+> \- 🐟 \*\*Fish\*\* with aliases, functions, and plugins
+> \- 🪟 \*\*Niri\*\* compositor with binds, rules, and uploader script
+> \- 🌌 \*\*Noctalia\*\* shell
+> \- 🎨 \*\*GTK/KDE\*\* theming
+> \- 🎵 \*\*Spicetify\*\* Spotify theming
+> \- 📦 Split package sets in `packages/`
+
+\---
+
+\## 📦 Packages
+
+> Custom packages in `pkgs/`.
 
 | Path | Description |
 |------|-------------|
-| `pkgs/default.nix` | Package set aggregator |
-| `pkgs/maple-mono/` | Maple Mono font package |
-| `pkgs/rustlog/` | Rustlog (Twitch IRC logger) package |
+| 🧰 `pkgs/default.nix` | Package set aggregator |
+| 🔤 `pkgs/maple-mono/` | Maple Mono font package |
+| 💬 `pkgs/rustlog/` | Rustlog (Twitch IRC logger) package |
 
-\## Manifests (k3s / Flux)
+\---
 
-Kubernetes manifests under `manifests/`:
+\## ☸️ Manifests (k3s / Flux)
+
+> Kubernetes manifests under `manifests/`.
 
 | Path | Description |
 |------|-------------|
-| `manifests/namespace.yaml` | Namespaces |
-| `manifests/descheduler.yaml` | Descheduler deployment |
-| `manifests/apps/cloudflared.yaml` | Cloudflared app |
-| `manifests/apps/slopuploader.yaml` | SlopUploader app |
-| `manifests/monitoring/helm-repo.yaml` | Helm repo source |
-| `manifests/monitoring/kube-prometheus-stack.yaml` | Prometheus stack |
-| `manifests/flux-system/gotk-components.yaml` | Flux components |
-| `manifests/flux-system/gotk-sync.yaml` | Flux sync config |
-| `manifests/flux-system/kustomization.yaml` | Flux kustomization |
+| 📛 `manifests/namespace.yaml` | Namespaces |
+| ⚖️ `manifests/descheduler.yaml` | Descheduler deployment |
+| ☁️ `manifests/apps/cloudflared.yaml` | Cloudflared app |
+| 📤 `manifests/apps/slopuploader.yaml` | SlopUploader app |
+| 📊 `manifests/monitoring/helm-repo.yaml` | Helm repo source |
+| 📈 `manifests/monitoring/kube-prometheus-stack.yaml` | Prometheus stack |
+| 🌀 `manifests/flux-system/gotk-components.yaml` | Flux components |
+| 🔄 `manifests/flux-system/gotk-sync.yaml` | Flux sync config |
+| 🧰 `manifests/flux-system/kustomization.yaml` | Flux kustomization |
 
-\## Secrets
+\---
 
-\- `secrets/secrets.yaml` — sops-encrypted secrets.
-\- Decryption is wired up via `modules/core/sops.nix`.
+\## 🔐 Secrets
 
-\## Scripts
+\- 🔒 `secrets/secrets.yaml` — sops-encrypted secrets
+\- 🔑 Decryption is wired up via `modules/core/sops.nix`
+
+\> ⚠️ \*\*Never commit plaintext secrets.\*\*
+
+\---
+
+\## 📜 Scripts
 
 | Script | Description |
 |--------|-------------|
-| `hosts/install.sh` | Installer script |
-| `scripts/deploy-slopuploader.sh` | Deploy helper for SlopUploader |
+| 🛠️ `hosts/install.sh` | Installer script |
+| 🚀 `scripts/deploy-slopuploader.sh` | Deploy helper for SlopUploader |
 
-\## Getting Started
+\---
 
-\### Prerequisites
+\## 🚀 Getting Started
 
-\- Nix with flakes enabled.
-\- A machine listed in `flake.nix` under `nixosConfigurations`.
+\### ✅ Prerequisites
 
-\### Rebuild
+\- 🧊 Nix with flakes enabled
+\- 🖥️ A machine listed in `flake.nix` under `nixosConfigurations`
+
+\### 🔨 Rebuild
 
 ```bash
 # rebuild current host
 sudo nixos-rebuild switch --flake .#<hostname>
 
-# or with nh
+# or with nh ✨
 nh os switch .#<hostname>
 ```
 
-\### Format
+\### 🧹 Format
 
 ```bash
 treefmt
 ```
 
-\## Conventions
+\---
 
-\- Each host has its own `default.nix` entry point and `hardware-configuration.nix`.
-\- Shared system config lives in `modules/core/`; user config in `modules/home/`.
-\- Secrets are sops-encrypted; never commit plaintext.
-\- Custom packages go in `pkgs/` and are exposed via `pkgs/default.nix`.
-\- Kubernetes manifests follow a Flux-style layout under `manifests/`.
+\## 📐 Conventions
+
+\- 🚪 Each host has its own `default.nix` entry point and `hardware-configuration.nix`
+\- 🧩 Shared system config lives in `modules/core/`; user config in `modules/home/`
+\- 🔐 Secrets are sops-encrypted — no plaintext, ever
+\- 📦 Custom packages go in `pkgs/` and are exposed via `pkgs/default.nix`
+\- ☸️ Kubernetes manifests follow a Flux-style layout under `manifests/`
