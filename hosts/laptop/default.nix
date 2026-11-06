@@ -9,7 +9,6 @@ let
   cfg = config.custom.power;
 in
 {
-  hardware.nvidia.open = false;
   options.custom.power = {
     maxPerformance = lib.mkOption {
       type = lib.types.bool;
@@ -24,6 +23,7 @@ in
   ];
 
   config = {
+    hardware.nvidia.open = false;
     custom.power.maxPerformance = true;
     custom.hardware.nvidia.enable = false;
 
