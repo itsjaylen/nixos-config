@@ -12,9 +12,12 @@
         insecure = true;
       };
       log.level = "DEBUG";
+
+      # Add this line to ensure file changes are watched
+      providers.file.watch = true;
     };
 
-    # Key: point to a path in /etc (string, not Nix store path)
+    # Key: point to the /etc path
     dynamicConfigFile = "/etc/traefik/dynamic_config.toml";
   };
 
