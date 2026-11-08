@@ -5,9 +5,9 @@
     port = 3005;
     settings = {
       dns = {
-        bind_hosts = [ 
-          "127.0.0.1" 
-          "192.168.50.188" 
+        bind_hosts = [
+          "127.0.0.1"
+          "192.168.50.188"
         ];
         port = 53;
         upstream_dns = [
@@ -25,10 +25,16 @@
       };
       filtering = {
         rewrites = [
+          # Gitea: resolve git.home to this server, Caddy will then forward based on the domain name
           {
             domain = "git.home";
             answer = "192.168.50.188";
           }
+          # When adding new services in the future, just append here, e.g.:
+          # {
+          #   domain = "immich.home";
+          #   answer = "192.168.50.188";
+          # }
         ];
       };
       filters = [
