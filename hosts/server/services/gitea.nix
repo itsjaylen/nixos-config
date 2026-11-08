@@ -13,11 +13,11 @@
 
     settings = {
       server = {
-        HTTP_PORT = 3000;
-        HTTP_ADDR = "127.0.0.1";          # only Caddy talks to it
-        ROOT_URL  = "http://git.arpa/";   # must match what users type
-        SSH_PORT  = 2222;
-        SSH_DOMAIN = "git.arpa";          # so clone URLs say git.arpa:2222
+        HTTP_PORT  = 3000;
+        HTTP_ADDR  = "0.0.0.0";        # keep public for the tunnel
+        ROOT_URL   = "http://git.arpa/";  # see caveat below
+        SSH_PORT   = 2222;
+        SSH_DOMAIN = "git.arpa";
       };
       service.DISABLE_REGISTRATION = false;
       metrics.ENABLED = true;
@@ -34,6 +34,5 @@
     hostPackages = with pkgs; [ git nix cacert nixos-rebuild ];
   };
 
-  # 3000 is now loopback-only; don't open it in the firewall.
-  networking.firewall.allowedTCPPorts = [ 2222 ];
+  networking.firewall.allowedTCPPorts = [ 3000 2222 ];
 }
