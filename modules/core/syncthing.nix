@@ -22,8 +22,8 @@ in
       };
 
       folders = {
-        "Documents" = {
-          path = "${syncthingHome}/Documents";
+        "Shared" = {
+          path = "${syncthingHome}/Documents/Shared";
           devices = [ "desktop" "laptop" "server" ];
         };
       };
