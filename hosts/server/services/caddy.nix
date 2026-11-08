@@ -2,13 +2,11 @@
   services.caddy = {
     enable = true;
 
-    # Don't try to obtain public certs for local-only names
-    globalConfig = ''
-      auto_https off
-    '';
-
-    virtualHosts."git.home".extraConfig = ''
-      reverse_proxy http://127.0.0.1:3000
+    # Write the whole site config directly — full control over listen address
+    extraConfig = ''
+      http://git.home {
+        reverse_proxy http://127.0.0.1:3000
+      }
     '';
   };
 
