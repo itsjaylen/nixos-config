@@ -39,8 +39,19 @@
       paths = [
         "/var/backup/postgresql"
         "/var/lib/gitea"
-        "/var/lib/minecraft"
+        "/var/lib/immich"
+        "/var/lib/obs-config"
+        "/var/lib/private/gitea-runner"
+        "/srv/minecraft"
         "/home/jaylen/nixos-config"
+        "/var/lib/private/ingestgo"
+      ];
+      
+      exclude = [
+        "/var/lib/private/garage"
+        "/srv/minecraft/**/backups"
+        "/srv/minecraft/**/plugins/*/backups"
+        "/srv/minecraft/**/plugins/Essentials*/userdata-npc-backup"
       ];
 
       # Backup schedule (Daily at 2:00 AM)
