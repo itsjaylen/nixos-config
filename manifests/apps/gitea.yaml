@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitea-external
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: 192.168.50.188
+  ports:
+    - port: 3000
+      targetPort: 3000
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: gitea
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`git.arpa`)
+      kind: Rule
+      services:
+        - name: gitea-external
+          port: 3000
