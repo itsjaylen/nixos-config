@@ -10,7 +10,7 @@
       listen = [ { addr = "0.0.0.0"; port = 80; } ];
 
       locations."/" = {
-        proxyPass = "http://0.0.0.0:3000";
+        proxyPass = "http://127.0.0.1:3000";
         # Gitea needs WebSocket support
         proxyWebsockets = true;
       };
