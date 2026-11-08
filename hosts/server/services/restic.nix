@@ -2,10 +2,10 @@
   # Build environment file with S3 credentials for Restic systemd service
   sops.templates."restic-env" = {
     content = ''
-      export AWS_ACCESS_KEY_ID=${config.sops.placeholder.garage_s3_access_key}
-      export AWS_SECRET_ACCESS_KEY=${config.sops.placeholder.garage_s3_secret_key}
-      export RESTIC_PASSWORD=${config.sops.placeholder.restic_password}
-      export AWS_DEFAULT_REGION=garageland
+      AWS_ACCESS_KEY_ID=${config.sops.placeholder.garage_s3_access_key}
+      AWS_SECRET_ACCESS_KEY=${config.sops.placeholder.garage_s3_secret_key}
+      RESTIC_PASSWORD=${config.sops.placeholder.restic_password}
+      AWS_DEFAULT_REGION=garageland
     '';
     owner = "root";
   };
@@ -27,7 +27,7 @@
       # Dump PostgreSQL prior to snapshotting
       backupPrepareCommand = ''
         ${pkgs.coreutils}/bin/mkdir -p /var/backup/postgresql
-        ${pkgs.postgresql}/bin/pg_dumpall -U postgres | ${pkgs.gzip}/bin/gzip > /var/backup/postgresql/dump.sql.gz
+        ${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dumpall | ${pkgs.gzip}/bin/gzip > /var/backup/postgresql/dump.sql.gz
       '';
 
       # Remove local dump file after backup completes
