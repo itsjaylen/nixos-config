@@ -19,12 +19,13 @@ in
         "desktop" = { id = "ZRLUC6M-ZKDGMI4-FN5DBYQ-WZ4ET6U-OAEPM2X-4M4UNBL-L22WRL2-3RHWWQP"; };
         "laptop"  = { id = "VA5JXMM-OCPVORD-HMQZ3GI-CKCBTUB-WPPPUCQ-ERTX46J-ZNKX5AN-2TFQOAM"; };
         "server"  = { id = "PRZPLOY-B6KYWPQ-IDKKELC-W6UZYVF-FE3ZQGK-HU3D75H-64Z4YM2-YFLA7QS"; };
+        "phone"   = { id = "22L4SBG-QI4VTER-IEZ2EWV-DLNDTTU-JVJGNYM-AGTP266-V5ZHTAJ-LOUYUA7"; };
       };
 
       folders = {
         "Shared" = {
           path = "${syncthingHome}/Documents/Shared";
-          devices = [ "desktop" "laptop" "server" ];
+          devices = [ "desktop" "laptop" "server" "phone" ];
         };
       };
 

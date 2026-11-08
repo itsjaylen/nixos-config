@@ -2,9 +2,10 @@
   # Build environment file with S3 credentials for Restic systemd service
   sops.templates."restic-env" = {
     content = ''
-      AWS_ACCESS_KEY_ID=${config.sops.placeholder.garage_s3_access_key}
-      AWS_SECRET_ACCESS_KEY=${config.sops.placeholder.garage_s3_secret_key}
-      RESTIC_PASSWORD=${config.sops.placeholder.restic_password}
+      export AWS_ACCESS_KEY_ID=${config.sops.placeholder.garage_s3_access_key}
+      export AWS_SECRET_ACCESS_KEY=${config.sops.placeholder.garage_s3_secret_key}
+      export RESTIC_PASSWORD=${config.sops.placeholder.restic_password}
+      export AWS_DEFAULT_REGION=garageland
     '';
     owner = "root";
   };
