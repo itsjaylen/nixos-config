@@ -31,6 +31,7 @@
         rule = "PathPrefix(`/`)"
         service = "gitea"
         entryPoints = ["web"]
+        priority = 1
 
       [http.services.gitea.loadBalancer]
         [[http.services.gitea.loadBalancer.servers]]
