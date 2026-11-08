@@ -17,6 +17,7 @@
         HTTP_PORT = 3000;
         HTTP_ADDR = "0.0.0.0";
         ROOT_URL = "http://git.home/";
+        ROOT_URL_DETECTION = "never";
         SSH_PORT = 2222;
       };
       service = {
