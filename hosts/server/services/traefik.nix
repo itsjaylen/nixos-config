@@ -3,18 +3,23 @@
     enable = true;
 
     staticConfigOptions = {
-      entryPoints.web.address = ":80";
-      api.dashboard = true;
-      api.insecure = true;
+      entryPoints = {
+        web.address = ":80";
+        # Change a port that is definitely unoccupied for the dashboard
+        traefik.address = ":9090";
+      };
+      api = {
+        dashboard = true;
+        insecure = true;  # Will use the traefik entryPoint above, i.e., port 9090
+      };
       log.level = "DEBUG";
-      # Do not write providers.file here, let dynamicConfigFile handle it
+      providers.file = {
+        filename = "/etc/traefik/dynamic_config.toml";
+        watch = true;
+      };
     };
-
-    # Key: tell the NixOS module to read the dynamic config from this path
-    dynamicConfigFile = "/etc/traefik/dynamic_config.toml";
   };
 
-  # Write the TOML file to /etc instead of the Nix store
   environment.etc."traefik/dynamic_config.toml" = {
     text = ''
       [http.routers.git-home]
@@ -29,5 +34,5 @@
     mode = "400";
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 8080 ];
+  networking.firewall.allowedTCPPorts = [ 80 9090 ];
 }
