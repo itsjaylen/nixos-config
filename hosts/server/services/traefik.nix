@@ -7,19 +7,15 @@
       api.dashboard = true;
       api.insecure = true;
       log.level = "DEBUG";
-
-      # Key: enable the file provider and point to the file in /etc
-      providers.file = {
-        filename = "/etc/traefik/dynamic.toml";
-        watch = true;
-      };
+      # Do not write providers.file here, let dynamicConfigFile handle it
     };
 
-    # Do NOT use dynamicConfigOptions anymore, let the file provider take over
+    # Key: tell the NixOS module to read the dynamic config from this path
+    dynamicConfigFile = "/etc/traefik/dynamic_config.toml";
   };
 
-  # Write the dynamic config to /etc, avoiding the Nix store path change issue
-  environment.etc."traefik/dynamic.toml" = {
+  # Write the TOML file to /etc instead of the Nix store
+  environment.etc."traefik/dynamic_config.toml" = {
     text = ''
       [http.routers.git-home]
         rule = "Host(`git.home`)"
