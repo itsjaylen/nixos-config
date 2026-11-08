@@ -1,26 +1,13 @@
 { config, pkgs, ... }: {
-  # Disable Traefik completely
-  services.traefik.enable = false;
-
-  services.nginx = {
+  services.caddy = {
     enable = true;
-    validateConfigFile = false;
-    # Do not use virtualHosts, write the raw configuration directly
-    appendHttpConfig = ''
-      server {
-        listen 80;
-        server_name git.home;
-  
-        location / {
-          proxy_pass http://127.0.0.1:3000;
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-        }
-      }
+
+    # Caddy listens on :80 by default; AdGuard's dnsrewrite
+    # sends clients to 192.168.50.188:80, so this just works.
+    virtualHosts."git.arpa".extraConfig = ''
+      reverse_proxy 127.0.0.1:3000
     '';
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }

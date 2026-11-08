@@ -88,7 +88,7 @@
         ];
       };
       user_rules = [
-        "||git.home^$dnsrewrite=192.168.50.188"
+        "||git.arpa^$dnsrewrite=192.168.50.188"   # returns A record 192.168.50.188
         "||ads.example.com^"
         "||trackers.example.org^"
       ];
