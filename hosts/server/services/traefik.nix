@@ -12,6 +12,7 @@
         insecure = true;
       };
       log.level = "DEBUG";
+      accessLog = {};
       # Wiki example: enable watch
       providers.file.watch = false;
     };
