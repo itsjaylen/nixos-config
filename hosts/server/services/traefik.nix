@@ -5,21 +5,25 @@
     staticConfigOptions = {
       entryPoints = {
         web.address = ":80";
-        # Change a port that is definitely unoccupied for the dashboard
         traefik.address = ":28080";
       };
       api = {
         dashboard = true;
-        insecure = true;  # Will use the traefik entryPoint above, i.e., port 9090
+        insecure = true;
       };
       log.level = "DEBUG";
+
+      # Key: explicitly enable the file provider and point to the /etc path
       providers.file = {
         filename = "/etc/traefik/dynamic_config.toml";
         watch = true;
       };
     };
+
+    # Do not use dynamicConfigOptions, nor dynamicConfigFile (let providers.file handle it)
   };
 
+  # Write the dynamic configuration to /etc
   environment.etc."traefik/dynamic_config.toml" = {
     text = ''
       [http.routers.git-home]
@@ -34,5 +38,5 @@
     mode = "400";
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 9090 ];
+  networking.firewall.allowedTCPPorts = [ 80 28080 ];
 }
