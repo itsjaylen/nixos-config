@@ -11,8 +11,10 @@
 
       locations."/" = {
         proxyPass = "http://127.0.0.1:3000";
-        # Gitea needs WebSocket support
         proxyWebsockets = true;
+        extraConfig = ''
+          proxy_set_header Host $host;
+        '';
       };
     };
   };
