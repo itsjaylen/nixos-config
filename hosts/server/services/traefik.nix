@@ -28,7 +28,7 @@
     mode = "400";
     text = ''
       [http.routers.git-home]
-        rule = "Host(`git.home`)"
+        rule = "PathPrefix(`/`)"
         service = "gitea"
         entryPoints = ["web"]
 
