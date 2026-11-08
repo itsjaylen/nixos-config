@@ -16,7 +16,6 @@
       server = {
         HTTP_PORT = 3000;
         HTTP_ADDR = "0.0.0.0";
-        DOMAIN = "git.home";
         ROOT_URL = "http://git.home/";
         SSH_PORT = 2222;
       };
