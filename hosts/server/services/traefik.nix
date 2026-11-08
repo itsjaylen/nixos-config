@@ -22,9 +22,9 @@
   };
 
   environment.etc."traefik/dynamic_config.toml" = {
-    user = config.systemd.services.traefik.serviceConfig.User;
-    group = config.systemd.services.traefik.serviceConfig.Group;
-    mode = "400";
+    user = "traefik";   # Use fixed username/group name
+    group = "traefik";
+    mode = "444";       # Allow everyone to read, avoid permission issues
     text = ''
       [http.routers.git-home]
         rule = "Host(`git.home`)"
