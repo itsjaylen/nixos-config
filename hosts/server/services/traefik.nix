@@ -6,7 +6,7 @@
       entryPoints = {
         web.address = ":80";
         # Change a port that is definitely unoccupied for the dashboard
-        traefik.address = ":9090";
+        traefik.address = ":28080";
       };
       api = {
         dashboard = true;
