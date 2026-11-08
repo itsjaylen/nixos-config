@@ -19,9 +19,11 @@ metadata:
 spec:
   entryPoints:
     - web
+    - websecure   # Add this, it's Traefik's HTTPS entrypoint
   routes:
     - match: Host(`git.arpa`)
       kind: Rule
       services:
         - name: gitea-external
           port: 3000
+  tls: {}         # Empty object = Traefik generates a self-signed cert
