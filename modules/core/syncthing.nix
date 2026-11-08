@@ -16,7 +16,7 @@ in
 
     settings = {
       devices = {
-        "desktop" = { id = "AAAAAAA-BBBBBBB-CCCCCCC-DDDDDDD-EEEEEEE-FFFFFFFF-GGGGGGG-HHHHHHH"; };
+        "desktop" = { id = "ZRLUC6M-ZKDGMI4-FN5DBYQ-WZ4ET6U-OAEPM2X-4M4UNBL-L22WRL2-3RHWWQP"; };
         "laptop"  = { id = "IIIIIII-JJJJJJJ-KKKKKKK-LLLLLLL-MMMMMMM-NNNNNNN-OOOOOOO-PPPPPPP"; };
         "server"  = { id = "QQQQQQQ-RRRRRRR-SSSSSSS-TTTTTTT-UUUUUUU-VVVVVVV-WWWWWWW-XXXXXXX"; };
       };
@@ -30,8 +30,7 @@ in
 
       gui = {
         user = "admin";
-        # SOPS decrypts to a runtime path; Syncthing reads it at start.
-        password = "$(cat ${config.sops.secrets."syncthing_gui_password".path})";
+        password = "$2y$10$iPNwZXoPPYF9Jn2T1HQfGuk1UZWqrMq9SRaLdBb99myH23Srbl162";
       };
     };
   };
