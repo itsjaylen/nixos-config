@@ -15,7 +15,7 @@
       server = {
         HTTP_PORT  = 3000;
         HTTP_ADDR  = "0.0.0.0";      # ← MUST be 0.0.0.0, not 127.0.0.1
-        ROOT_URL   = "http://git.arpa/";
+        ROOT_URL   = "http://git.arpa:18080/";
         SSH_PORT   = 2222;
         SSH_DOMAIN = "git.arpa";
       };

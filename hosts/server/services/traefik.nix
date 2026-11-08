@@ -2,7 +2,7 @@
   services.caddy = {
     enable = true;
     extraConfig = ''
-      :18080 {
+      http://git.arpa:18080 {
         reverse_proxy 127.0.0.1:3000
       }
     '';
