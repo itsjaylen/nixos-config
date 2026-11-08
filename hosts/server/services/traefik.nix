@@ -1,28 +1,21 @@
 { config, pkgs, ... }: {
   services.traefik = {
     enable = true;
-
     staticConfigOptions = {
       entryPoints = {
         web.address = ":80";
         traefik.address = ":28080";
       };
-      api = {
-        dashboard = true;
-        insecure = true;
-      };
+      api = { dashboard = true; insecure = true; };
       log.level = "DEBUG";
       accessLog = {};
-      # Wiki example: enable watch
-      providers.file.watch = false;
+      # Explicitly point the file provider to the file in /etc
+      providers.file.filename = "/etc/traefik/dynamic_config.toml";
     };
-
-    # Key: use string, not path
-    dynamicConfigFile = "/etc/traefik/dynamic_config.toml";
+    # Do not use dynamicConfigFile here, let providers.file handle it
   };
-
+  
   environment.etc."traefik/dynamic_config.toml" = {
-    # Wiki example: directly reference the service's user/group
     user = config.systemd.services.traefik.serviceConfig.User;
     group = config.systemd.services.traefik.serviceConfig.Group;
     mode = "400";
@@ -31,8 +24,7 @@
         rule = "PathPrefix(`/`)"
         service = "gitea"
         entryPoints = ["web"]
-        priority = 1
-
+  
       [http.services.gitea.loadBalancer]
         [[http.services.gitea.loadBalancer.servers]]
           url = "http://127.0.0.1:3000"
