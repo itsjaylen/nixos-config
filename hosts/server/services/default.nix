@@ -22,6 +22,6 @@
     ./ingestgo.nix
     ./mediamtx.nix
     ./obs.nix
-    ./traefik.nix
+    # ./traefik.nix
   ];
 }
