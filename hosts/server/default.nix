@@ -12,6 +12,7 @@
     ../../modules/core/security.nix
     ../../modules/core/nh.nix
     ../../modules/core/sops.nix
+    ../../modules/core/syncthing.nix
     inputs.microvm.nixosModules.host
   ];
 
