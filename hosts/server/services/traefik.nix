@@ -13,6 +13,7 @@
       };
       log.level = "DEBUG";
       # Wiki example: enable watch
+      providers.file.watch = false;
     };
 
     # Key: use string, not path
