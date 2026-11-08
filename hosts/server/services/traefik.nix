@@ -4,7 +4,7 @@
 
   services.nginx = {
     enable = true;
-    validateConfig = false;
+    validateConfigFile = false;
 
     virtualHosts."git.home" = {
       # Listen on port 80, HTTP only
