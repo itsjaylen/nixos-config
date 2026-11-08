@@ -1,36 +1,37 @@
 { config, pkgs, ... }: {
-  # 1. Ensure Caddy is completely disabled
-  services.caddy.enable = false;
-
-  # 2. Enable Traefik
   services.traefik = {
     enable = true;
 
-    # Static configuration: listen on port 80, enable API/Dashboard (optional)
     staticConfigOptions = {
       entryPoints.web.address = ":80";
+      api.dashboard = true;
+      api.insecure = true;
+      log.level = "DEBUG";
 
-      api = {
-        dashboard = true;
-        # For debugging, you can temporarily enable insecure dashboard (port 8080)
-        # insecure = true;
+      # Key: enable the file provider and point to the file in /etc
+      providers.file = {
+        filename = "/etc/traefik/dynamic.toml";
+        watch = true;
       };
-
-      log.level = "INFO";
     };
 
-    # Dynamic configuration: define routing rules here
-    dynamicConfigOptions = {
-      http.routers.git_home = {
-        rule = "Host(`git.home`)";
-        service = "gitea";
-        entryPoints = [ "web" ];
-      };
-      http.services.gitea.loadBalancer.servers = [
-        { url = "http://127.0.0.1:3000"; }
-      ];
-    };
+    # Do NOT use dynamicConfigOptions anymore, let the file provider take over
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  # Write the dynamic config to /etc, avoiding the Nix store path change issue
+  environment.etc."traefik/dynamic.toml" = {
+    text = ''
+      [http.routers.git-home]
+        rule = "Host(`git.home`)"
+        service = "gitea"
+        entryPoints = ["web"]
+
+      [http.services.gitea.loadBalancer]
+        [[http.services.gitea.loadBalancer.servers]]
+          url = "http://127.0.0.1:3000"
+    '';
+    mode = "400";
+  };
+
+  networking.firewall.allowedTCPPorts = [ 80 8080 ];
 }
