@@ -24,82 +24,71 @@
         enabled = false;
       };
       filtering = {
-        rewrites = [
-          # Gitea: resolve git.home to this server, Caddy will then forward based on the domain name
+        filters = [
           {
-            domain = "git.home";
-            answer = "192.168.50.188";
+            enabled = true;
+            url = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt";
+            name = "AdGuard DNS filter";
           }
-          # When adding new services in the future, just append here, e.g.:
-          # {
-          #   domain = "immich.home";
-          #   answer = "192.168.50.188";
-          # }
+          {
+            enabled = true;
+            url = "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt";
+            name = "uBlock Origin – Filters";
+          }
+          {
+            enabled = true;
+            url = "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.txt";
+            name = "uBlock Origin – Badware risks";
+          }
+          {
+            enabled = true;
+            url = "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt";
+            name = "uBlock Origin – Privacy";
+          }
+          {
+            enabled = true;
+            url = "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/annoyances.txt";
+            name = "uBlock Origin – Annoyances";
+          }
+          {
+            enabled = true;
+            url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/privacy_essentials.txt";
+            name = "Yokoffing Privacy Essentials";
+          }
+          {
+            enabled = true;
+            url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/annoyance_list.txt";
+            name = "Yokoffing Annoyances";
+          }
+          {
+            enabled = true;
+            url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/youtube_clear_view.txt";
+            name = "Yokoffing YouTube Clear View";
+          }
+          {
+            enabled = true;
+            url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/click2load.txt";
+            name = "Yokoffing Click2Load";
+          }
+          {
+            enabled = true;
+            url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/clean_reading_experience.txt";
+            name = "Yokoffing Clean Reading Experience";
+          }
+          {
+            enabled = true;
+            url = "https://v.firebog.net/hosts/AdguardDNS.txt";
+            name = "Firebog Trusted";
+          }
+          {
+            enabled = true;
+            url = "https://raw.githubusercontent.com/r0xd4n3t/pihole-adblock-lists/main/pihole_adlists.txt";
+            name = "Pi-hole Adblock Lists";
+          }
         ];
       };
-      filters = [
-        {
-          enabled = true;
-          url = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt";
-          name = "AdGuard DNS filter";
-        }
-        {
-          enabled = true;
-          url = "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt";
-          name = "uBlock Origin – Filters";
-        }
-        {
-          enabled = true;
-          url = "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.txt";
-          name = "uBlock Origin – Badware risks";
-        }
-        {
-          enabled = true;
-          url = "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt";
-          name = "uBlock Origin – Privacy";
-        }
-        {
-          enabled = true;
-          url = "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/annoyances.txt";
-          name = "uBlock Origin – Annoyances";
-        }
-        {
-          enabled = true;
-          url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/privacy_essentials.txt";
-          name = "Yokoffing Privacy Essentials";
-        }
-        {
-          enabled = true;
-          url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/annoyance_list.txt";
-          name = "Yokoffing Annoyances";
-        }
-        {
-          enabled = true;
-          url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/youtube_clear_view.txt";
-          name = "Yokoffing YouTube Clear View";
-        }
-        {
-          enabled = true;
-          url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/click2load.txt";
-          name = "Yokoffing Click2Load";
-        }
-        {
-          enabled = true;
-          url = "https://raw.githubusercontent.com/yokoffing/filterlists/main/clean_reading_experience.txt";
-          name = "Yokoffing Clean Reading Experience";
-        }
-        {
-          enabled = true;
-          url = "https://v.firebog.net/hosts/AdguardDNS.txt";
-          name = "Firebog Trusted";
-        }
-        {
-          enabled = true;
-          url = "https://raw.githubusercontent.com/r0xd4n3t/pihole-adblock-lists/main/pihole_adlists.txt";
-          name = "Pi-hole Adblock Lists";
-        }
-      ];
       user_rules = [
+        "||git.home^$dnsrewrite=192.168.50.188"
         "||ads.example.com^"
         "||trackers.example.org^"
       ];
