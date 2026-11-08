@@ -17,7 +17,7 @@ in
     settings = {
       devices = {
         "desktop" = { id = "ZRLUC6M-ZKDGMI4-FN5DBYQ-WZ4ET6U-OAEPM2X-4M4UNBL-L22WRL2-3RHWWQP"; };
-        "laptop"  = { id = "IIIIIII-JJJJJJJ-KKKKKKK-LLLLLLL-MMMMMMM-NNNNNNN-OOOOOOO-PPPPPPP"; };
+        "laptop"  = { id = "VA5JXMM-OCPVORD-HMQZ3GI-CKCBTUB-WPPPUCQ-ERTX46J-ZNKX5AN-2TFQOAM"; };
         "server"  = { id = "QQQQQQQ-RRRRRRR-SSSSSSS-TTTTTTT-UUUUUUU-VVVVVVV-WWWWWWW-XXXXXXX"; };
       };
 
