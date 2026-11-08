@@ -21,12 +21,11 @@
 
     # Dynamic configuration: define routing rules here
     dynamicConfigOptions = {
-      http.routers.git-home = {
+      http.routers.git_home = {
         rule = "Host(`git.home`)";
         service = "gitea";
         entryPoints = [ "web" ];
       };
-
       http.services.gitea.loadBalancer.servers = [
         { url = "http://127.0.0.1:3000"; }
       ];
