@@ -22,6 +22,6 @@
     ./ingestgo.nix
     ./mediamtx.nix
     ./obs.nix
-    ./caddy.nix
+    ./traefik.nix
   ];
 }
