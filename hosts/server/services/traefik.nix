@@ -2,11 +2,11 @@
   services.caddy = {
     enable = true;
     extraConfig = ''
-      :80 {
+      :18080 {
         reverse_proxy 127.0.0.1:3000
       }
     '';
   };
-
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  
+  networking.firewall.allowedTCPPorts = [ 18080 ];
 }
