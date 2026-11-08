@@ -1,8 +1,8 @@
 { config, pkgs, ... }: {
   services.caddy = {
     enable = true;
-    virtualHosts."git.arpa".extraConfig = ''
-      tls internal
+  
+    virtualHosts."http://git.arpa".extraConfig = ''
       reverse_proxy 127.0.0.1:3000
     '';
   };

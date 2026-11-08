@@ -14,8 +14,8 @@
     settings = {
       server = {
         HTTP_PORT  = 3000;
-        HTTP_ADDR  = "0.0.0.0";        # keep public for the tunnel
-        ROOT_URL   = "http://git.arpa/";  # see caveat below
+        HTTP_ADDR  = "0.0.0.0";      # ← MUST be 0.0.0.0, not 127.0.0.1
+        ROOT_URL   = "http://git.arpa/";
         SSH_PORT   = 2222;
         SSH_DOMAIN = "git.arpa";
       };
