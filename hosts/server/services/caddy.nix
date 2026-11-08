@@ -1,9 +1,7 @@
 { config, pkgs, ... }: {
   services.caddy = {
     enable = true;
-
-    # Write the whole site config directly — full control over listen address
-    extraConfig = ''
+    configFile = pkgs.writeText "Caddyfile" ''
       http://git.home {
         reverse_proxy http://127.0.0.1:3000
       }
