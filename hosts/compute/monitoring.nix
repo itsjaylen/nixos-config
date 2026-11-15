@@ -1,4 +1,4 @@
-{ ... }:
+_:
 
 {
   # Node exporter so your existing grafana/prometheus can scrape this box.

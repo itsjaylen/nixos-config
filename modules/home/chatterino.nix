@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  chatterino-latest = pkgs.chatterino2.overrideAttrs (oldAttrs: {
+  chatterino-latest = pkgs.chatterino2.overrideAttrs (_oldAttrs: {
     pname = "technorino";
     version = "7.5.5-nightly";
 

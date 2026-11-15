@@ -8,8 +8,7 @@
       
       toImport = lib.filter (file: 
         let
-          path = ./. + "/${file}";
-          type = builtins.typeOf path; # or check attributes via readDir
+          path = ./. + "/${file}"; # or check attributes via readDir
         in
         file != "default.nix" && (
           lib.hasSuffix ".nix" file || 

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+_:
 {
   services = {
     gvfs.enable = true;
@@ -9,6 +9,8 @@
     fwupd.enable = true;
 
     dbus.enable = true;
+
+    bootvine.enable = true;
 
     logind.settings.Login = {
       HandlePowerKey = "ignore";

@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  youerPackage = pkgs.vanillaServers.vanilla.overrideAttrs (oldAttrs: {
+  youerPackage = pkgs.vanillaServers.vanilla.overrideAttrs (_oldAttrs: {
     pname = "youer-server";
     version = "26.2";
     src = pkgs.fetchurl {

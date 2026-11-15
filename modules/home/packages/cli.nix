@@ -22,7 +22,7 @@
     hyperfine # benchmarking tool
     just # command runner (makefile like)
     pastel # cli to manipulate colors
-    scooter # Interactive find and replace in the terminal
+    # scooter # Interactive find and replace in the terminal #TODO FIX
     swappy # snapshot editing tool
     tokei # project line counter
     translate-shell # cli translator

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+_: {
   services.immich = {
     enable = true;
     host = "0.0.0.0";

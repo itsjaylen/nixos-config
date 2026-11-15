@@ -98,6 +98,11 @@
       url = "github:ruzbyte/elden-ring-convergence-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    bootvine = {
+      url = "git+https://codeberg.org/wvhulle/bootvine";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -132,6 +137,7 @@
             winchain.nixosModules.default
             inputs.elden-ring-convergence.nixosModules.default
             inputs.chaotic.nixosModules.default
+            inputs.bootvine.nixosModules.default
 
             {
               boot.loader.systemd-boot.winchain.enable = true;
@@ -169,6 +175,7 @@
 
           modules = [
             sops-nix.nixosModules.sops
+            inputs.bootvine.nixosModules.default
             microvm.nixosModules.host
 
             inputs.nix-minecraft.nixosModules.minecraft-servers

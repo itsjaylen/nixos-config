@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }: {
+{ config, inputs, ... }: {
   imports = [ inputs.slopuploader.nixosModules.default ];
 
   sops.templates."slopuploader.env" = {

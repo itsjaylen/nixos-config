@@ -1,7 +1,6 @@
 { lib, ... }:
 with lib;
 let
-  # Updated to align with your KDE-native utility and Kitty terminal stack
   defaultApps = {
     text = [ "kate.desktop" ];
     image = [ "imv-dir.desktop" ];
@@ -12,7 +11,7 @@ let
     pdf = [ "org.kde.okular.desktop" ];
     terminal = [ "kitty.desktop" ];
     archive = [ "org.kde.ark.desktop" ];
-    discord = [ "vesktop.desktop" ]; # Adjusted for your Discord client of choice
+    discord = [ "vesktop.desktop" ];
   };
 
   mimeMap = {

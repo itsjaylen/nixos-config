@@ -23,7 +23,6 @@ in
   ];
 
   config = {
-    # 关键修复：用字面量列表强制覆盖 videoDrivers，彻底移除 "nvidia"
     services.xserver.videoDrivers = lib.mkForce [
       "modesetting"
       "fbdev"

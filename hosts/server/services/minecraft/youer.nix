@@ -1,12 +1,9 @@
-{ pkgs, inputs, lib, ... }:
+{ pkgs, lib, ... }:
 
 let
-  # Your custom Youer server jar
-  youerPackage = pkgs.vanillaServers.vanilla.overrideAttrs (oldAttrs: {
-    pname = "youer-server";
-    version = "26.3";
-    src = ../../../../assets/jars/youer-26.3-5225c76a-server.jar;
-  });
+  # Your custom Youer server jar (lives outside the repo, machine-specific).
+  jarPath = /home/jaylen/jars/youer-26.3-5225c76a-server.jar;
+  haveJar = builtins.pathExists jarPath;
 
   # Mods + plugins from packwiz.
   # ⚠️ Update packHash whenever the packwiz repo changes:
@@ -43,36 +40,51 @@ let
     else
       { };
 in
-{
-  services.minecraft-servers.servers.youer = {
-    enable = true;
-    package = youerPackage;
-    jvmOpts = "-Xms4G -Xmx4G";
+if !haveJar then {
+  # Jar is absent (e.g. evaluating this flake from a different machine).
+  # Skip the youer server config entirely and surface a warning so it's
+  # obvious why the service is missing on the actual server host.
+  warnings = [
+    "youer: jar not found at ${toString jarPath}; services.minecraft-servers.servers.youer is disabled"
+  ];
+} else
+  let
+    youerPackage = pkgs.vanillaServers.vanilla.overrideAttrs (_oldAttrs: {
+      pname = "youer-server";
+      version = "26.3";
+      src = jarPath;
+    });
+  in
+  {
+    services.minecraft-servers.servers.youer = {
+      enable = true;
+      package = youerPackage;
+      jvmOpts = "-Xms4G -Xmx4G";
 
-    serverProperties = {
-      server-port = 25565;
-      motd = "Modded youer...";
-      enforce-secure-profile = false;
-      difficulty = "hard";
-      render-distance = 25;
+      serverProperties = {
+        server-port = 25565;
+        motd = "Modded youer...";
+        enforce-secure-profile = false;
+        difficulty = "hard";
+        render-distance = 25;
+      };
+
+      # Mods: symlinked. Read-only is fine — NeoForge doesn't write into mods/.
+      symlinks = {
+        "mods" = "${modpack}/mods";
+      };
+
+      # Plugins: copied via `files` so the destination is a real writable
+      # directory. Essential because plugins like EssentialsC create their
+      # own data/config folders at runtime, which a Nix store symlink forbids.
+      files = pluginFiles;
+
+      # Configs from packwiz: best-effort copy.
+      extraStartPre = ''
+        mkdir -p config
+        if [ -d "${modpack}/config" ]; then
+          cp -r --no-preserve=mode,ownership "${modpack}/config/"* config/ 2>/dev/null || true
+        fi
+      '';
     };
-
-    # Mods: symlinked. Read-only is fine — NeoForge doesn't write into mods/.
-    symlinks = {
-      "mods" = "${modpack}/mods";
-    };
-
-    # Plugins: copied via `files` so the destination is a real writable
-    # directory. Essential because plugins like EssentialsC create their
-    # own data/config folders at runtime, which a Nix store symlink forbids.
-    files = pluginFiles;
-
-    # Configs from packwiz: best-effort copy.
-    extraStartPre = ''
-      mkdir -p config
-      if [ -d "${modpack}/config" ]; then
-        cp -r --no-preserve=mode,ownership "${modpack}/config/"* config/ 2>/dev/null || true
-      fi
-    '';
-  };
-}
+  }

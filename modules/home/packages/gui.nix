@@ -34,5 +34,6 @@ in
     zenity
     zed-editor
     satty
+    swiftdl
   ];
 }

@@ -1,4 +1,4 @@
-{ ... }:
+_:
 
 let
   niriConfig = import ./config.nix;

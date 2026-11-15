@@ -5,6 +5,10 @@
   ...
 }:
 {
+  imports = [
+    # inputs.elden-ring-convergence.nixosModules.default
+  ];
+
   nixpkgs.overlays = [
     inputs.millennium.overlays.default
   ];
@@ -17,12 +21,6 @@
 
       gamescopeSession.enable = true;
       extraCompatPackages = [ pkgs.proton-ge-bin ];
-    };
-
-    elden-ring-convergence = {
-      enable = true;
-      user = username;
-      installDirectory = "/home/${username}/Games/ConvergenceER";
     };
 
     gamescope = {
@@ -49,8 +47,4 @@
       };
     };
   };
-
-  users.users.${username}.extraGroups = [ "gamemode" ];
-
-  hardware.steam-hardware.enable = true;
 }

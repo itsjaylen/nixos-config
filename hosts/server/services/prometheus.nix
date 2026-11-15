@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, ... }: {
   # Hardware & system metric exporter
   services.prometheus.exporters.node = {
     enable = true;
