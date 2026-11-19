@@ -5,6 +5,7 @@
   nodejs,
   pkg-config,
   openssl,
+  zstd,
   fetchYarnDeps,
   fixup-yarn-lock,
 }:
@@ -35,12 +36,12 @@ rustPlatform.buildRustPackage {
   ];
 
   preBuild = ''
-      cd web
-      export HOME=$(mktemp -d)
-      fixup-yarn-lock yarn.lock
-      yarn config --offline set yarn-offline-mirror $offlineCache
-      yarn install --offline --frozen-lockfile --no-progress --ignore-scripts
-      node ./node_modules/vite/bin/vite.js build
-      cd ..
-    '';
+    cd web
+    export HOME=$(mktemp -d)
+    fixup-yarn-lock yarn.lock
+    yarn config --offline set yarn-offline-mirror $offlineCache
+    yarn install --offline --frozen-lockfile --no-progress --ignore-scripts
+    node ./node_modules/vite/bin/vite.js build
+    cd ..
+  '';
 }
