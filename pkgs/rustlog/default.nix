@@ -31,6 +31,7 @@ rustPlatform.buildRustPackage {
 
   buildInputs = [
     openssl
+    zstd
   ];
 
   preBuild = ''
