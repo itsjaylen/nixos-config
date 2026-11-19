@@ -15,7 +15,7 @@ in
 
   services.garage = {
     enable = true;
-    package = pkgs.garage;
+    package = pkgs.garage_2;
 
     settings = {
       replication_factor = 1;
